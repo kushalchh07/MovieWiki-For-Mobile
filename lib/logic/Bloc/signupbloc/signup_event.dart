@@ -1,4 +1,7 @@
 part of 'signup_bloc.dart';
 
 @immutable
-sealed class SignupEvent {}
+abstract class SignupEvent {}
+
+class SignupTappedEvent extends SignupEvent {}
+

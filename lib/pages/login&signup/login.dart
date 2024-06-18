@@ -1,5 +1,6 @@
 // ignore_for_file: dead_code
 
+import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_wiki/constants/colors/colors.dart';
 import 'package:movie_wiki/constants/size/size.dart';
 import 'package:movie_wiki/logic/Bloc/internet_bloc/internet_state.dart';
+import 'package:movie_wiki/logic/Bloc/signupbloc/signup_bloc.dart';
 import 'package:movie_wiki/pages/login&signup/forgrtpassword.dart';
+import 'package:movie_wiki/pages/login&signup/signup.dart';
 
 import '../../logic/Bloc/loginbloc/login_bloc.dart';
 
@@ -47,8 +50,6 @@ class _LoginState extends State<Login> {
             email: emailController.text.trim(),
             password: passController.text.trim()));
       }
-
-      // }
     }
   }
 
@@ -344,33 +345,31 @@ class _LoginState extends State<Login> {
                       SizedBox(
                         height: Get.height * 0.03,
                       ),
-                      RichText(
-                        text: TextSpan(
-                          text: "New To Movie Wiki? ",
-                          style: GoogleFonts.inter(
-                              fontSize: 15,
-                              color: myBlack,
-                              fontWeight: FontWeight.w400),
-                          children: [
-                            TextSpan(
-                              text: "Register here",
-                              style: GoogleFonts.inter(
-                                decoration: TextDecoration.underline,
-                                color: primaryColor,
-                                fontWeight: FontWeight.w500,
+                      GestureDetector(
+                        onTap: () {
+                          BlocProvider.of<SignupBloc>(context)
+                              .add(SignupTappedEvent());
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const Signup()));
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                            text: "New To Movie Wiki? ",
+                            style: GoogleFonts.inter(
+                                fontSize: 15,
+                                color: myBlack,
+                                fontWeight: FontWeight.w400),
+                            children: [
+                              TextSpan(
+                                text: "Register here",
+                                style: GoogleFonts.inter(
+                                  decoration: TextDecoration.underline,
+                                  color: primaryColor,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  // BlocProvider.of<RegisterBloc>(context)
-                                  //     .add(RegisterInitialEvent());
-                                  // Navigator.pushReplacement(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) =>
-                                  //             const SignUp()));
-                                },
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(
