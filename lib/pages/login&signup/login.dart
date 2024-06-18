@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,7 +25,7 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   bool _showPassword = false;
   bool _isRememberMe = false;
   bool loginError = true;
@@ -51,6 +52,26 @@ class _LoginState extends State<Login> {
             password: passController.text.trim()));
       }
     }
+  }
+
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  final String _text = 'Welcome To Movie Wiki!';
+  final String _text1 = 'Enjoy Popular Movies!';
+
+  final int _durationPerLetter = 200;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller = AnimationController(
+      duration: Duration(milliseconds: _text.length * _durationPerLetter),
+      vsync: this,
+    )..forward();
+    _animation = Tween<double>(begin: 0, end: _text.length.toDouble())
+        .animate(_controller);
   }
 
   @override
@@ -97,22 +118,48 @@ class _LoginState extends State<Login> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Welcome To Movie Wiki !",
-                              style: GoogleFonts.inter(
-                                fontSize: 32,
-                                fontWeight: FontWeight.w600,
-                                color: myBlack,
-                              ),
+                            AnimatedBuilder(
+                              animation: _animation,
+                              builder: (context, child) {
+                                int currentLength = _animation.value.round();
+                                String currentText =
+                                    _text.substring(0, min(_text.length,currentLength));
+
+                                return Text(
+                                  currentText,
+                                  style: GoogleFonts.inter(
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.w600,
+                                    color: myBlack,
+                                  ),
+                                );
+                              },
                             ),
-                            Text(
-                              "Enjoy Popular Movies !",
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: myGrey,
-                              ),
+                            AnimatedBuilder(
+                              animation: _animation,
+                              builder: (context, child) {
+                                int currentLength = _animation.value.round();
+                                String currentText1 =
+                                    _text1.substring(0, min(currentLength, _text1.length));
+
+                                return Text(
+                                  currentText1,
+                                  style: GoogleFonts.inter(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                    color: myGrey,
+                                  ),
+                                );
+                              },
                             ),
+                            // Text(
+                            //   "Enjoy Popular Movies !",
+                            //   style: GoogleFonts.poppins(
+                            //     fontSize: 16,
+                            //     fontWeight: FontWeight.w400,
+                            //     color: myGrey,
+                            //   ),
+                            // ),
                             SizedBox(
                               height: Get.height * 0.04,
                             ),
