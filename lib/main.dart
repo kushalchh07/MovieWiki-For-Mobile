@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:movie_wiki/logic/Bloc/loginbloc/login_bloc.dart';
 import 'package:movie_wiki/logic/Bloc/signupbloc/signup_bloc.dart';
 import 'package:movie_wiki/pages/SplashScreen/splashScreen.dart';
@@ -24,13 +25,14 @@ class MyApp extends StatelessWidget {
           create: (context) => SignupBloc(),
         ),
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
         home: SplashScreen(),
+        debugShowCheckedModeBanner: false,
         // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );

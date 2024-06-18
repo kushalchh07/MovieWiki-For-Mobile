@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:movie_wiki/constants/colors/colors.dart';
 import 'package:movie_wiki/pages/login&signup/login.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,37 +14,40 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _navigateTohome();
+    navigateToHome();
   }
 
-  _navigateTohome() async {
-    await Future.delayed(const Duration(milliseconds: 3000), () {});
-
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const Login()));
+  void navigateToHome() async {
+    await Future.delayed(const Duration(seconds: 3));
+    Get.offAll(Login());
   }
 
   @override
   Widget build(BuildContext context) {
-    if (context == null) {
-      return CupertinoActivityIndicator(); // or any other widget you want to display while waiting for the context to be available
-    }
     return Scaffold(
+      backgroundColor: myWhite,
       body: Center(
-        child: SizedBox(
-          // color: Colors.amber,
-          width: Get.width,
-          height: Get.height,
-          child: Image.asset(
-            'assets/icons/logo.png',
-            fit: BoxFit.cover,
-            scale: 2,
-
-            // width: Get.width,
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: SizedBox(
+                // color: Colors.amber,
+                width: Get.width * 0.50,
+                child: Image.asset(
+                  'assets/icons/movie_wiki.png',
+                  fit: BoxFit.fitWidth,
+                  scale: 2,
+                  height: 200,
+                  width: 200,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
