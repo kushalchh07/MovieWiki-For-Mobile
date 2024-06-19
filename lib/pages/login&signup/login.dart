@@ -2,7 +2,7 @@
 
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
+// import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -13,6 +13,7 @@ import 'package:movie_wiki/constants/colors/colors.dart';
 import 'package:movie_wiki/constants/size/size.dart';
 import 'package:movie_wiki/logic/Bloc/internet_bloc/internet_state.dart';
 import 'package:movie_wiki/logic/Bloc/signupbloc/signup_bloc.dart';
+import 'package:movie_wiki/pages/home/homepage.dart';
 import 'package:movie_wiki/pages/login&signup/forgrtpassword.dart';
 import 'package:movie_wiki/pages/login&signup/signup.dart';
 
@@ -52,6 +53,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
             password: passController.text.trim()));
       }
     }
+    
   }
 
   late AnimationController _controller;
@@ -60,7 +62,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   final String _text = 'Welcome To Movie Wiki!';
   final String _text1 = 'Enjoy Popular Movies!';
 
-  final int _durationPerLetter = 200;
+  final int _durationPerLetter = 100;
 
   @override
   void initState() {
@@ -122,8 +124,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               animation: _animation,
                               builder: (context, child) {
                                 int currentLength = _animation.value.round();
-                                String currentText =
-                                    _text.substring(0, min(_text.length,currentLength));
+                                String currentText = _text.substring(
+                                    0, min(_text.length, currentLength));
 
                                 return Text(
                                   currentText,
@@ -139,8 +141,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               animation: _animation,
                               builder: (context, child) {
                                 int currentLength = _animation.value.round();
-                                String currentText1 =
-                                    _text1.substring(0, min(currentLength, _text1.length));
+                                String currentText1 = _text1.substring(
+                                    0, min(currentLength, _text1.length));
 
                                 return Text(
                                   currentText1,
@@ -152,14 +154,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                 );
                               },
                             ),
-                            // Text(
-                            //   "Enjoy Popular Movies !",
-                            //   style: GoogleFonts.poppins(
-                            //     fontSize: 16,
-                            //     fontWeight: FontWeight.w400,
-                            //     color: myGrey,
-                            //   ),
-                            // ),
                             SizedBox(
                               height: Get.height * 0.04,
                             ),
@@ -299,7 +293,13 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                     borderRadius: BorderRadius.circular(15)),
                                 // height: 50,
                                 color: primaryColor,
-                                onPressed: login,
+                                onPressed: () {
+                                  // Get.to((context) => Homepage());
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Homepage()));
+                                },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
