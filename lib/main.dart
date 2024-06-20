@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => InternetBloc(),
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => HomeBloc(),
         ),
       ],

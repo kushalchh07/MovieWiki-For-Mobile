@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_wiki/constants/colors/colors.dart';
 import 'package:movie_wiki/constants/size/size.dart';
 import 'package:movie_wiki/logic/Bloc/Homebloc/home_bloc.dart';
 
@@ -50,21 +51,27 @@ class _HomepageState extends State<Homepage> {
 
 showhomePage(AppSize size, BuildContext context) {
   return Scaffold(
-    appBar: AppBar(
-      title: Text(
-        "MovieWiki",
-        style: TextStyle(
-          fontFamily: 'poppins',
-          fontSize: 25,
+    appBar: PreferredSize(
+      preferredSize: Size.fromHeight(100),
+      child: AppBar(
+        backgroundColor: primaryColor,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
+        title: Text(
+          "MovieWiki",
+          style: TextStyle(
+            fontFamily: 'poppins',
+            fontSize: 25,
+          ),
+        ),
+        centerTitle: true,
       ),
-      centerTitle: true,
     ),
     body: Container(
-    
       child: Column(
-        children: [
-           Text("data")],
+        children: [Text("data")],
       ),
     ),
   );
