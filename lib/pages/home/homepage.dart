@@ -57,16 +57,84 @@ showhomePage(AppSize size, BuildContext context) {
         backgroundColor: primaryColor,
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
         ),
         title: Text(
           "MovieWiki",
           style: TextStyle(
+            color: Colors.white,
             fontFamily: 'poppins',
             fontSize: 25,
           ),
         ),
-        centerTitle: true,
+        centerTitle: false,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: Icon(
+                Icons.menu,
+                color: Colors.white,
+              ),
+            );
+          },
+        ),
+        //
+      ),
+    ),
+    drawer: Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          Container(
+            height: 150,
+            child: DrawerHeader(
+              // ignore: prefer_const_constructors
+
+              decoration: BoxDecoration(
+                borderRadius:
+                    BorderRadius.vertical(bottom: Radius.circular(30)),
+                color: primaryColor,
+              ),
+              child: Text(
+                'Drawer Header',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
+            onTap: () {
+              // Navigate to settings page
+              Navigator.pop(context); // Close the drawer
+              // Add your navigation logic here
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.info),
+            title: Text('About'),
+            onTap: () {
+              // Navigate to about page
+              Navigator.pop(context); // Close the drawer
+              // Add your navigation logic here
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.logout_outlined),
+            title: Text('Logout'),
+            onTap: () {
+              // perform logout logic
+              Navigator.pop(context); // Close the drawer
+              // Add your navigation logic here
+            },
+          ),
+        ],
       ),
     ),
     body: Container(
