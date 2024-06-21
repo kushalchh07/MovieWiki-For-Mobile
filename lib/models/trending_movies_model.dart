@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class TrendingMoviesModel {
   final int page;
   final List<Result> results;
@@ -10,6 +12,24 @@ class TrendingMoviesModel {
     required this.totalPages,
     required this.totalResults,
   });
+
+  factory TrendingMoviesModel.fromJson(Map<String, dynamic> json) {
+    return TrendingMoviesModel(
+      page: json['page'] ?? 0,
+      results: List<Result>.from(json['results'].map((x) => Result.fromJson(x))),
+      totalPages: json['total_pages'] ?? 0,
+      totalResults: json['total_results'] ?? 0,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'page': page,
+      'results': List<dynamic>.from(results.map((x) => x.toJson())),
+      'total_pages': totalPages,
+      'total_results': totalResults,
+    };
+  }
 }
 
 class Result {
@@ -46,6 +66,46 @@ class Result {
     required this.voteAverage,
     required this.voteCount,
   });
+
+  factory Result.fromJson(Map<String, dynamic> json) {
+    return Result(
+      backdropPath: json['backdrop_path'] ?? '',
+      id: json['id'] ?? 0,
+      originalTitle: json['original_title'] ?? '',
+      overview: json['overview'] ?? '',
+      posterPath: json['poster_path'] ?? '',
+      mediaType: MediaType.values.firstWhere((e) => e.toString() == 'MediaType.${json['media_type']}'),
+      adult: json['adult'] ?? false,
+      title: json['title'] ?? '',
+      originalLanguage: OriginalLanguage.values.firstWhere((e) => e.toString() == 'OriginalLanguage.${json['original_language']}'),
+      genreIds: List<int>.from(json['genre_ids'].map((x) => x)),
+      popularity: json['popularity']?.toDouble() ?? 0.0,
+      releaseDate: DateTime.parse(json['release_date']),
+      video: json['video'] ?? false,
+      voteAverage: json['vote_average']?.toDouble() ?? 0.0,
+      voteCount: json['vote_count'] ?? 0,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'backdrop_path': backdropPath,
+      'id': id,
+      'original_title': originalTitle,
+      'overview': overview,
+      'poster_path': posterPath,
+      'media_type': mediaType.toString().split('.').last,
+      'adult': adult,
+      'title': title,
+      'original_language': originalLanguage.toString().split('.').last,
+      'genre_ids': List<dynamic>.from(genreIds.map((x) => x)),
+      'popularity': popularity,
+      'release_date': releaseDate.toIso8601String(),
+      'video': video,
+      'vote_average': voteAverage,
+      'vote_count': voteCount,
+    };
+  }
 }
 
 enum MediaType { MOVIE }
