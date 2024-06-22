@@ -4,9 +4,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:movie_wiki/constants/colors/colors.dart';
 import 'package:movie_wiki/constants/size/size.dart';
 import 'package:movie_wiki/logic/Bloc/Homebloc/home_bloc.dart';
+import 'package:movie_wiki/logic/Bloc/Homebloc/home_state.dart';
+
 import 'package:movie_wiki/models/upcoming_moveis_model.dart';
 import 'package:movie_wiki/utils/customWidgets/custom_cards.dart';
 import 'package:movie_wiki/utils/customWidgets/dividerText.dart';
@@ -44,7 +49,7 @@ class _HomepageState extends State<Homepage> {
           if (state is HomeLoadedState) {
             log("home loaded State");
             final AppSize size = AppSize(context: context);
-            return showHomePage(size, context, state.upcomingMoviesList);
+            return showHomePage(size, context, state);
           }
           if (state is HomeErrorState) {
             log("home Error State");
@@ -57,26 +62,66 @@ class _HomepageState extends State<Homepage> {
   }
 }
 
-Widget showHomePage(AppSize size, BuildContext context, List<Result> results) {
+Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
   return Scaffold(
-    appBar: PreferredSize(
-      preferredSize: Size.fromHeight(100),
-      child: AppBar(
-        backgroundColor: primaryColor,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+    appBar: AppBar(
+      toolbarHeight: 120,
+      backgroundColor: primaryColor,
+      elevation: 0,
+      leadingWidth: 30,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+      ),
+      title: Padding(
+        padding: const EdgeInsets.only(right: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 8.0, left: 8, right: 8, bottom: 15),
+              child: Text(
+                "MovieWiki",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'poppins',
+                  fontSize: 25,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 5.0),
+              child: Container(
+                width: Get.width,
+                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: InputBorder.none,
+                    icon: Icon(Icons.search, color: Colors.grey),
+                  ),
+                  onChanged: (value) {
+                    // Handle search logic here
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
-        title: Text(
-          "MovieWiki",
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: 'poppins',
-            fontSize: 25,
-          ),
-        ),
-        centerTitle: false,
-        leading: Builder(
+      ),
+      centerTitle: false,
+      leading: Padding(
+        padding: const EdgeInsets.only(bottom: 65.0),
+        child: Builder(
           builder: (BuildContext context) {
             return IconButton(
               onPressed: () {
@@ -93,7 +138,7 @@ Widget showHomePage(AppSize size, BuildContext context, List<Result> results) {
     ),
     drawer: Drawer(
       child: ListView(
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.only(bottom: 20),
         children: <Widget>[
           Container(
             height: 150,
@@ -152,7 +197,7 @@ Widget showHomePage(AppSize size, BuildContext context, List<Result> results) {
                 height: 320, // Adjust the height as needed
                 child: GridView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: results.length < 3 ? 3 : results.length,
+                  itemCount: state.upcomingMoviesList.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
                     mainAxisExtent: 300,
@@ -161,7 +206,7 @@ Widget showHomePage(AppSize size, BuildContext context, List<Result> results) {
                     mainAxisSpacing: 10,
                   ),
                   itemBuilder: (context, index) {
-                    final result = results[index];
+                    final result = state.upcomingMoviesList[index];
                     return customCards(
                       title: result.title,
                       posterpath: result.posterPath,
@@ -177,7 +222,7 @@ Widget showHomePage(AppSize size, BuildContext context, List<Result> results) {
                 height: 320, // Adjust the height as needed
                 child: GridView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: results.length > 3 ? 3 : results.length,
+                  itemCount: state.trendingMoviesList.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
                     mainAxisExtent: 300,
@@ -186,7 +231,7 @@ Widget showHomePage(AppSize size, BuildContext context, List<Result> results) {
                     mainAxisSpacing: 10,
                   ),
                   itemBuilder: (context, index) {
-                    final result = results[index];
+                    final result = state.trendingMoviesList[index];
                     return customCards(
                       title: result.title,
                       posterpath: result.posterPath,
@@ -202,7 +247,7 @@ Widget showHomePage(AppSize size, BuildContext context, List<Result> results) {
                 height: 320, // Adjust the height as needed
                 child: GridView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: results.length > 3 ? 3 : results.length,
+                  itemCount: state.trendingTvShowsList.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
                     mainAxisExtent: 300,
@@ -211,11 +256,11 @@ Widget showHomePage(AppSize size, BuildContext context, List<Result> results) {
                     mainAxisSpacing: 10,
                   ),
                   itemBuilder: (context, index) {
-                    final result = results[index];
+                    final result = state.trendingTvShowsList[index];
                     return customCards(
-                      title: result.title,
+                      title: result.name,
                       posterpath: result.posterPath,
-                      releasedate: result.releaseDate,
+                      releasedate: result.firstAirDate,
                       popularity: result.popularity,
                     );
                   },

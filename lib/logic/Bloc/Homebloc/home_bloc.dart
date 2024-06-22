@@ -5,11 +5,15 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:movie_wiki/logic/Bloc/Homebloc/home_state.dart';
 import 'package:movie_wiki/models/upcoming_moveis_model.dart';
+import 'package:movie_wiki/repository/top_rated_repository.dart';
+import 'package:movie_wiki/repository/trending_movies_repository.dart';
+import 'package:movie_wiki/repository/trending_tv_shows_repository.dart';
 import 'package:movie_wiki/repository/upcoming_movies_repository.dart';
 
 part 'home_event.dart';
-part 'home_state.dart';
+// part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitialState()) {
@@ -22,21 +26,51 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(HomeLoadingState());
       UpcomingMoviesRepository upcomingMoviesRepository =
           UpcomingMoviesRepository();
+      TrendingMoviesRepository trendingMoviesRepository =
+          TrendingMoviesRepository();
+      TrendingTvShowsRepository trendingTvShowsRepository =
+          TrendingTvShowsRepository();
+      TopRatedRepository topRatedRepository = TopRatedRepository();
+
       dynamic upcomingMovies =
           await upcomingMoviesRepository.getUpcomingMovies();
-      if (upcomingMovies == null) {
-        throw Exception('Failed to load upcoming movies: Response is null');
+      dynamic trendingMoveis =
+          await trendingMoviesRepository.getTrendingMovies();
+      dynamic trendingTvShows =
+          await trendingTvShowsRepository.getTrendingTvShows();
+      dynamic topRatedMovies = await topRatedRepository.getTopRatedMovies();
+
+      if (upcomingMovies == null ||
+          trendingMoveis == null ||
+          trendingTvShows == null ||
+          topRatedMovies == null) {
+        throw Exception('Failed to load response: Response is null');
       }
-      // List<dynamic> upcomingMoviesList = upcomingMovies["results"];
 
       final upcomingMoviesList = upcomingMovies.results;
-      if (upcomingMoviesList == null) {
+      final trendingMoviesList = trendingMoveis.results;
+      final trendingTvShowsList = trendingTvShows.results;
+      final topRatedMoviesList = topRatedMovies.results;
+
+      if (upcomingMoviesList == null ||
+          upcomingMoviesList.isEmpty ||
+          trendingMoviesList == null ||
+          trendingMoviesList.isEmpty ||
+          trendingTvShowsList == null ||
+          trendingTvShowsList.isEmpty ||
+          topRatedMoviesList == null ||
+          topRatedMoviesList.isEmpty) {
         throw Exception(
-            'Failed to load upcoming movies: "results" field is null');
-        log('Failed to load upcoming movies: "results" field is null');
+            'Failed to load one of movies loading failed: "results" field is null');
+        log('Failed to load one of movies loading failed: "results" field is null');
       }
       // log(upcomingMoviesList.toString());
-      emit(HomeLoadedState(upcomingMoviesList: upcomingMoviesList
+      emit(HomeLoadedState(
+          trendingMoviesList: trendingMoviesList, 
+          upcomingMoviesList: upcomingMoviesList,
+          
+          topRatedMoviesList: topRatedMoviesList,
+          trendingTvShowsList: trendingTvShowsList,
           // .map((jsonData) => UpcomingMoviesModel.fromJson(jsonData))
           // .toList(),
           ));

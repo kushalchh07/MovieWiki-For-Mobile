@@ -1,15 +1,47 @@
-part of 'home_bloc.dart';
+// import 'package:equatable/equatable.dart';
+import 'package:movie_wiki/models/top_rated_movies_model.dart';
+import 'package:movie_wiki/models/trending_movies_model.dart';
+import 'package:movie_wiki/models/trending_tv_shows_model.dart';
+import 'package:movie_wiki/models/upcoming_moveis_model.dart';
 
-@immutable
-sealed class HomeState {}
 
-final class HomeInitialState extends HomeState {}
 
-final class HomeLoadingState extends HomeState {}
+abstract class HomeState {
+  const HomeState();
 
-final class HomeLoadedState extends HomeState {
-  List<Result> upcomingMoviesList;
-  HomeLoadedState({required this.upcomingMoviesList});
+  @override
+  List<Object?> get props => [];
 }
 
-final class HomeErrorState extends HomeState {}
+class HomeInitialState extends HomeState {}
+
+class HomeLoadingState extends HomeState {}
+
+class HomeLoadedState extends HomeState {
+  final List<Result> upcomingMoviesList;
+  final List<Results> trendingMoviesList;
+  final List<Resultss> topRatedMoviesList;
+  final List<Resultsss> trendingTvShowsList;
+  const HomeLoadedState(
+      {required this.upcomingMoviesList,
+      required this.trendingMoviesList,
+      required this.topRatedMoviesList,
+      required this.trendingTvShowsList});
+
+  @override
+  List<Object?> get props => [
+        upcomingMoviesList,
+        trendingMoviesList,
+        topRatedMoviesList,
+        trendingTvShowsList
+      ];
+}
+
+class HomeErrorState extends HomeState {
+  final String error;
+
+  const HomeErrorState({required this.error});
+
+  @override
+  List<Object?> get props => [error];
+}
