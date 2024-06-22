@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class TrendingMoviesModel {
   final int page;
-  final List<Result> results;
+  final List<Results> results;
   final int totalPages;
   final int totalResults;
 
@@ -16,7 +16,10 @@ class TrendingMoviesModel {
   factory TrendingMoviesModel.fromJson(Map<String, dynamic> json) {
     return TrendingMoviesModel(
       page: json['page'] ?? 0,
-      results: List<Result>.from(json['results'].map((x) => Result.fromJson(x))),
+      results: (json['results'] as List<dynamic>?)
+              ?.map((x) => Results.fromJson(x))
+              .toList() ??
+          [],
       totalPages: json['total_pages'] ?? 0,
       totalResults: json['total_results'] ?? 0,
     );
@@ -25,14 +28,14 @@ class TrendingMoviesModel {
   Map<String, dynamic> toJson() {
     return {
       'page': page,
-      'results': List<dynamic>.from(results.map((x) => x.toJson())),
+      'results': results.map((x) => x.toJson()).toList(),
       'total_pages': totalPages,
       'total_results': totalResults,
     };
   }
 }
 
-class Result {
+class Results {
   final String backdropPath;
   final int id;
   final String originalTitle;
@@ -49,7 +52,7 @@ class Result {
   final double voteAverage;
   final int voteCount;
 
-  Result({
+  Results({
     required this.backdropPath,
     required this.id,
     required this.originalTitle,
@@ -67,22 +70,31 @@ class Result {
     required this.voteCount,
   });
 
-  factory Result.fromJson(Map<String, dynamic> json) {
-    return Result(
+  factory Results.fromJson(Map<String, dynamic> json) {
+    return Results(
       backdropPath: json['backdrop_path'] ?? '',
       id: json['id'] ?? 0,
       originalTitle: json['original_title'] ?? '',
       overview: json['overview'] ?? '',
       posterPath: json['poster_path'] ?? '',
-      mediaType: MediaType.values.firstWhere((e) => e.toString() == 'MediaType.${json['media_type']}'),
+      mediaType: MediaType.values.firstWhere(
+        (e) => e.toString() == 'MediaType.${json['media_type']}',
+        orElse: () => MediaType.MOVIE,
+      ),
       adult: json['adult'] ?? false,
       title: json['title'] ?? '',
-      originalLanguage: OriginalLanguage.values.firstWhere((e) => e.toString() == 'OriginalLanguage.${json['original_language']}'),
-      genreIds: List<int>.from(json['genre_ids'].map((x) => x)),
-      popularity: json['popularity']?.toDouble() ?? 0.0,
-      releaseDate: DateTime.parse(json['release_date']),
+      originalLanguage: OriginalLanguage.values.firstWhere(
+        (e) => e.toString() == 'OriginalLanguage.${json['original_language']}',
+        orElse: () => OriginalLanguage.EN,
+      ),
+      genreIds: (json['genre_ids'] as List<dynamic>?)
+              ?.map((x) => x as int)
+              .toList() ??
+          [],
+      popularity: (json['popularity'] as num?)?.toDouble() ?? 0.0,
+      releaseDate: DateTime.tryParse(json['release_date'] ?? '') ?? DateTime.now(),
       video: json['video'] ?? false,
-      voteAverage: json['vote_average']?.toDouble() ?? 0.0,
+      voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
       voteCount: json['vote_count'] ?? 0,
     );
   }
@@ -98,7 +110,7 @@ class Result {
       'adult': adult,
       'title': title,
       'original_language': originalLanguage.toString().split('.').last,
-      'genre_ids': List<dynamic>.from(genreIds.map((x) => x)),
+      'genre_ids': genreIds.map((x) => x).toList(),
       'popularity': popularity,
       'release_date': releaseDate.toIso8601String(),
       'video': video,
