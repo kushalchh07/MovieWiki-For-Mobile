@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:movie_wiki/logic/Bloc/Homebloc/home_bloc.dart';
+import 'package:movie_wiki/logic/Bloc/TopAnimeBloc/top_anime_bloc.dart';
+import 'package:movie_wiki/logic/Bloc/TopRatedMovies/top_rated_movies_bloc.dart';
+import 'package:movie_wiki/logic/Bloc/TrendingMovies/trending_movies_bloc.dart';
+import 'package:movie_wiki/logic/Bloc/TrendingTvShows/trending_tv_shows_bloc.dart';
+import 'package:movie_wiki/logic/Bloc/UpcomingMovies/upcoming_movies_bloc.dart';
 
 import 'package:movie_wiki/logic/Bloc/internet_bloc/internet_bloc.dart';
 import 'package:movie_wiki/logic/Bloc/loginbloc/login_bloc.dart';
@@ -22,6 +27,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (context) => HomeBloc(),
+        ),
+        BlocProvider(
           create: (context) => LoginBloc(),
         ),
         BlocProvider(
@@ -31,13 +39,25 @@ class MyApp extends StatelessWidget {
           create: (context) => InternetBloc(),
         ),
         BlocProvider(
-          create: (context) => HomeBloc(),
+          create: (context) => TopRatedMoviesBloc(),
+        ),
+        BlocProvider(
+          create: (context) => TrendingMoviesBloc(),
+        ),
+        BlocProvider(
+          create: (context) => TopAnimeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => TrendingTvShowsBloc(),
+        ),
+        BlocProvider(
+          create: (context) => UpcomingMoviesBloc(),
         ),
       ],
       child: GetMaterialApp(
-        title: 'Flutter Demo',
+        title: 'Movie Wiki',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
         home: SplashScreen(),
