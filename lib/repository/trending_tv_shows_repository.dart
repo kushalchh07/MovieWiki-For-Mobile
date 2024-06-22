@@ -10,7 +10,10 @@ dynamic token =
 class TrendingTvShowsRepository {
   Future<TrendingTvShowsModel> getTrendingTvShows() async {
     try {
-      final response = await http.get(Uri.parse(Api));
+      final response = await http.get(Uri.parse(Api),headers: {
+        'Authorization': 'Bearer $token',
+        'accept': 'application/json',
+      });
       if (response.statusCode == 200) {
         final body = response.body;
         if (body != null) {
