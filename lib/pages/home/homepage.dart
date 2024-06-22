@@ -8,6 +8,8 @@ import 'package:movie_wiki/constants/colors/colors.dart';
 import 'package:movie_wiki/constants/size/size.dart';
 import 'package:movie_wiki/logic/Bloc/Homebloc/home_bloc.dart';
 import 'package:movie_wiki/models/upcoming_moveis_model.dart';
+import 'package:movie_wiki/utils/customWidgets/custom_cards.dart';
+import 'package:movie_wiki/utils/customWidgets/dividerText.dart';
 // import 'package:movie_wiki/models/top_rated_movies_model.dart';
 // import 'package:movie_wiki/repository/upcoming_movies_repository.dart';
 
@@ -134,47 +136,93 @@ Widget showHomePage(AppSize size, BuildContext context, List<Result> results) {
         ],
       ),
     ),
-    body: RefreshIndicator.adaptive(
-      onRefresh: () async {
-        BlocProvider.of<HomeBloc>(context).add(HomeLoadEvent());
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          itemCount: results.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.7,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-          ),
-          itemBuilder: (context, index) {
-            final result = results[index];
-            return Card(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: Image.network(
-                      'https://image.tmdb.org/t/p/w500${result.posterPath}',
-                      fit: BoxFit.cover,
-                    ),
+    body: SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: RefreshIndicator.adaptive(
+        onRefresh: () async {
+          BlocProvider.of<HomeBloc>(context).add(HomeLoadEvent());
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              dividerText(
+                  context: context, dividerText: "Upcoming Movies", desc: ''),
+              SizedBox(
+                height: 320, // Adjust the height as needed
+                child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: results.length < 3 ? 3 : results.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisExtent: 300,
+                    childAspectRatio: 0.3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      result.title,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
+                  itemBuilder: (context, index) {
+                    final result = results[index];
+                    return customCards(
+                      title: result.title,
+                      posterpath: result.posterPath,
+                      releasedate: result.releaseDate,
+                      popularity: result.popularity,
+                    );
+                  },
+                ),
               ),
-            );
-          },
+              dividerText(
+                  context: context, dividerText: "Trending Movies", desc: ''),
+              SizedBox(
+                height: 320, // Adjust the height as needed
+                child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: results.length > 3 ? 3 : results.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisExtent: 300,
+                    childAspectRatio: 0.3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) {
+                    final result = results[index];
+                    return customCards(
+                      title: result.title,
+                      posterpath: result.posterPath,
+                      releasedate: result.releaseDate,
+                      popularity: result.popularity,
+                    );
+                  },
+                ),
+              ),
+              dividerText(
+                  context: context, dividerText: "Popular TV Shows", desc: ''),
+              SizedBox(
+                height: 320, // Adjust the height as needed
+                child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: results.length > 3 ? 3 : results.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisExtent: 300,
+                    childAspectRatio: 0.3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) {
+                    final result = results[index];
+                    return customCards(
+                      title: result.title,
+                      posterpath: result.posterPath,
+                      releasedate: result.releaseDate,
+                      popularity: result.popularity,
+                    );
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
     ),
