@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class TopRatedMoviesModel {
   final int page;
-  final List<Result> results;
+  final List<Resultss> results;
   final int totalPages;
   final int totalResults;
 
@@ -16,9 +16,10 @@ class TopRatedMoviesModel {
   factory TopRatedMoviesModel.fromJson(Map<String, dynamic> json) {
     return TopRatedMoviesModel(
       page: json['page'] ?? 0,
-      results: json['results'] != null
-          ? List<Result>.from(json['results'].map((x) => Result.fromJson(x)))
-          : [],
+      results: (json['results'] as List<dynamic>?)
+              ?.map((x) => Resultss.fromJson(x))
+              .toList() ??
+          [],
       totalPages: json['total_pages'] ?? 0,
       totalResults: json['total_results'] ?? 0,
     );
@@ -27,14 +28,14 @@ class TopRatedMoviesModel {
   Map<String, dynamic> toJson() {
     return {
       'page': page,
-      'results': List<dynamic>.from(results.map((x) => x.toJson())),
+      'results': results.map((x) => x.toJson()).toList(),
       'total_pages': totalPages,
       'total_results': totalResults,
     };
   }
 }
 
-class Result {
+class Resultss {
   final bool adult;
   final String backdropPath;
   final List<int> genreIds;
@@ -50,7 +51,7 @@ class Result {
   final double voteAverage;
   final int voteCount;
 
-  Result({
+  Resultss({
     required this.adult,
     required this.backdropPath,
     required this.genreIds,
@@ -67,23 +68,24 @@ class Result {
     required this.voteCount,
   });
 
-  factory Result.fromJson(Map<String, dynamic> json) {
-    return Result(
+  factory Resultss.fromJson(Map<String, dynamic> json) {
+    return Resultss(
       adult: json['adult'] ?? false,
       backdropPath: json['backdrop_path'] ?? '',
-      genreIds: json['genre_ids'] != null
-          ? List<int>.from(json['genre_ids'])
-          : [],
+      genreIds: (json['genre_ids'] as List<dynamic>?)
+              ?.map((x) => x as int)
+              .toList() ??
+          [],
       id: json['id'] ?? 0,
       originalLanguage: json['original_language'] ?? '',
       originalTitle: json['original_title'] ?? '',
       overview: json['overview'] ?? '',
-      popularity: json['popularity']?.toDouble() ?? 0.0,
+      popularity: (json['popularity'] as num?)?.toDouble() ?? 0.0,
       posterPath: json['poster_path'] ?? '',
-      releaseDate: DateTime.parse(json['release_date'] ?? '1970-01-01'),
+      releaseDate: DateTime.tryParse(json['release_date'] ?? '') ?? DateTime(1970, 1, 1),
       title: json['title'] ?? '',
       video: json['video'] ?? false,
-      voteAverage: json['vote_average']?.toDouble() ?? 0.0,
+      voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
       voteCount: json['vote_count'] ?? 0,
     );
   }
@@ -92,7 +94,7 @@ class Result {
     return {
       'adult': adult,
       'backdrop_path': backdropPath,
-      'genre_ids': List<dynamic>.from(genreIds),
+      'genre_ids': genreIds.map((x) => x).toList(),
       'id': id,
       'original_language': originalLanguage,
       'original_title': originalTitle,

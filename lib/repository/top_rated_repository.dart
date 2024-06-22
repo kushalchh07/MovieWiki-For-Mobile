@@ -10,7 +10,10 @@ dynamic token =
 class TopRatedRepository {
   Future<TopRatedMoviesModel> getTopRatedMovies() async {
     try {
-      final response = await http.get(Uri.parse(Api));
+      final response = await http.get(Uri.parse(Api),headers: {
+        'Authorization': 'Bearer $token',
+        'accept': 'application/json',
+      });
       if (response.statusCode == 200) {
         final responseBody = response.body;
         if (responseBody == null) {
