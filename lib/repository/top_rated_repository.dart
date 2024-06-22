@@ -5,7 +5,8 @@ import'package:http/http.dart' as http;
 
 
 String Api = "https://api.themoviedb.org/3/movie/top_rated?language=en-US";
-
+dynamic token =
+    "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkOWJjNjMyYWYyYzJjM2QwNjdhZjZkYWZkNTMzMTdkMCIsInN1YiI6IjY2NzQ1NjgzYWI3MTkyMDFiNzRlYjdiNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.DR05kSqw0gzg_N_IS1S02D50F_3wwPGJ3atIVMSvNeA";
 class TopRatedRepository {
   Future<TopRatedMoviesModel> getTopRatedMovies() async {
     try {

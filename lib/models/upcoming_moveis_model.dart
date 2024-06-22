@@ -17,9 +17,12 @@ class UpcomingMoviesModel {
 
   factory UpcomingMoviesModel.fromJson(Map<String, dynamic> json) {
     return UpcomingMoviesModel(
-      dates: Dates.fromJson(json['dates']),
+      dates: Dates.fromJson(json['dates'] ?? {}),
       page: json['page'] ?? 0,
-      results: List<Result>.from(json['results'].map((x) => Result.fromJson(x))),
+      results: (json['results'] as List<dynamic>?)
+              ?.map((x) => Result.fromJson(x))
+              .toList() ??
+          [],
       totalPages: json['total_pages'] ?? 0,
       totalResults: json['total_results'] ?? 0,
     );
@@ -29,7 +32,7 @@ class UpcomingMoviesModel {
     return {
       'dates': dates.toJson(),
       'page': page,
-      'results': List<dynamic>.from(results.map((x) => x.toJson())),
+      'results': results.map((x) => x.toJson()).toList(),
       'total_pages': totalPages,
       'total_results': totalResults,
     };
@@ -47,8 +50,8 @@ class Dates {
 
   factory Dates.fromJson(Map<String, dynamic> json) {
     return Dates(
-      maximum: DateTime.parse(json['maximum']),
-      minimum: DateTime.parse(json['minimum']),
+      maximum: DateTime.tryParse(json['maximum'] ?? '') ?? DateTime.now(),
+      minimum: DateTime.tryParse(json['minimum'] ?? '') ?? DateTime.now(),
     );
   }
 
@@ -97,17 +100,24 @@ class Result {
     return Result(
       adult: json['adult'] ?? false,
       backdropPath: json['backdrop_path'] ?? '',
-      genreIds: List<int>.from(json['genre_ids'].map((x) => x)),
+      genreIds: (json['genre_ids'] as List<dynamic>?)
+              ?.map((x) => x as int)
+              .toList() ??
+          [],
       id: json['id'] ?? 0,
-      originalLanguage: OriginalLanguage.values.firstWhere((e) => e.toString() == 'OriginalLanguage.${json['original_language']}'),
+      originalLanguage: OriginalLanguage.values.firstWhere(
+        (e) => e.toString() == 'OriginalLanguage.${json['original_language']}',
+        orElse: () => OriginalLanguage.EN,
+      ),
       originalTitle: json['original_title'] ?? '',
       overview: json['overview'] ?? '',
-      popularity: json['popularity']?.toDouble() ?? 0.0,
+      popularity: (json['popularity'] as num?)?.toDouble() ?? 0.0,
       posterPath: json['poster_path'] ?? '',
-      releaseDate: DateTime.parse(json['release_date']),
+      releaseDate:
+          DateTime.tryParse(json['release_date'] ?? '') ?? DateTime.now(),
       title: json['title'] ?? '',
       video: json['video'] ?? false,
-      voteAverage: json['vote_average']?.toDouble() ?? 0.0,
+      voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
       voteCount: json['vote_count'] ?? 0,
     );
   }
@@ -116,7 +126,7 @@ class Result {
     return {
       'adult': adult,
       'backdrop_path': backdropPath,
-      'genre_ids': List<dynamic>.from(genreIds.map((x) => x)),
+      'genre_ids': genreIds,
       'id': id,
       'original_language': originalLanguage.toString().split('.').last,
       'original_title': originalTitle,

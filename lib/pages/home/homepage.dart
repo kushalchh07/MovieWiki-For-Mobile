@@ -2,13 +2,14 @@
 
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_wiki/constants/colors/colors.dart';
 import 'package:movie_wiki/constants/size/size.dart';
 import 'package:movie_wiki/logic/Bloc/Homebloc/home_bloc.dart';
+import 'package:movie_wiki/models/upcoming_moveis_model.dart';
+// import 'package:movie_wiki/models/top_rated_movies_model.dart';
+// import 'package:movie_wiki/repository/upcoming_movies_repository.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -18,6 +19,11 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,11 +42,11 @@ class _HomepageState extends State<Homepage> {
           if (state is HomeLoadedState) {
             log("home loaded State");
             final AppSize size = AppSize(context: context);
-            return showhomePage(size, context);
+            return showHomePage(size, context, state.upcomingMoviesList);
           }
           if (state is HomeErrorState) {
             log("home Error State");
-            return const Center(child: Text('Error Occured'));
+            return const Center(child: Text('Error Occurred'));
           }
           return Container();
         },
@@ -49,7 +55,7 @@ class _HomepageState extends State<Homepage> {
   }
 }
 
-showhomePage(AppSize size, BuildContext context) {
+Widget showHomePage(AppSize size, BuildContext context, List<Result> results) {
   return Scaffold(
     appBar: PreferredSize(
       preferredSize: Size.fromHeight(100),
@@ -81,7 +87,6 @@ showhomePage(AppSize size, BuildContext context) {
             );
           },
         ),
-        //
       ),
     ),
     drawer: Drawer(
@@ -91,8 +96,6 @@ showhomePage(AppSize size, BuildContext context) {
           Container(
             height: 150,
             child: DrawerHeader(
-              // ignore: prefer_const_constructors
-
               decoration: BoxDecoration(
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(30)),
@@ -111,35 +114,68 @@ showhomePage(AppSize size, BuildContext context) {
             leading: Icon(Icons.settings),
             title: Text('Settings'),
             onTap: () {
-              // Navigate to settings page
-              Navigator.pop(context); // Close the drawer
-              // Add your navigation logic here
+              Navigator.pop(context);
             },
           ),
           ListTile(
             leading: Icon(Icons.info),
             title: Text('About'),
             onTap: () {
-              // Navigate to about page
-              Navigator.pop(context); // Close the drawer
-              // Add your navigation logic here
+              Navigator.pop(context);
             },
           ),
           ListTile(
             leading: Icon(Icons.logout_outlined),
             title: Text('Logout'),
             onTap: () {
-              // perform logout logic
-              Navigator.pop(context); // Close the drawer
-              // Add your navigation logic here
+              Navigator.pop(context);
             },
           ),
         ],
       ),
     ),
-    body: Container(
-      child: Column(
-        children: [Text("data")],
+    body: RefreshIndicator.adaptive(
+      onRefresh: () async {
+        BlocProvider.of<HomeBloc>(context).add(HomeLoadEvent());
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GridView.builder(
+          itemCount: results.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 0.7,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemBuilder: (context, index) {
+            final result = results[index];
+            return Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(
+                    child: Image.network(
+                      'https://image.tmdb.org/t/p/w500${result.posterPath}',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      result.title,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     ),
   );
