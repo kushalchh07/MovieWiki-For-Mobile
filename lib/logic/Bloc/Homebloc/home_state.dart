@@ -1,4 +1,5 @@
 // import 'package:equatable/equatable.dart';
+import 'package:movie_wiki/models/top_anime_model.dart';
 import 'package:movie_wiki/models/top_rated_movies_model.dart';
 import 'package:movie_wiki/models/trending_movies_model.dart';
 import 'package:movie_wiki/models/trending_tv_shows_model.dart';
@@ -22,18 +23,22 @@ class HomeLoadedState extends HomeState {
   final List<Results> trendingMoviesList;
   final List<Resultss> topRatedMoviesList;
   final List<Resultsss> trendingTvShowsList;
+  // final List<TopAnime> topAnimesList;
   const HomeLoadedState(
       {required this.upcomingMoviesList,
       required this.trendingMoviesList,
       required this.topRatedMoviesList,
-      required this.trendingTvShowsList});
+      required this.trendingTvShowsList,
+      // required this.topAnimesList
+      });
 
   @override
   List<Object?> get props => [
         upcomingMoviesList,
         trendingMoviesList,
         topRatedMoviesList,
-        trendingTvShowsList
+        trendingTvShowsList,
+        // topAnimesList
       ];
 }
 

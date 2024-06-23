@@ -13,6 +13,7 @@ import 'package:movie_wiki/constants/colors/colors.dart';
 import 'package:movie_wiki/constants/size/size.dart';
 import 'package:movie_wiki/logic/Bloc/internet_bloc/internet_state.dart';
 import 'package:movie_wiki/logic/Bloc/signupbloc/signup_bloc.dart';
+import 'package:movie_wiki/pages/home/base.dart';
 import 'package:movie_wiki/pages/home/homepage.dart';
 import 'package:movie_wiki/pages/login&signup/forgrtpassword.dart';
 import 'package:movie_wiki/pages/login&signup/signup.dart';
@@ -53,7 +54,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
             password: passController.text.trim()));
       }
     }
-    
   }
 
   late AnimationController _controller;
@@ -298,7 +298,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Homepage()));
+                                          builder: (context) => Base()));
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,

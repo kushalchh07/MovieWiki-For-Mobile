@@ -265,7 +265,32 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                     );
                   },
                 ),
-              )
+              ),
+              // dividerText(
+              //     context: context, dividerText: "Top Animes", desc: ''),
+              // SizedBox(
+              //   height: 320, // Adjust the height as needed
+              //   child: GridView.builder(
+              //     scrollDirection: Axis.horizontal,
+              //     itemCount: state.topAnimesList.length,
+              //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //       crossAxisCount: 1,
+              //       mainAxisExtent: 300,
+              //       childAspectRatio: 0.3,
+              //       crossAxisSpacing: 10,
+              //       mainAxisSpacing: 10,
+              //     ),
+              //     itemBuilder: (context, index) {
+              //       final result = state.topAnimesList[index];
+              //       return customCards(
+              //         title: result.title,
+              //         posterpath: result.url,
+              //         releasedate: result.aired.from,
+              //         popularity: result.score,
+              //       );
+              //     },
+              //   ),
+              // ),
             ],
           ),
         ),

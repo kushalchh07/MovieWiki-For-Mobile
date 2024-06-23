@@ -1,8 +1,10 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 
 class TopAnimesModel {
   final Pagination pagination;
-  final List<Datum> data;
+  final List<TopAnime?> data;
 
   TopAnimesModel({
     required this.pagination,
@@ -11,20 +13,24 @@ class TopAnimesModel {
 
   factory TopAnimesModel.fromJson(Map<String, dynamic> json) {
     return TopAnimesModel(
-      pagination: Pagination.fromJson(json['pagination']),
-      data: List<Datum>.from(json['data'].map((x) => Datum.fromJson(x))),
+      pagination: Pagination.fromJson(json['pagination'] ?? {}),
+      data: (json['data'] as List<dynamic>?)
+              ?.map((x) => x != null ? TopAnime.fromJson(x) : null)
+              .where((x) => x != null)
+              .toList() ??
+          [],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'pagination': pagination.toJson(),
-      'data': List<dynamic>.from(data.map((x) => x.toJson())),
+      'data': data.map((x) => x!.toJson()).toList(),
     };
   }
 }
 
-class Datum {
+class TopAnime {
   final int malId;
   final String url;
   final Map<String, Image> images;
@@ -32,12 +38,12 @@ class Datum {
   final bool approved;
   final List<Title> titles;
   final String title;
-  final String? titleEnglish;
-  final String? titleJapanese;
+  final String? titleEnglish; // Nullable field
+  final String? titleJapanese; // Nullable field
   final List<String> titleSynonyms;
   final DatumType type;
   final String source;
-  final int episodes;
+  final int? episodes; // Nullable field
   final Status status;
   final bool airing;
   final Aired aired;
@@ -50,9 +56,8 @@ class Datum {
   final int members;
   final int favorites;
   final String synopsis;
-  final String? background;
+  final String? background; // Nullable field
   final Season season;
-  final int year;
   final Broadcast broadcast;
   final List<Demographic> producers;
   final List<Demographic> licensors;
@@ -62,7 +67,7 @@ class Datum {
   final List<Demographic> themes;
   final List<Demographic> demographics;
 
-  Datum({
+  TopAnime({
     required this.malId,
     required this.url,
     required this.images,
@@ -70,12 +75,12 @@ class Datum {
     required this.approved,
     required this.titles,
     required this.title,
-    required this.titleEnglish,
-    required this.titleJapanese,
+    this.titleEnglish,
+    this.titleJapanese,
     required this.titleSynonyms,
     required this.type,
     required this.source,
-    required this.episodes,
+    this.episodes,
     required this.status,
     required this.airing,
     required this.aired,
@@ -88,9 +93,8 @@ class Datum {
     required this.members,
     required this.favorites,
     required this.synopsis,
-    required this.background,
+    this.background,
     required this.season,
-    required this.year,
     required this.broadcast,
     required this.producers,
     required this.licensors,
@@ -101,26 +105,39 @@ class Datum {
     required this.demographics,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) {
-    return Datum(
+  factory TopAnime.fromJson(Map<String, dynamic> json) {
+    return TopAnime(
       malId: json['mal_id'] ?? 0,
       url: json['url'] ?? '',
-      images: (json['images'] as Map<String, dynamic>).map((k, v) => MapEntry(k, Image.fromJson(v))),
-      trailer: Trailer.fromJson(json['trailer']),
+      images: (json['images'] as Map<String, dynamic>).map(
+        (k, v) => MapEntry(k, Image.fromJson(v)),
+      ),
+      trailer: Trailer.fromJson(json['trailer'] ?? {}),
       approved: json['approved'] ?? false,
-      titles: List<Title>.from(json['titles'].map((x) => Title.fromJson(x))),
+      titles: List<Title>.from(
+        (json['titles'] as List<dynamic>).map((x) => Title.fromJson(x)),
+      ),
       title: json['title'] ?? '',
-      titleEnglish: json['title_english'] ?? '',
-      titleJapanese: json['title_japanese'] ?? '',
-      titleSynonyms: List<String>.from(json['title_synonyms']),
-      type: DatumType.values.firstWhere((e) => e.toString() == 'DatumType.${json['type']}'),
+      titleEnglish: json['title_english'],
+      titleJapanese: json['title_japanese'],
+      titleSynonyms: List<String>.from(json['title_synonyms'] ?? []),
+      type: DatumType.values.firstWhere(
+        (e) => e.toString() == 'DatumType.${json['type']}',
+        orElse: () => DatumType.MOVIE,
+      ),
       source: json['source'] ?? '',
-      episodes: json['episodes'] ?? 0,
-      status: Status.values.firstWhere((e) => e.toString() == 'Status.${json['status']}'),
+      episodes: json['episodes'],
+      status: Status.values.firstWhere(
+        (e) => e.toString() == 'Status.${json['status']}',
+        orElse: () => Status.FINISHED_AIRING,
+      ),
       airing: json['airing'] ?? false,
-      aired: Aired.fromJson(json['aired']),
+      aired: Aired.fromJson(json['aired'] ?? {}),
       duration: json['duration'] ?? '',
-      rating: Rating.values.firstWhere((e) => e.toString() == 'Rating.${json['rating']}'),
+      rating: Rating.values.firstWhere(
+        (e) => e.toString() == 'Rating.${json['rating']}',
+        orElse: () => Rating.PG_13_TEENS_13_OR_OLDER,
+      ),
       score: json['score']?.toDouble() ?? 0.0,
       scoredBy: json['scored_by'] ?? 0,
       rank: json['rank'] ?? 0,
@@ -128,17 +145,34 @@ class Datum {
       members: json['members'] ?? 0,
       favorites: json['favorites'] ?? 0,
       synopsis: json['synopsis'] ?? '',
-      background: json['background'] ?? '',
-      season: Season.values.firstWhere((e) => e.toString() == 'Season.${json['season']}'),
-      year: json['year'] ?? 0,
-      broadcast: Broadcast.fromJson(json['broadcast']),
-      producers: List<Demographic>.from(json['producers'].map((x) => Demographic.fromJson(x))),
-      licensors: List<Demographic>.from(json['licensors'].map((x) => Demographic.fromJson(x))),
-      studios: List<Demographic>.from(json['studios'].map((x) => Demographic.fromJson(x))),
-      genres: List<Demographic>.from(json['genres'].map((x) => Demographic.fromJson(x))),
-      explicitGenres: List<dynamic>.from(json['explicit_genres']),
-      themes: List<Demographic>.from(json['themes'].map((x) => Demographic.fromJson(x))),
-      demographics: List<Demographic>.from(json['demographics'].map((x) => Demographic.fromJson(x))),
+      background: json['background'],
+      season: Season.values.firstWhere(
+        (e) => e.toString() == 'Season.${json['season']}',
+        orElse: () => Season.FALL,
+      ),
+      broadcast: Broadcast.fromJson(json['broadcast'] ?? {}),
+      producers: List<Demographic>.from(
+        (json['producers'] as List<dynamic>)
+            .map((x) => Demographic.fromJson(x)),
+      ),
+      licensors: List<Demographic>.from(
+        (json['licensors'] as List<dynamic>)
+            .map((x) => Demographic.fromJson(x)),
+      ),
+      studios: List<Demographic>.from(
+        (json['studios'] as List<dynamic>).map((x) => Demographic.fromJson(x)),
+      ),
+      genres: List<Demographic>.from(
+        (json['genres'] as List<dynamic>).map((x) => Demographic.fromJson(x)),
+      ),
+      explicitGenres: List<dynamic>.from(json['explicit_genres'] ?? []),
+      themes: List<Demographic>.from(
+        (json['themes'] as List<dynamic>).map((x) => Demographic.fromJson(x)),
+      ),
+      demographics: List<Demographic>.from(
+        (json['demographics'] as List<dynamic>)
+            .map((x) => Demographic.fromJson(x)),
+      ),
     );
   }
 
@@ -149,11 +183,11 @@ class Datum {
       'images': images.map((k, v) => MapEntry(k, v.toJson())),
       'trailer': trailer.toJson(),
       'approved': approved,
-      'titles': List<dynamic>.from(titles.map((x) => x.toJson())),
+      'titles': titles.map((x) => x.toJson()).toList(),
       'title': title,
       'title_english': titleEnglish,
       'title_japanese': titleJapanese,
-      'title_synonyms': List<dynamic>.from(titleSynonyms.map((x) => x)),
+      'title_synonyms': titleSynonyms,
       'type': type.toString().split('.').last,
       'source': source,
       'episodes': episodes,
@@ -171,15 +205,14 @@ class Datum {
       'synopsis': synopsis,
       'background': background,
       'season': season.toString().split('.').last,
-      'year': year,
       'broadcast': broadcast.toJson(),
-      'producers': List<dynamic>.from(producers.map((x) => x.toJson())),
-      'licensors': List<dynamic>.from(licensors.map((x) => x.toJson())),
-      'studios': List<dynamic>.from(studios.map((x) => x.toJson())),
-      'genres': List<dynamic>.from(genres.map((x) => x.toJson())),
-      'explicit_genres': List<dynamic>.from(explicitGenres.map((x) => x)),
-      'themes': List<dynamic>.from(themes.map((x) => x.toJson())),
-      'demographics': List<dynamic>.from(demographics.map((x) => x.toJson())),
+      'producers': producers.map((x) => x.toJson()).toList(),
+      'licensors': licensors.map((x) => x.toJson()).toList(),
+      'studios': studios.map((x) => x.toJson()).toList(),
+      'genres': genres.map((x) => x.toJson()).toList(),
+      'explicit_genres': explicitGenres,
+      'themes': themes.map((x) => x.toJson()).toList(),
+      'demographics': demographics.map((x) => x.toJson()).toList(),
     };
   }
 }
@@ -201,7 +234,7 @@ class Aired {
     return Aired(
       from: DateTime.parse(json['from']),
       to: DateTime.parse(json['to']),
-      prop: Prop.fromJson(json['prop']),
+      prop: Prop.fromJson(json['prop'] ?? {}),
       string: json['string'] ?? '',
     );
   }
@@ -227,8 +260,8 @@ class Prop {
 
   factory Prop.fromJson(Map<String, dynamic> json) {
     return Prop(
-      from: From.fromJson(json['from']),
-      to: From.fromJson(json['to']),
+      from: From.fromJson(json['from'] ?? {}),
+      to: From.fromJson(json['to'] ?? {}),
     );
   }
 
@@ -285,7 +318,10 @@ class Broadcast {
     return Broadcast(
       day: json['day'] ?? '',
       time: json['time'] ?? '',
-      timezone: Timezone.values.firstWhere((e) => e.toString() == 'Timezone.${json['timezone']}'),
+      timezone: Timezone.values.firstWhere(
+        (e) => e.toString() == 'Timezone.${json['timezone']}',
+        orElse: () => Timezone.ASIA_TOKYO,
+      ),
       string: json['string'] ?? '',
     );
   }
@@ -316,7 +352,10 @@ class Demographic {
   factory Demographic.fromJson(Map<String, dynamic> json) {
     return Demographic(
       malId: json['mal_id'] ?? 0,
-      type: DemographicType.values.firstWhere((e) => e.toString() == 'DemographicType.${json['type']}'),
+      type: DemographicType.values.firstWhere(
+        (e) => e.toString() == 'DemographicType.${json['type']}',
+        orElse: () => DemographicType.ANIME,
+      ),
       name: json['name'] ?? '',
       url: json['url'] ?? '',
     );
@@ -378,7 +417,7 @@ class Trailer {
       youtubeId: json['youtube_id'] ?? '',
       url: json['url'] ?? '',
       embedUrl: json['embed_url'] ?? '',
-      images: Images.fromJson(json['images']),
+      images: Images.fromJson(json['images'] ?? {}),
     );
   }
 
@@ -446,7 +485,7 @@ class Pagination {
       lastVisiblePage: json['last_visible_page'] ?? 0,
       hasNextPage: json['has_next_page'] ?? false,
       currentPage: json['current_page'] ?? 0,
-      items: Items.fromJson(json['items']),
+      items: Items.fromJson(json['items'] ?? {}),
     );
   }
 
@@ -489,28 +528,28 @@ class Items {
 }
 
 enum Timezone {
-  ASIA_TOKYO
+  ASIA_TOKYO,
 }
 
 enum DemographicType {
-  ANIME
+  ANIME,
 }
 
 enum Rating {
   PG_13_TEENS_13_OR_OLDER,
   R_17_VIOLENCE_PROFANITY,
-  R_MILD_NUDITY
+  R_MILD_NUDITY,
 }
 
 enum Season {
   FALL,
   SPRING,
   SUMMER,
-  WINTER
+  WINTER,
 }
 
 enum Status {
-  FINISHED_AIRING
+  FINISHED_AIRING,
 }
 
 enum TitleType {
@@ -520,14 +559,14 @@ enum TitleType {
   GERMAN,
   JAPANESE,
   SPANISH,
-  SYNONYM
+  SYNONYM,
 }
 
 enum DatumType {
   MOVIE,
   OVA,
   TV,
-  TV_SPECIAL
+  TV_SPECIAL,
 }
 
 class Title {
@@ -541,7 +580,10 @@ class Title {
 
   factory Title.fromJson(Map<String, dynamic> json) {
     return Title(
-      type: TitleType.values.firstWhere((e) => e.toString() == 'TitleType.${json['type']}'),
+      type: TitleType.values.firstWhere(
+        (e) => e.toString() == 'TitleType.${json['type']}',
+        orElse: () => TitleType.DEFAULT,
+      ),
       title: json['title'] ?? '',
     );
   }

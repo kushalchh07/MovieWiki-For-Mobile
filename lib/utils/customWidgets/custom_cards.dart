@@ -33,7 +33,7 @@ Widget customCards({
               Expanded(
                 flex: 3,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 12, right: 10, top: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -42,27 +42,27 @@ Widget customCards({
                         style: TextStyle(
                           color: myBlack,
                           fontFamily: 'inter',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 25,
                         ),
                         overflow: TextOverflow.ellipsis, // Prevent overflow
                       ),
                       Text(
                         'Release Date: ${releasedate.day}/${releasedate.month}/${releasedate.year}',
                         style: TextStyle(
-                          color: myBlack,
+                          color: myGrey,
                           fontFamily: 'inter',
                           fontWeight: FontWeight.w500,
-                          fontSize: 12,
+                          fontSize: 13,
                         ),
                       ),
                       Text(
                         'Popularity: $popularity',
                         style: TextStyle(
-                          color: myBlack,
+                          color: myGrey,
                           fontFamily: 'inter',
                           fontWeight: FontWeight.w500,
-                          fontSize: 12,
+                          fontSize: 13,
                         ),
                       ),
                     ],
