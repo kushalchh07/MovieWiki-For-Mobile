@@ -217,6 +217,31 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                 ),
               ),
               dividerText(
+                  context: context, dividerText: "Trending TV Shows", desc: ''),
+              SizedBox(
+                height: 320, // Adjust the height as needed
+                child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: state.trendingTvShowsList.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisExtent: 300,
+                    childAspectRatio: 0.3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) {
+                    final result = state.trendingTvShowsList[index];
+                    return customCards(
+                      title: result.name,
+                      posterpath: result.posterPath,
+                      releasedate: result.firstAirDate,
+                      popularity: result.popularity,
+                    );
+                  },
+                ),
+              ),
+              dividerText(
                   context: context, dividerText: "Trending Movies", desc: ''),
               SizedBox(
                 height: 320, // Adjust the height as needed
@@ -241,31 +266,7 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                   },
                 ),
               ),
-              dividerText(
-                  context: context, dividerText: "Popular TV Shows", desc: ''),
-              SizedBox(
-                height: 320, // Adjust the height as needed
-                child: GridView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: state.trendingTvShowsList.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisExtent: 300,
-                    childAspectRatio: 0.3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemBuilder: (context, index) {
-                    final result = state.trendingTvShowsList[index];
-                    return customCards(
-                      title: result.name,
-                      posterpath: result.posterPath,
-                      releasedate: result.firstAirDate,
-                      popularity: result.popularity,
-                    );
-                  },
-                ),
-              ),
+
               // dividerText(
               //     context: context, dividerText: "Top Animes", desc: ''),
               // SizedBox(
