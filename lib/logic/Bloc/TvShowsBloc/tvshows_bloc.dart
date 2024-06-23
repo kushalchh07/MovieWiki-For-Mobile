@@ -49,9 +49,9 @@ class TvshowsBloc extends Bloc<TvshowsEvent, TvshowsState> {
       final popularTvSeriesList = popularTvSeries.results;
       final topRatedSeriesList = topRatedSeries.results;
 
-      log(popularTvSeriesList.toString());
-            log(trendingTvShowsList.toString());
-      log(topRatedSeriesList.toString());
+      // log(popularTvSeriesList.toString());
+      //       log(trendingTvShowsList.toString());
+      // log(topRatedSeriesList.toString());
 
       if (trendingTvShows == null ||
           popularTvSeries == null ||
