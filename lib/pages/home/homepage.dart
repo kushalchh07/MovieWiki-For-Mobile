@@ -64,78 +64,78 @@ class _HomepageState extends State<Homepage> {
 
 Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
   return Scaffold(
-    appBar: AppBar(
-      toolbarHeight: 120,
-      backgroundColor: primaryColor,
-      elevation: 0,
-      leadingWidth: 30,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
-      ),
-      title: Padding(
-        padding: const EdgeInsets.only(right: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 8.0, left: 8, right: 8, bottom: 15),
-              child: Text(
-                "MovieWiki",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'poppins',
-                  fontSize: 25,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 5.0),
-              child: Container(
-                width: Get.width,
-                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Search',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: InputBorder.none,
-                    icon: Icon(Icons.search, color: Colors.grey),
-                  ),
-                  onChanged: (value) {
-                    // Handle search logic here
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      centerTitle: false,
-      leading: Padding(
-        padding: const EdgeInsets.only(bottom: 65.0),
-        child: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: Icon(
-                Icons.menu,
-                color: Colors.white,
-              ),
-            );
-          },
-        ),
-      ),
-    ),
+    // appBar: AppBar(
+    //   toolbarHeight: 120,
+    //   backgroundColor: primaryColor,
+    //   elevation: 0,
+    //   leadingWidth: 30,
+    //   shape: RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+    //   ),
+    //   title: Padding(
+    //     padding: const EdgeInsets.only(right: 20.0),
+    //     child: Column(
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         Padding(
+    //           padding: const EdgeInsets.only(
+    //               top: 8.0, left: 8, right: 8, bottom: 15),
+    //           child: Text(
+    //             "MovieWiki",
+    //             style: TextStyle(
+    //               color: Colors.white,
+    //               fontFamily: 'poppins',
+    //               fontSize: 25,
+    //             ),
+    //           ),
+    //         ),
+    //         SizedBox(
+    //           height: 5,
+    //         ),
+    //         Padding(
+    //           padding: const EdgeInsets.only(bottom: 5.0),
+    //           child: Container(
+    //             width: Get.width,
+    //             padding: EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+    //             decoration: BoxDecoration(
+    //               color: Colors.white,
+    //               borderRadius: BorderRadius.circular(30),
+    //             ),
+    //             child: TextField(
+    //               decoration: InputDecoration(
+    //                 hintText: 'Search',
+    //                 hintStyle: TextStyle(color: Colors.grey),
+    //                 border: InputBorder.none,
+    //                 icon: Icon(Icons.search, color: Colors.grey),
+    //               ),
+    //               onChanged: (value) {
+    //                 // Handle search logic here
+    //               },
+    //             ),
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    //   centerTitle: false,
+    //   leading: Padding(
+    //     padding: const EdgeInsets.only(bottom: 65.0),
+    //     child: Builder(
+    //       builder: (BuildContext context) {
+    //         return IconButton(
+    //           onPressed: () {
+    //             Scaffold.of(context).openDrawer();
+    //           },
+    //           icon: Icon(
+    //             Icons.menu,
+    //             color: Colors.white,
+    //           ),
+    //         );
+    //       },
+    //     ),
+    //   ),
+    // ),
     drawer: Drawer(
       child: ListView(
         padding: EdgeInsets.only(bottom: 20),

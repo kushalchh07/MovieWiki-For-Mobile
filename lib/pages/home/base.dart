@@ -1,3 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -38,66 +42,121 @@ class _BaseState extends State<Base> {
       // const ForumScreen(),
       Animes(),
     ];
-    return BlocConsumer<InternetBloc, InternetState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        if(state is InternetInitialState){}
-        if (state is InternetLostState) {
-          return Scaffold(
-            backgroundColor: whiteColor,
-            body: const Center(
-              child: Text("No Internet Connection"),
-            ),
-          );
-        }
-        if (state is InternetGainedState) {
-          return Scaffold(
-              backgroundColor: whiteColor,
-              // appBar: CustomAppBar(
-              //   height: size.height() * 0.12,
-              // ),
-              // drawer: CustomDrawer(),
-              bottomNavigationBar: BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                currentIndex: _selectedIndex!,
-                selectedItemColor: primaryColor,
-                selectedFontSize: Get.height * 0.015,
-                unselectedItemColor: Colors.grey,
-                backgroundColor: whiteColor,
-                onTap: _onItemTapped,
-                items: const [
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.home),
-                    label: 'Home',
+    return Scaffold(
+      
+      appBar: AppBar(
+        toolbarHeight: 120,
+        backgroundColor: primaryColor,
+        elevation: 0,
+        leadingWidth: 30,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+        ),
+        title: Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 8.0, left: 8, right: 8, bottom: 15),
+                child: Text(
+                  "MovieWiki",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'poppins',
+                    fontSize: 25,
                   ),
-
-                  BottomNavigationBarItem(
-                    icon: Icon(FontAwesomeIcons.newspaper),
-                    label: 'Movies',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.help_rounded),
-                    label: 'Tv Show',
-                  ),
-                  // BottomNavigationBarItem(
-                  //   icon: Icon(
-                  //     Icons.forum,
-                  //     size: 23,
-                  //   ),
-                  //   label: 'Forum',
-                  // ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.shopping_cart),
-                    label: 'Animes',
-                  ),
-                ],
+                ),
               ),
-              body: screens[_selectedIndex]);
-        }
-        return const Scaffold();
-      },
-    );
+              SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5.0),
+                child: Container(
+                  width: Get.width,
+                  padding: EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search',
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: InputBorder.none,
+                      icon: Icon(Icons.search, color: Colors.grey),
+                    ),
+                    onChanged: (value) {
+                      // Handle search logic here
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        centerTitle: false,
+        leading: Padding(
+          padding: const EdgeInsets.only(bottom: 65.0),
+          child: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                icon: Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+        backgroundColor: whiteColor,
+        // appBar: CustomAppBar(
+        //   height: size.height() * 0.12,
+        // ),
+        // drawer: CustomDrawer(),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _selectedIndex!,
+          selectedItemColor: primaryColor,
+          selectedFontSize: Get.height * 0.015,
+          unselectedItemColor: Colors.grey,
+          backgroundColor: whiteColor,
+          onTap: _onItemTapped,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+
+            BottomNavigationBarItem(
+              icon: Icon(Icons.movie),
+              label: 'Movies',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.tv_rounded),
+              label: 'Tv Show',
+            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(
+            //     Icons.forum,
+            //     size: 23,
+            //   ),
+            //   label: 'Forum',
+            // ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.animation_rounded),
+              label: 'Animes',
+            ),
+          ],
+        ),
+        body: screens[_selectedIndex])
+        ;
   }
 }

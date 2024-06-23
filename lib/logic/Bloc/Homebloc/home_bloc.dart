@@ -25,6 +25,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       HomeLoadEvent event, Emitter<HomeState> emit) async {
     try {
       emit(HomeLoadingState());
+      
       UpcomingMoviesRepository upcomingMoviesRepository =
           UpcomingMoviesRepository();
 
