@@ -8,9 +8,10 @@ final class TvshowsLoadingState extends TvshowsState {}
 
 final class TvshowsLoadedState extends TvshowsState {
   final List<Resultsss> trendingTvShowsList;
-
+final List<Res> popularTvSeriesList;
   TvshowsLoadedState({
     required this.trendingTvShowsList,
+    required this.popularTvSeriesList,
   });
 }
 

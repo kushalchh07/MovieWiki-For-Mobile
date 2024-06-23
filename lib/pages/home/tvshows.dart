@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_wiki/constants/size/size.dart';
@@ -33,16 +35,23 @@ class _TvShowsState extends State<TvShows> {
       },
       builder: (context, state) {
         if (state is TvshowsInitial) {
+          log("TvShows initial State");
           BlocProvider.of<TvshowsBloc>(context).add(LoadTvshowsEvent());
         }
         if (state is TvshowsLoadingState) {
+          log("TvShows Loading State");
+
           return const Center(child: CircularProgressIndicator());
         }
         if (state is TvshowsLoadedState) {
+          log("TvShows Loaded State");
+
           final AppSize size = AppSize(context: context);
           return showTvPage(size, context, state);
         }
         if (state is TvshowsErrorState) {
+          log("TvShows Error State");
+
           return const Center(child: Text('Error Occurred'));
         }
         return Container();
@@ -80,6 +89,31 @@ Widget showTvPage(
                   ),
                   itemBuilder: (context, index) {
                     final result = state.trendingTvShowsList[index];
+                    return customCards(
+                      title: result.name,
+                      posterpath: result.posterPath,
+                      releasedate: result.firstAirDate,
+                      popularity: result.popularity,
+                    );
+                  },
+                ),
+              ),
+              dividerText(
+                  context: context, dividerText: "Popular Tv Shows", desc: ''),
+              SizedBox(
+                height: 320, // Adjust the height as needed
+                child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: state.popularTvSeriesList.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisExtent: 300,
+                    childAspectRatio: 0.3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) {
+                    final result = state.popularTvSeriesList[index];
                     return customCards(
                       title: result.name,
                       posterpath: result.posterPath,
