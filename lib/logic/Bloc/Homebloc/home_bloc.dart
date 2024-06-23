@@ -25,7 +25,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       HomeLoadEvent event, Emitter<HomeState> emit) async {
     try {
       emit(HomeLoadingState());
-      
+
       UpcomingMoviesRepository upcomingMoviesRepository =
           UpcomingMoviesRepository();
 
@@ -37,7 +37,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       TopRatedRepository topRatedRepository = TopRatedRepository();
 
-      // TopAnimesRepository topAnimesRepository = TopAnimesRepository();
 
       dynamic upcomingMovies =
           await upcomingMoviesRepository.getUpcomingMovies();
@@ -50,14 +49,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       dynamic topRatedMovies = await topRatedRepository.getTopRatedMovies();
 
-      // dynamic topAnimes = await topAnimesRepository.getTopAnimes();
 
       if (upcomingMovies == null ||
-          trendingMoveis == null ||
-          trendingTvShows == null ||
-          topRatedMovies == null 
-          // ||
-          // topAnimes == null
+              trendingMoveis == null ||
+              trendingTvShows == null ||
+              topRatedMovies == null
+        
           ) {
         throw Exception('Failed to load response: Response is null');
       }
@@ -66,39 +63,33 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final trendingMoviesList = trendingMoveis.results;
       final trendingTvShowsList = trendingTvShows.results;
       final topRatedMoviesList = topRatedMovies.results;
-      // final topAnimesList = topAnimes.data;
-// log (topAnimesList.toString());
-      if (upcomingMoviesList == null ||
-          upcomingMoviesList.isEmpty ||
-          trendingMoviesList == null ||
-          trendingMoviesList.isEmpty ||
-          trendingTvShowsList == null ||
-          trendingTvShowsList.isEmpty ||
-          topRatedMoviesList == null ||
-          topRatedMoviesList.isEmpty
-          //  ||
-          // topAnimesList == null ||
-          // topAnimesList.isEmpty
-          ) {
+      
 
+      
+      if (upcomingMoviesList == null ||
+              upcomingMoviesList.isEmpty ||
+              trendingMoviesList == null ||
+              trendingMoviesList.isEmpty ||
+              trendingTvShowsList == null ||
+              trendingTvShowsList.isEmpty ||
+              topRatedMoviesList == null ||
+              topRatedMoviesList.isEmpty
+   
+          ) {
         throw Exception(
             'Failed to load one of movies loading failed: "results" field is null');
         log('Failed to load one of movies loading failed: "results" field is null');
       }
       // log(upcomingMoviesList.toString());
       emit(HomeLoadedState(
-          trendingMoviesList: trendingMoviesList,
-          upcomingMoviesList: upcomingMoviesList,
-          topRatedMoviesList: topRatedMoviesList,
-          trendingTvShowsList: trendingTvShowsList,
-          // topAnimesList: topAnimesList
-          // .map((jsonData) => UpcomingMoviesModel.fromJson(jsonData))
-          // .toList(),
-          ));
-    } 
-    catch (e) {
+        trendingMoviesList: trendingMoviesList,
+        upcomingMoviesList: upcomingMoviesList,
+        topRatedMoviesList: topRatedMoviesList,
+        trendingTvShowsList: trendingTvShowsList,
+       
+      ));
+    } catch (e) {
       if (e is Exception) {
-
         log(e.toString());
         throw Exception('Failed to load $e movies: $e');
       } else {

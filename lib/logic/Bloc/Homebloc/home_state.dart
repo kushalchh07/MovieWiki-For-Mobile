@@ -23,13 +23,13 @@ class HomeLoadedState extends HomeState {
   final List<Results> trendingMoviesList;
   final List<Resultss> topRatedMoviesList;
   final List<Resultsss> trendingTvShowsList;
-  // final List<TopAnime> topAnimesList;
+  
   const HomeLoadedState(
       {required this.upcomingMoviesList,
       required this.trendingMoviesList,
       required this.topRatedMoviesList,
       required this.trendingTvShowsList,
-      // required this.topAnimesList
+      
       });
 
   @override
@@ -38,7 +38,7 @@ class HomeLoadedState extends HomeState {
         trendingMoviesList,
         topRatedMoviesList,
         trendingTvShowsList,
-        // topAnimesList
+       
       ];
 }
 

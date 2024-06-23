@@ -4,7 +4,7 @@ import 'dart:convert';
 
 class TopAnimesModel {
   final Pagination pagination;
-  final List<TopAnime?> data;
+  final List<TopAnime> data;
 
   TopAnimesModel({
     required this.pagination,
@@ -17,6 +17,7 @@ class TopAnimesModel {
       data: (json['data'] as List<dynamic>?)
               ?.map((x) => x != null ? TopAnime.fromJson(x) : null)
               .where((x) => x != null)
+              .cast<TopAnime>()
               .toList() ??
           [],
     );
@@ -25,7 +26,7 @@ class TopAnimesModel {
   Map<String, dynamic> toJson() {
     return {
       'pagination': pagination.toJson(),
-      'data': data.map((x) => x!.toJson()).toList(),
+      'data': data.map((x) => x.toJson()).toList(),
     };
   }
 }
@@ -219,13 +220,13 @@ class TopAnime {
 
 class Aired {
   final DateTime from;
-  final DateTime to;
+  // final DateTime to;
   final Prop prop;
   final String string;
 
   Aired({
     required this.from,
-    required this.to,
+    // required this.to,
     required this.prop,
     required this.string,
   });
@@ -233,7 +234,7 @@ class Aired {
   factory Aired.fromJson(Map<String, dynamic> json) {
     return Aired(
       from: DateTime.parse(json['from']),
-      to: DateTime.parse(json['to']),
+      // to: DateTime.parse(json['to']),
       prop: Prop.fromJson(json['prop'] ?? {}),
       string: json['string'] ?? '',
     );
@@ -242,7 +243,7 @@ class Aired {
   Map<String, dynamic> toJson() {
     return {
       'from': from.toIso8601String(),
-      'to': to.toIso8601String(),
+      // 'to': to.toIso8601String(),
       'prop': prop.toJson(),
       'string': string,
     };
@@ -274,21 +275,21 @@ class Prop {
 }
 
 class From {
-  final int day;
-  final int month;
-  final int year;
+  final int? day;
+  final int? month;
+  final int? year;
 
   From({
-    required this.day,
-    required this.month,
-    required this.year,
+    this.day,
+    this.month,
+    this.year,
   });
 
   factory From.fromJson(Map<String, dynamic> json) {
     return From(
-      day: json['day'] ?? 0,
-      month: json['month'] ?? 0,
-      year: json['year'] ?? 0,
+      day: json['day'],
+      month: json['month'],
+      year: json['year'],
     );
   }
 
@@ -304,7 +305,7 @@ class From {
 class Broadcast {
   final String day;
   final String time;
-  final Timezone timezone;
+  final String timezone;
   final String string;
 
   Broadcast({
@@ -318,10 +319,7 @@ class Broadcast {
     return Broadcast(
       day: json['day'] ?? '',
       time: json['time'] ?? '',
-      timezone: Timezone.values.firstWhere(
-        (e) => e.toString() == 'Timezone.${json['timezone']}',
-        orElse: () => Timezone.ASIA_TOKYO,
-      ),
+      timezone: json['timezone'] ?? '',
       string: json['string'] ?? '',
     );
   }
@@ -330,7 +328,7 @@ class Broadcast {
     return {
       'day': day,
       'time': time,
-      'timezone': timezone.toString().split('.').last,
+      'timezone': timezone,
       'string': string,
     };
   }
@@ -338,7 +336,7 @@ class Broadcast {
 
 class Demographic {
   final int malId;
-  final DemographicType type;
+  final String type;
   final String name;
   final String url;
 
@@ -352,10 +350,7 @@ class Demographic {
   factory Demographic.fromJson(Map<String, dynamic> json) {
     return Demographic(
       malId: json['mal_id'] ?? 0,
-      type: DemographicType.values.firstWhere(
-        (e) => e.toString() == 'DemographicType.${json['type']}',
-        orElse: () => DemographicType.ANIME,
-      ),
+      type: json['type'] ?? '',
       name: json['name'] ?? '',
       url: json['url'] ?? '',
     );
@@ -364,7 +359,7 @@ class Demographic {
   Map<String, dynamic> toJson() {
     return {
       'mal_id': malId,
-      'type': type.toString().split('.').last,
+      'type': type,
       'name': name,
       'url': url,
     };
@@ -375,82 +370,19 @@ class Image {
   final String imageUrl;
   final String smallImageUrl;
   final String largeImageUrl;
+  final String maximumImageUrl;
 
   Image({
     required this.imageUrl,
     required this.smallImageUrl,
     required this.largeImageUrl,
+    required this.maximumImageUrl,
   });
 
   factory Image.fromJson(Map<String, dynamic> json) {
     return Image(
       imageUrl: json['image_url'] ?? '',
       smallImageUrl: json['small_image_url'] ?? '',
-      largeImageUrl: json['large_image_url'] ?? '',
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'image_url': imageUrl,
-      'small_image_url': smallImageUrl,
-      'large_image_url': largeImageUrl,
-    };
-  }
-}
-
-class Trailer {
-  final String youtubeId;
-  final String url;
-  final String embedUrl;
-  final Images images;
-
-  Trailer({
-    required this.youtubeId,
-    required this.url,
-    required this.embedUrl,
-    required this.images,
-  });
-
-  factory Trailer.fromJson(Map<String, dynamic> json) {
-    return Trailer(
-      youtubeId: json['youtube_id'] ?? '',
-      url: json['url'] ?? '',
-      embedUrl: json['embed_url'] ?? '',
-      images: Images.fromJson(json['images'] ?? {}),
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'youtube_id': youtubeId,
-      'url': url,
-      'embed_url': embedUrl,
-      'images': images.toJson(),
-    };
-  }
-}
-
-class Images {
-  final String imageUrl;
-  final String smallImageUrl;
-  final String mediumImageUrl;
-  final String largeImageUrl;
-  final String maximumImageUrl;
-
-  Images({
-    required this.imageUrl,
-    required this.smallImageUrl,
-    required this.mediumImageUrl,
-    required this.largeImageUrl,
-    required this.maximumImageUrl,
-  });
-
-  factory Images.fromJson(Map<String, dynamic> json) {
-    return Images(
-      imageUrl: json['image_url'] ?? '',
-      smallImageUrl: json['small_image_url'] ?? '',
-      mediumImageUrl: json['medium_image_url'] ?? '',
       largeImageUrl: json['large_image_url'] ?? '',
       maximumImageUrl: json['maximum_image_url'] ?? '',
     );
@@ -460,12 +392,78 @@ class Images {
     return {
       'image_url': imageUrl,
       'small_image_url': smallImageUrl,
-      'medium_image_url': mediumImageUrl,
       'large_image_url': largeImageUrl,
       'maximum_image_url': maximumImageUrl,
     };
   }
 }
+
+class Title {
+  final String type;
+  final String title;
+
+  Title({
+    required this.type,
+    required this.title,
+  });
+
+  factory Title.fromJson(Map<String, dynamic> json) {
+    return Title(
+      type: json['type'] ?? '',
+      title: json['title'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'type': type,
+      'title': title,
+    };
+  }
+}
+
+class Trailer {
+  final String youtubeId;
+  final String url;
+  final String embedUrl;
+
+  Trailer({
+    required this.youtubeId,
+    required this.url,
+    required this.embedUrl,
+  });
+
+  factory Trailer.fromJson(Map<String, dynamic> json) {
+    return Trailer(
+      youtubeId: json['youtube_id'] ?? '',
+      url: json['url'] ?? '',
+      embedUrl: json['embed_url'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'youtube_id': youtubeId,
+      'url': url,
+      'embed_url': embedUrl,
+    };
+  }
+}
+
+enum DatumType { TV, MOVIE, OVA, SPECIAL, ONA, MUSIC }
+
+enum Status { FINISHED_AIRING, CURRENTLY_AIRING, NOT_YET_AIRED }
+
+enum Rating {
+  G_ALL_AGES,
+  PG_CHILDREN,
+  PG_13_TEENS_13_OR_OLDER,
+  R_17_VIOLENCE_PROFANITY,
+  R_PLUS_MILD_NUDITY,
+  RX_HENTAI
+}
+
+enum Season { FALL, WINTER, SUMMER, SPRING }
 
 class Pagination {
   final int lastVisiblePage;
@@ -523,75 +521,6 @@ class Items {
       'count': count,
       'total': total,
       'per_page': perPage,
-    };
-  }
-}
-
-enum Timezone {
-  ASIA_TOKYO,
-}
-
-enum DemographicType {
-  ANIME,
-}
-
-enum Rating {
-  PG_13_TEENS_13_OR_OLDER,
-  R_17_VIOLENCE_PROFANITY,
-  R_MILD_NUDITY,
-}
-
-enum Season {
-  FALL,
-  SPRING,
-  SUMMER,
-  WINTER,
-}
-
-enum Status {
-  FINISHED_AIRING,
-}
-
-enum TitleType {
-  DEFAULT,
-  ENGLISH,
-  FRENCH,
-  GERMAN,
-  JAPANESE,
-  SPANISH,
-  SYNONYM,
-}
-
-enum DatumType {
-  MOVIE,
-  OVA,
-  TV,
-  TV_SPECIAL,
-}
-
-class Title {
-  final TitleType type;
-  final String title;
-
-  Title({
-    required this.type,
-    required this.title,
-  });
-
-  factory Title.fromJson(Map<String, dynamic> json) {
-    return Title(
-      type: TitleType.values.firstWhere(
-        (e) => e.toString() == 'TitleType.${json['type']}',
-        orElse: () => TitleType.DEFAULT,
-      ),
-      title: json['title'] ?? '',
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'type': type.toString().split('.').last,
-      'title': title,
     };
   }
 }
