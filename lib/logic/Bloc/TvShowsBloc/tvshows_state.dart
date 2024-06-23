@@ -9,7 +9,9 @@ final class TvshowsLoadingState extends TvshowsState {}
 final class TvshowsLoadedState extends TvshowsState {
   final List<Resultsss> trendingTvShowsList;
 final List<Res> popularTvSeriesList;
+final List<TopTv> topRatedTvSeriesList;
   TvshowsLoadedState({
+    required this.topRatedTvSeriesList,
     required this.trendingTvShowsList,
     required this.popularTvSeriesList,
   });
