@@ -8,7 +8,7 @@ import 'package:movie_wiki/logic/Bloc/animeBloc/anime_bloc.dart';
 
 import '../../constants/size/size.dart';
 import '../../utils/customWidgets/customCard_for_anime.dart';
-import '../../utils/customWidgets/custom_cards.dart';
+
 import '../../utils/customWidgets/dividerText.dart';
 
 class Animes extends StatefulWidget {
