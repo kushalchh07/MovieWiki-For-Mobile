@@ -9,6 +9,7 @@ import 'package:movie_wiki/logic/Bloc/animeDescriptionBloc/anime_description_blo
 import 'package:movie_wiki/pages/Description/anime_description.dart';
 
 Widget customCardsAnime({
+  required dynamic index,
   dynamic context,
   required String title,
   required String posterpath,
@@ -24,7 +25,6 @@ Widget customCardsAnime({
         MaterialPageRoute(
           builder: (context) => MultiBlocProvider(
             providers: [
-              
               // QuizQuestionsBloc
 
               BlocProvider(
@@ -32,9 +32,7 @@ Widget customCardsAnime({
               ),
               // BlocProvider(create: (context) => CourseAuthorBloc())
             ],
-            child: AnimeDescription(
-           
-            ),
+            child: AnimeDescription(),
           ),
         ),
       );
@@ -83,7 +81,6 @@ Widget customCardsAnime({
                         ),
                       ),
                       Text(
-                        
                         'Popularity: $popularity',
                         style: TextStyle(
                           color: myGrey,

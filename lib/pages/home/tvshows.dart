@@ -90,7 +90,7 @@ Widget showTvPage(
                   ),
                   itemBuilder: (context, index) {
                     final result = state.trendingTvShowsList[index];
-                    return customCardsTvshows(
+                    return customCardsTvshows(index: index,
                       context: 
                           context,
                       title: result.name,
@@ -119,7 +119,7 @@ Widget showTvPage(
                   ),
                   itemBuilder: (context, index) {
                     final result = state.topRatedTvSeriesList[index];
-                    return customCardsTvshows(
+                    return customCardsTvshows(index: index,
                       context: context,
                       title: result.name,
                       posterpath: result.posterPath,
@@ -145,7 +145,7 @@ Widget showTvPage(
                   ),
                   itemBuilder: (context, index) {
                     final result = state.popularTvSeriesList[index];
-                    return customCardsTvshows(
+                    return customCardsTvshows(index: index,
                       context: 
                       context,
                       title: result.name,

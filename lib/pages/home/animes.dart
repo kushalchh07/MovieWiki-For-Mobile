@@ -105,6 +105,7 @@ Widget showAnimePage(
                     // final releaseDate = result.entry.first.aired.from ?? '';
                     // final popularity = result.entry.first.score;
                     return customCardsAnime(
+                      index: index,
                       context: context,
                       title: result.entry.first.title,
                       posterpath: imageUrl,
@@ -132,6 +133,7 @@ Widget showAnimePage(
                     final result = state.topAnimesList[index];
                     final imageUrl = result.images['jpg']?.imageUrl ?? '';
                     return customCardsAnime(
+                      index: index,
                       context: context,
                       title: result.title,
                       posterpath: imageUrl,
@@ -159,6 +161,7 @@ Widget showAnimePage(
                     final result = state.topMangaList[index];
                     final imageUrl = result.images['jpg']?.imageUrl ?? '';
                     return customCardsAnime(
+                      index: index,
                       context: context,
                       title: result.title,
                       posterpath: imageUrl,

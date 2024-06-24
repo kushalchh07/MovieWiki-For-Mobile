@@ -12,7 +12,8 @@ import '../../logic/Bloc/TvShowDescriptionbloc/tvshow_description_bloc.dart';
 import '../../logic/Bloc/movieDescriptionBloc/movie_description_bloc.dart';
 import '../../pages/Description/movie_description.dart';
 
-Widget customCardsTvshows({
+Widget customCardsTvshows({    required dynamic index,
+
   required dynamic context,
   required String title,
   required String posterpath,

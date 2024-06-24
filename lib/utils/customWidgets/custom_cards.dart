@@ -13,6 +13,8 @@ import '../../pages/Description/movie_description.dart';
 Widget customCards({
   required dynamic context,
   required String title,
+    required dynamic index,
+
   required String posterpath,
   required DateTime releasedate,
   required double popularity,

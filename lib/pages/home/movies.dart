@@ -97,6 +97,7 @@ Widget showMoviePage(
                 itemBuilder: (context, index) {
                   final result = state.topRatedMoviesList[index];
                   return customCards(
+                    index: index,
                     context: context,
                     title: result.title,
                     posterpath: result.posterPath,
@@ -123,6 +124,7 @@ Widget showMoviePage(
                 itemBuilder: (context, index) {
                   final result = state.upcomingMoviesList[index];
                   return customCards(
+                        index: index,
                     context: context,
                     title: result.title,
                     posterpath: result.posterPath,
@@ -148,7 +150,7 @@ Widget showMoviePage(
                 ),
                 itemBuilder: (context, index) {
                   final result = state.trendingMoviesList[index];
-                  return customCards(
+                  return customCards(    index: index,
                     context: context,
                     title: result.title,
                     posterpath: result.posterPath,

@@ -13,6 +13,7 @@ import 'package:movie_wiki/logic/Bloc/Homebloc/home_bloc.dart';
 import 'package:movie_wiki/logic/Bloc/Homebloc/home_state.dart';
 
 import 'package:movie_wiki/models/upcoming_moveis_model.dart';
+import 'package:movie_wiki/utils/customWidgets/custom_card_for_tvshows.dart';
 import 'package:movie_wiki/utils/customWidgets/custom_cards.dart';
 import 'package:movie_wiki/utils/customWidgets/dividerText.dart';
 // import 'package:movie_wiki/models/top_rated_movies_model.dart';
@@ -208,6 +209,7 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                   itemBuilder: (context, index) {
                     final result = state.upcomingMoviesList[index];
                     return customCards(
+                      index: index,
                       context: context,
                       title: result.title,
                       posterpath: result.posterPath,
@@ -233,7 +235,7 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                   ),
                   itemBuilder: (context, index) {
                     final result = state.trendingTvShowsList[index];
-                    return customCards(
+                    return customCardsTvshows(index: index,
                       context: context,
                       title: result.name,
                       posterpath: result.posterPath,
@@ -260,6 +262,7 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                   itemBuilder: (context, index) {
                     final result = state.trendingMoviesList[index];
                     return customCards(
+                      index: index,
                       context: context,
                       title: result.title,
                       posterpath: result.posterPath,
@@ -269,8 +272,6 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                   },
                 ),
               ),
-
-              
             ],
           ),
         ),
