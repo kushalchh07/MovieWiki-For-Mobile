@@ -75,6 +75,37 @@ Widget showAnimePage(
           child: Column(
             children: [
               dividerText(
+                  context: context,
+                  dividerText: "Recommended Animes",
+                  desc: ''),
+              SizedBox(
+                height: 320, // Adjust the height as needed
+                child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: state.recommendedAnimesList.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisExtent: 300,
+                    childAspectRatio: 0.3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) {
+                    final result = state.recommendedAnimesList[index];
+                    final imageUrl =
+                        result.entry.first.images['jpg']?.imageUrl ?? '';
+                    // final releaseDate = result.entry.first.aired.from ?? '';
+                    // final popularity = result.entry.first.score;
+                    return customCardsAnime(
+                      title: result.entry.first.title,
+                      posterpath: imageUrl,
+                      // releasedate: result.aired.from,
+                      // popularity: result.score,
+                    );
+                  },
+                ),
+              ),
+              dividerText(
                   context: context, dividerText: "Top Animes", desc: ''),
               SizedBox(
                 height: 320, // Adjust the height as needed

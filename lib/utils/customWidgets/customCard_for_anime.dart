@@ -8,9 +8,12 @@ import 'package:movie_wiki/constants/colors/colors.dart';
 Widget customCardsAnime({
   required String title,
   required String posterpath,
-  required DateTime releasedate,
-  required double popularity,
+  DateTime? releasedate,
+  double? popularity,
 }) {
+  final String releaseDateString =
+      releasedate != null ? releasedate.toString() : 'Unknown';
+
   return GestureDetector(
     onTap: () {},
     child: Padding(
@@ -48,7 +51,7 @@ Widget customCardsAnime({
                         overflow: TextOverflow.ellipsis, // Prevent overflow
                       ),
                       Text(
-                        'Release Date: ${releasedate.day}/${releasedate.month}/${releasedate.year}',
+                        'Release Date: ${releaseDateString}',
                         style: TextStyle(
                           color: myGrey,
                           fontFamily: 'inter',
@@ -57,6 +60,7 @@ Widget customCardsAnime({
                         ),
                       ),
                       Text(
+                        
                         'Popularity: $popularity',
                         style: TextStyle(
                           color: myGrey,

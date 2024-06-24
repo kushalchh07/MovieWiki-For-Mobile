@@ -10,7 +10,8 @@ final class AnimeLoadingState extends AnimeState {}
 final class AnimeLoadedState extends AnimeState {
   final List<TopAnime> topAnimesList;
   final List<Datum> topMangaList;
-  AnimeLoadedState({required this.topAnimesList, required this.topMangaList});
+  final List<dynamic> recommendedAnimesList;
+  AnimeLoadedState({required this.topAnimesList, required this.topMangaList, required this.recommendedAnimesList});
 }
 
 final class AnimeErrorState extends AnimeState {
