@@ -90,42 +90,44 @@ class _MovieDescriptionState extends State<MovieDescription> {
                         ),
                       ),
                       SizedBox(width: 20),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.title,
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w800,
-                                fontFamily: 'poppins'),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            'Release Date: ${DateFormat.yMMMd().format(widget.releasedate)}',
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: myLightGrey,
-                                fontFamily: 'poppins'),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            'Popularity: ${widget.popularity}',
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: myLightGrey,
-                                fontFamily: 'poppins'),
-                          ),
-                          if (widget.adult)
+                      Flexible(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             Text(
-                              'Adult: For 18+ only',
+                              widget.title,
                               style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.red, // Adjust color as needed
-                              ),
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w800,
+                                  fontFamily: 'poppins'),
                             ),
-                        ],
+                            SizedBox(height: 10),
+                            Text(
+                              'Release Date: ${DateFormat.yMMMd().format(widget.releasedate)}',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: myGrey,
+                                  fontFamily: 'poppins'),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              'Popularity: ${widget.popularity}',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: myGrey,
+                                  fontFamily: 'poppins'),
+                            ),
+                            if (widget.adult)
+                              Text(
+                                'Adult: For 18+ only',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.red, // Adjust color as needed
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -138,12 +140,14 @@ class _MovieDescriptionState extends State<MovieDescription> {
                         fontFamily: 'poppins'),
                   ),
                   SizedBox(height: 10),
-                  Text(
-                    widget.overview,
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: myLightGrey,
-                        fontFamily: 'poppins'),
+                  Flexible(
+                    child: Text(
+                      widget.overview,
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: myLightGrey,
+                          fontFamily: 'poppins'),
+                    ),
                   ),
                 ],
               ),
