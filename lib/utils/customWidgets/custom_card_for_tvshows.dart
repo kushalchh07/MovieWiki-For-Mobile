@@ -12,34 +12,40 @@ import '../../logic/Bloc/TvShowDescriptionbloc/tvshow_description_bloc.dart';
 import '../../logic/Bloc/movieDescriptionBloc/movie_description_bloc.dart';
 import '../../pages/Description/movie_description.dart';
 
-Widget customCardsTvshows({    required dynamic index,
-
+Widget customCardsTvshows({
+  required dynamic index,
   required dynamic context,
   required String title,
   required String posterpath,
   required DateTime releasedate,
   required double popularity,
-    required String backdroppath,
-
+  required String backdroppath,
+  required String overview,
+  required bool adult,
 }) {
-    AppSize size = AppSize(context: context);
+  AppSize size = AppSize(context: context);
 
   return GestureDetector(
     onTap: () {
-Navigator.of(context).push(
+      Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => MultiBlocProvider(
             providers: [
-              
-      
-
               BlocProvider(
-                create: (context) => TvshowDescriptionBloc (),
+                create: (context) => TvshowDescriptionBloc(),
               ),
               //
             ],
             child: TvShowDescription(
-           
+              backdroppath: backdroppath,
+              context: context,
+              title: title,
+              index: index,
+              posterpath: posterpath,
+              releasedate: releasedate,
+              popularity: popularity,
+              overview: overview,
+              adult: adult,
             ),
           ),
         ),

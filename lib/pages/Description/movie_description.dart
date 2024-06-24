@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:intl/intl.dart'; // For date formatting
+import 'package:movie_wiki/constants/colors/colors.dart';
 import '../../logic/Bloc/movieDescriptionBloc/movie_description_bloc.dart';
 
 class MovieDescription extends StatefulWidget {
@@ -76,37 +77,58 @@ class _MovieDescriptionState extends State<MovieDescription> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Text(
-                    widget.title,
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'poppins'),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Release Date: ${DateFormat.yMMMd().format(widget.releasedate)}',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey[700],
-                        fontFamily: 'poppins'),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Popularity: ${widget.popularity}',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey[700],
-                        fontFamily: 'poppins'),
-                  ),
-                  if (widget.adult)
-                    Text(
-                      'Adult: For 18+ only',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.red, // Adjust color as needed
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        height: Get.height * 0.2,
+                        width: Get.width * 0.3,
+                        child: Card(
+                          child: Image.network(
+                            "https://image.tmdb.org/t/p/w500${widget.posterpath}",
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(width: 20),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.title,
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: 'poppins'),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'Release Date: ${DateFormat.yMMMd().format(widget.releasedate)}',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: myLightGrey,
+                                fontFamily: 'poppins'),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'Popularity: ${widget.popularity}',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: myLightGrey,
+                                fontFamily: 'poppins'),
+                          ),
+                          if (widget.adult)
+                            Text(
+                              'Adult: For 18+ only',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.red, // Adjust color as needed
+                              ),
+                            ),
+                        ],
+                      ),
+                    ],
+                  ),
                   SizedBox(height: 20),
                   Text(
                     'Overview',
@@ -120,7 +142,7 @@ class _MovieDescriptionState extends State<MovieDescription> {
                     widget.overview,
                     style: TextStyle(
                         fontSize: 18,
-                        color: Colors.grey[800],
+                        color: myLightGrey,
                         fontFamily: 'poppins'),
                   ),
                 ],

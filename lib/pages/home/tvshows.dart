@@ -90,13 +90,16 @@ Widget showTvPage(
                   ),
                   itemBuilder: (context, index) {
                     final result = state.trendingTvShowsList[index];
-                    return customCardsTvshows(index: index,
-                      context: 
-                          context,
+                    return customCardsTvshows(
+                      index: index,
+                      context: context,
                       title: result.name,
                       posterpath: result.posterPath,
                       releasedate: result.firstAirDate,
-                      popularity: result.popularity,      backdroppath: result.backdropPath,
+                      popularity: result.popularity,
+                      backdroppath: result.backdropPath,
+                      overview: result.overview,
+                      adult: result.adult,
                     );
                   },
                 ),
@@ -119,12 +122,16 @@ Widget showTvPage(
                   ),
                   itemBuilder: (context, index) {
                     final result = state.topRatedTvSeriesList[index];
-                    return customCardsTvshows(index: index,
+                    return customCardsTvshows(
+                      index: index,
                       context: context,
                       title: result.name,
                       posterpath: result.posterPath,
                       releasedate: result.firstAirDate,
-                      popularity: result.popularity,      backdroppath: result.backdropPath,
+                      popularity: result.popularity,
+                      backdroppath: result.backdropPath,
+                      overview: result.overview,
+                      adult: result.adult,
                     );
                   },
                 ),
@@ -148,12 +155,13 @@ Widget showTvPage(
                     return customCardsTvshows(
                       backdroppath: result.backdropPath,
                       index: index,
-                      context: 
-                      context,
+                      context: context,
                       title: result.name,
                       posterpath: result.posterPath,
                       releasedate: result.firstAirDate,
                       popularity: result.popularity,
+                      overview: result.overview,
+                      adult: result.adult,
                     );
                   },
                 ),

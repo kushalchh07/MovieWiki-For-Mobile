@@ -216,7 +216,8 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                       posterpath: result.posterPath,
                       releasedate: result.releaseDate,
                       popularity: result.popularity,
-                      adult: result.adult,      backdroppath: result.backdropPath,
+                      adult: result.adult,
+                      backdroppath: result.backdropPath,
                     );
                   },
                 ),
@@ -243,7 +244,10 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                       title: result.name,
                       posterpath: result.posterPath,
                       releasedate: result.firstAirDate,
-                      popularity: result.popularity,      backdroppath: result.backdropPath,
+                      popularity: result.popularity,
+                      backdroppath: result.backdropPath,
+                      overview: result.overview,
+                      adult: result.adult,
                     );
                   },
                 ),
@@ -272,7 +276,8 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                       posterpath: result.posterPath,
                       releasedate: result.releaseDate,
                       popularity: result.popularity,
-                      adult: result.adult,      backdroppath: result.backdropPath,
+                      adult: result.adult,
+                      backdroppath: result.backdropPath,
                     );
                   },
                 ),
