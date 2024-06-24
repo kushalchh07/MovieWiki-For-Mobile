@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_wiki/constants/size/size.dart';
 import 'package:movie_wiki/logic/Bloc/TvShowsBloc/tvshows_bloc.dart';
+import 'package:movie_wiki/utils/customWidgets/custom_card_for_tvshows.dart';
 
 import '../../utils/customWidgets/custom_cards.dart';
 import '../../utils/customWidgets/dividerText.dart';
@@ -89,7 +90,9 @@ Widget showTvPage(
                   ),
                   itemBuilder: (context, index) {
                     final result = state.trendingTvShowsList[index];
-                    return customCards(
+                    return customCardsTvshows(
+                      context: 
+                          context,
                       title: result.name,
                       posterpath: result.posterPath,
                       releasedate: result.firstAirDate,
@@ -116,7 +119,8 @@ Widget showTvPage(
                   ),
                   itemBuilder: (context, index) {
                     final result = state.topRatedTvSeriesList[index];
-                    return customCards(
+                    return customCardsTvshows(
+                      context: context,
                       title: result.name,
                       posterpath: result.posterPath,
                       releasedate: result.firstAirDate,
@@ -141,7 +145,9 @@ Widget showTvPage(
                   ),
                   itemBuilder: (context, index) {
                     final result = state.popularTvSeriesList[index];
-                    return customCards(
+                    return customCardsTvshows(
+                      context: 
+                      context,
                       title: result.name,
                       posterpath: result.posterPath,
                       releasedate: result.firstAirDate,

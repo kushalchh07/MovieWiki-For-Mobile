@@ -71,95 +71,96 @@ Widget showMoviePage(
     AppSize size, BuildContext context, MoviesLoadedState state) {
   return Scaffold(
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: RefreshIndicator.adaptive(
-          onRefresh: () async {
-            BlocProvider.of<MoviesBloc>(context).add(LoadMoviesEvent());
-          },
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              children: [
-                dividerText(
+    physics: BouncingScrollPhysics(),
+    child: RefreshIndicator.adaptive(
+      onRefresh: () async {
+        BlocProvider.of<MoviesBloc>(context).add(LoadMoviesEvent());
+      },
+      child: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            dividerText(
+                context: context, dividerText: "Top Rated Movies", desc: ''),
+            SizedBox(
+              height: 320, // Adjust the height as needed
+              child: GridView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: state.topRatedMoviesList.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  mainAxisExtent: 300,
+                  childAspectRatio: 0.3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+                itemBuilder: (context, index) {
+                  final result = state.topRatedMoviesList[index];
+                  return customCards(
                     context: context,
-                    dividerText: "Top Rated Movies",
-                    desc: ''),
-                SizedBox(
-                  height: 320, // Adjust the height as needed
-                  child: GridView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: state.topRatedMoviesList.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
-                      mainAxisExtent: 300,
-                      childAspectRatio: 0.3,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                    ),
-                    itemBuilder: (context, index) {
-                      final result = state.topRatedMoviesList[index];
-                      return customCards(
-                        title: result.title,
-                        posterpath: result.posterPath,
-                        releasedate: result.releaseDate,
-                        popularity: result.popularity,
-                      );
-                    },
-                  ),
-                ),
-                dividerText(
-                    context: context, dividerText: "Upcoming Movies", desc: ''),
-                SizedBox(
-                  height: 320, // Adjust the height as needed
-                  child: GridView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: state.upcomingMoviesList.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
-                      mainAxisExtent: 300,
-                      childAspectRatio: 0.3,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                    ),
-                    itemBuilder: (context, index) {
-                      final result = state.upcomingMoviesList[index];
-                      return customCards(
-                        title: result.title,
-                        posterpath: result.posterPath,
-                        releasedate: result.releaseDate,
-                        popularity: result.popularity,
-                      );
-                    },
-                  ),
-                ),
-                dividerText(
-                    context: context, dividerText: "Trending Movies", desc: ''),
-                SizedBox(
-                  height: 320, // Adjust the height as needed
-                  child: GridView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: state.trendingMoviesList.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
-                      mainAxisExtent: 300,
-                      childAspectRatio: 0.3,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                    ),
-                    itemBuilder: (context, index) {
-                      final result = state.trendingMoviesList[index];
-                      return customCards(
-                        title: result.title,
-                        posterpath: result.posterPath,
-                        releasedate: result.releaseDate,
-                        popularity: result.popularity,
-                      );
-                    },
-                  ),
-                ),
-              ],
+                    title: result.title,
+                    posterpath: result.posterPath,
+                    releasedate: result.releaseDate,
+                    popularity: result.popularity,
+                  );
+                },
+              ),
             ),
-          ),
+            dividerText(
+                context: context, dividerText: "Upcoming Movies", desc: ''),
+            SizedBox(
+              height: 320, // Adjust the height as needed
+              child: GridView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: state.upcomingMoviesList.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  mainAxisExtent: 300,
+                  childAspectRatio: 0.3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+                itemBuilder: (context, index) {
+                  final result = state.upcomingMoviesList[index];
+                  return customCards(
+                    context: context,
+                    title: result.title,
+                    posterpath: result.posterPath,
+                    releasedate: result.releaseDate,
+                    popularity: result.popularity,
+                  );
+                },
+              ),
+            ),
+            dividerText(
+                context: context, dividerText: "Trending Movies", desc: ''),
+            SizedBox(
+              height: 320, // Adjust the height as needed
+              child: GridView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: state.trendingMoviesList.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  mainAxisExtent: 300,
+                  childAspectRatio: 0.3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+                itemBuilder: (context, index) {
+                  final result = state.trendingMoviesList[index];
+                  return customCards(
+                    context: context,
+                    title: result.title,
+                    posterpath: result.posterPath,
+                    releasedate: result.releaseDate,
+                    popularity: result.popularity,
+                  );
+                },
+              ),
+            ),
+          ],
         ),
-      ));
+      ),
+    ),
+  ));
 }

@@ -208,6 +208,7 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                   itemBuilder: (context, index) {
                     final result = state.upcomingMoviesList[index];
                     return customCards(
+                      context: context,
                       title: result.title,
                       posterpath: result.posterPath,
                       releasedate: result.releaseDate,
@@ -233,6 +234,7 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                   itemBuilder: (context, index) {
                     final result = state.trendingTvShowsList[index];
                     return customCards(
+                      context: context,
                       title: result.name,
                       posterpath: result.posterPath,
                       releasedate: result.firstAirDate,
@@ -258,6 +260,7 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                   itemBuilder: (context, index) {
                     final result = state.trendingMoviesList[index];
                     return customCards(
+                      context: context,
                       title: result.title,
                       posterpath: result.posterPath,
                       releasedate: result.releaseDate,
