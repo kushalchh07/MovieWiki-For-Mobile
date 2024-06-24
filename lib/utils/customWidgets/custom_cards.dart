@@ -1,18 +1,45 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:movie_wiki/constants/colors/colors.dart';
+import 'package:movie_wiki/constants/size/size.dart';
+
+import '../../logic/Bloc/movieDescriptionBloc/movie_description_bloc.dart';
+import '../../pages/Description/movie_description.dart';
 
 Widget customCards({
+  required dynamic context,
   required String title,
   required String posterpath,
   required DateTime releasedate,
   required double popularity,
 }) {
+    AppSize size = AppSize(context: context);
+
   return GestureDetector(
-    onTap: () {},
+    onTap: () {
+Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              
+              // QuizQuestionsBloc
+
+              BlocProvider(
+                create: (context) => MovieDescriptionBloc(),
+              ),
+              // BlocProvider(create: (context) => CourseAuthorBloc())
+            ],
+            child: MovieDescription(
+           
+            ),
+          ),
+        ),
+      );
+    },
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(

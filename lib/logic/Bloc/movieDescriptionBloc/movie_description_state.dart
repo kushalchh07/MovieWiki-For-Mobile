@@ -1,0 +1,6 @@
+part of 'movie_description_bloc.dart';
+
+@immutable
+sealed class MovieDescriptionState {}
+
+final class MovieDescriptionInitial extends MovieDescriptionState {}
