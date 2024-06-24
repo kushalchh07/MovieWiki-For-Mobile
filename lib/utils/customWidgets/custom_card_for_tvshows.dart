@@ -19,6 +19,8 @@ Widget customCardsTvshows({    required dynamic index,
   required String posterpath,
   required DateTime releasedate,
   required double popularity,
+    required String backdroppath,
+
 }) {
     AppSize size = AppSize(context: context);
 

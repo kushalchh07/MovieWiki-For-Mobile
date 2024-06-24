@@ -97,13 +97,15 @@ Widget showMoviePage(
                 itemBuilder: (context, index) {
                   final result = state.topRatedMoviesList[index];
                   return customCards(
+                    backdroppath: result.backdropPath,
                     overview: result.overview,
                     index: index,
                     context: context,
                     title: result.title,
                     posterpath: result.posterPath,
                     releasedate: result.releaseDate,
-                    popularity: result.popularity,
+                    popularity: result.popularity,                    adult: result.adult,
+
                   );
                 },
               ),
@@ -126,13 +128,15 @@ Widget showMoviePage(
                   final result = state.upcomingMoviesList[index];
                   return customCards(
 
+                      backdroppath: result.backdropPath,
                     overview: result.overview,
                         index: index,
                     context: context,
                     title: result.title,
                     posterpath: result.posterPath,
                     releasedate: result.releaseDate,
-                    popularity: result.popularity,
+                    popularity: result.popularity,                    adult: result.adult,
+
                   );
                 },
               ),
@@ -154,6 +158,7 @@ Widget showMoviePage(
                 itemBuilder: (context, index) {
                   final result = state.trendingMoviesList[index];
                   return customCards(   
+      backdroppath: result.backdropPath,
                     overview: result.overview,
                      index: index,
                     context: context,
@@ -161,6 +166,7 @@ Widget showMoviePage(
                     posterpath: result.posterPath,
                     releasedate: result.releaseDate,
                     popularity: result.popularity,
+                    adult: result.adult,
                   );
                 },
               ),

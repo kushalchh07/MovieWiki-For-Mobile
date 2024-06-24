@@ -9,6 +9,7 @@ import 'package:intl/intl.dart'; // For date formatting
 import '../../logic/Bloc/movieDescriptionBloc/movie_description_bloc.dart';
 
 class MovieDescription extends StatefulWidget {
+  final bool adult;
   final String overview;
   final dynamic context;
   final String title;
@@ -16,6 +17,7 @@ class MovieDescription extends StatefulWidget {
   final String posterpath;
   final DateTime releasedate;
   final double popularity;
+  final String backdroppath;
 
   MovieDescription({
     super.key,
@@ -26,6 +28,8 @@ class MovieDescription extends StatefulWidget {
     required this.releasedate,
     required this.popularity,
     required this.overview,
+    required this.adult,
+    required this.backdroppath,
   });
 
   @override
@@ -55,20 +59,19 @@ class _MovieDescriptionState extends State<MovieDescription> {
           }
           if (state is MovieDescriptionLoadedState) {
             log("MovieDescription Loaded State");
-
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: Get.height * 0.4,
+                    height: Get.height * 0.3,
                     width: Get.width * 0.9,
                     child: Center(
                       child: Image.network(
-                        "https://image.tmdb.org/t/p/w500${widget.posterpath}",
-                        fit: BoxFit.contain,
-                        // height: 300,
+                        "https://image.tmdb.org/t/p/w500${widget.backdroppath}",
+                        fit: BoxFit.fill,
+                        height: 300,
                       ),
                     ),
                   ),
@@ -76,41 +79,49 @@ class _MovieDescriptionState extends State<MovieDescription> {
                   Text(
                     widget.title,
                     style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'poppins'),
                   ),
                   SizedBox(height: 10),
                   Text(
                     'Release Date: ${DateFormat.yMMMd().format(widget.releasedate)}',
                     style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[700],
-                    ),
+                        fontSize: 16,
+                        color: Colors.grey[700],
+                        fontFamily: 'poppins'),
                   ),
                   SizedBox(height: 10),
                   Text(
                     'Popularity: ${widget.popularity}',
                     style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[700],
-                    ),
+                        fontSize: 16,
+                        color: Colors.grey[700],
+                        fontFamily: 'poppins'),
                   ),
+                  if (widget.adult)
+                    Text(
+                      'Adult: For 18+ only',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.red, // Adjust color as needed
+                      ),
+                    ),
                   SizedBox(height: 20),
                   Text(
                     'Overview',
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontSize: 23,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'poppins'),
                   ),
                   SizedBox(height: 10),
                   Text(
                     widget.overview,
                     style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[800],
-                    ),
+                        fontSize: 18,
+                        color: Colors.grey[800],
+                        fontFamily: 'poppins'),
                   ),
                 ],
               ),

@@ -96,7 +96,7 @@ Widget showTvPage(
                       title: result.name,
                       posterpath: result.posterPath,
                       releasedate: result.firstAirDate,
-                      popularity: result.popularity,
+                      popularity: result.popularity,      backdroppath: result.backdropPath,
                     );
                   },
                 ),
@@ -124,7 +124,7 @@ Widget showTvPage(
                       title: result.name,
                       posterpath: result.posterPath,
                       releasedate: result.firstAirDate,
-                      popularity: result.popularity,
+                      popularity: result.popularity,      backdroppath: result.backdropPath,
                     );
                   },
                 ),
@@ -145,7 +145,9 @@ Widget showTvPage(
                   ),
                   itemBuilder: (context, index) {
                     final result = state.popularTvSeriesList[index];
-                    return customCardsTvshows(index: index,
+                    return customCardsTvshows(
+                      backdroppath: result.backdropPath,
+                      index: index,
                       context: 
                       context,
                       title: result.name,

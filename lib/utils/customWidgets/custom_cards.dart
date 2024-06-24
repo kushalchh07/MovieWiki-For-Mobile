@@ -14,11 +14,13 @@ Widget customCards({
   required dynamic context,
   required String title,
     required dynamic index,
+    required String backdroppath,
 
   required String posterpath,
   required DateTime releasedate,
   required double popularity,
   required String overview,
+  required bool adult,
 }) {
     AppSize size = AppSize(context: context);
 
@@ -37,6 +39,7 @@ Navigator.of(context).push(
               // BlocProvider(create: (context) => CourseAuthorBloc())
             ],
             child: MovieDescription(
+             backdroppath: backdroppath,
               context: context,
               title: title,
               index: index,
@@ -44,6 +47,7 @@ Navigator.of(context).push(
               releasedate: releasedate,
               popularity: popularity,
               overview: overview,
+               adult: adult,
             ),
           ),
         ),
