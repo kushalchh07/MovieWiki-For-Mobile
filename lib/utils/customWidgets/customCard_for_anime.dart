@@ -1,11 +1,15 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:movie_wiki/constants/colors/colors.dart';
+import 'package:movie_wiki/logic/Bloc/animeDescriptionBloc/anime_description_bloc.dart';
+import 'package:movie_wiki/pages/Description/anime_description.dart';
 
 Widget customCardsAnime({
+  dynamic context,
   required String title,
   required String posterpath,
   DateTime? releasedate,
@@ -15,7 +19,26 @@ Widget customCardsAnime({
       releasedate != null ? releasedate.toString() : 'Unknown';
 
   return GestureDetector(
-    onTap: () {},
+    onTap: () {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              
+              // QuizQuestionsBloc
+
+              BlocProvider(
+                create: (context) => AnimeDescriptionBloc(),
+              ),
+              // BlocProvider(create: (context) => CourseAuthorBloc())
+            ],
+            child: AnimeDescription(
+           
+            ),
+          ),
+        ),
+      );
+    },
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(

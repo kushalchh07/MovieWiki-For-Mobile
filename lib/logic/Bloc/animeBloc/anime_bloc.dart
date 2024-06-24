@@ -42,7 +42,7 @@ class AnimeBloc extends Bloc<AnimeEvent, AnimeState> {
       final recommendedAnimesList = recommendedAnimes.data;
 
       // log(topAnimesList.toString());
-      log(recommendedAnimesList.toString());
+      // log(recommendedAnimesList.toString());
 
       emit(AnimeLoadedState(
           topAnimesList: topAnimesList,

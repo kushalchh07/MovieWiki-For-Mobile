@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_wiki/logic/Bloc/animeBloc/anime_bloc.dart';
@@ -34,21 +36,27 @@ class _AnimesState extends State<Animes> {
         },
         builder: (context, state) {
           if (state is AnimeInitial) {
+            log("home initial State");
+
             BlocProvider.of<AnimeBloc>(context).add(AnimeLoadEvent());
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
           if (state is AnimeLoadingState) {
+            log("home loading State");
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
           if (state is AnimeLoadedState) {
+            log("home Loaded State");
+
             final AppSize size = AppSize(context: context);
             return showAnimePage(size, context, state);
           }
           if (state is AnimeErrorState) {
+            log("home Error State");
             return Center(
               child: Text(state.error),
             );
@@ -97,6 +105,7 @@ Widget showAnimePage(
                     // final releaseDate = result.entry.first.aired.from ?? '';
                     // final popularity = result.entry.first.score;
                     return customCardsAnime(
+                      context: context,
                       title: result.entry.first.title,
                       posterpath: imageUrl,
                       // releasedate: result.aired.from,
@@ -123,6 +132,7 @@ Widget showAnimePage(
                     final result = state.topAnimesList[index];
                     final imageUrl = result.images['jpg']?.imageUrl ?? '';
                     return customCardsAnime(
+                      context: context,
                       title: result.title,
                       posterpath: imageUrl,
                       releasedate: result.aired.from,
@@ -149,6 +159,7 @@ Widget showAnimePage(
                     final result = state.topMangaList[index];
                     final imageUrl = result.images['jpg']?.imageUrl ?? '';
                     return customCardsAnime(
+                      context: context,
                       title: result.title,
                       posterpath: imageUrl,
                       releasedate: result.published!.from,
