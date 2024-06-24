@@ -64,35 +64,71 @@ class _AnimesState extends State<Animes> {
 Widget showAnimePage(
     AppSize size, BuildContext context, AnimeLoadedState state) {
   return Scaffold(
-    body: Container(
-      child: Column(
-        children: [
-          dividerText(context: context, dividerText: "Top Animes", desc: ''),
-          SizedBox(
-            height: 320, // Adjust the height as needed
-            child: GridView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: state.topAnimesList.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                mainAxisExtent: 300,
-                childAspectRatio: 0.3,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+    body: SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: RefreshIndicator.adaptive(
+        onRefresh: () async {
+          BlocProvider.of<AnimeBloc>(context).add(AnimeLoadEvent());
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              dividerText(
+                  context: context, dividerText: "Top Animes", desc: ''),
+              SizedBox(
+                height: 320, // Adjust the height as needed
+                child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: state.topAnimesList.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisExtent: 300,
+                    childAspectRatio: 0.3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) {
+                    final result = state.topAnimesList[index];
+                    final imageUrl = result.images['jpg']?.imageUrl ?? '';
+                    return customCardsAnime(
+                      title: result.title,
+                      posterpath: imageUrl,
+                      releasedate: result.aired.from,
+                      popularity: result.score,
+                    );
+                  },
+                ),
               ),
-              itemBuilder: (context, index) {
-                final result = state.topAnimesList[index];
-                final imageUrl = result.images['jpg']?.imageUrl ?? '';
-                return customCardsAnime(
-                  title: result.title,
-                  posterpath: imageUrl,
-                  releasedate: result.aired.from,
-                  popularity: result.score,
-                );
-              },
-            ),
+              dividerText(
+                  context: context, dividerText: "Top Mangas", desc: ''),
+              SizedBox(
+                height: 320, // Adjust the height as needed
+                child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: state.topMangaList.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisExtent: 300,
+                    childAspectRatio: 0.3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) {
+                    final result = state.topMangaList[index];
+                    final imageUrl = result.images['jpg']?.imageUrl ?? '';
+                    return customCardsAnime(
+                      title: result.title,
+                      posterpath: imageUrl,
+                      releasedate: result.published!.from,
+                      popularity: result.score,
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     ),
   );

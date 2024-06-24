@@ -9,10 +9,11 @@ final class AnimeLoadingState extends AnimeState {}
 
 final class AnimeLoadedState extends AnimeState {
   final List<TopAnime> topAnimesList;
-   AnimeLoadedState({required this.topAnimesList});
+  final List<Datum> topMangaList;
+  AnimeLoadedState({required this.topAnimesList, required this.topMangaList});
 }
 
 final class AnimeErrorState extends AnimeState {
   final String error;
-   AnimeErrorState({required this.error});
+  AnimeErrorState({required this.error});
 }

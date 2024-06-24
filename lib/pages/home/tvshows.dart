@@ -99,31 +99,6 @@ Widget showTvPage(
                 ),
               ),
               dividerText(
-                  context: context, dividerText: "Popular Tv Shows", desc: ''),
-              SizedBox(
-                height: 320, // Adjust the height as needed
-                child: GridView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: state.popularTvSeriesList.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisExtent: 300,
-                    childAspectRatio: 0.3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemBuilder: (context, index) {
-                    final result = state.popularTvSeriesList[index];
-                    return customCards(
-                      title: result.name,
-                      posterpath: result.posterPath,
-                      releasedate: result.firstAirDate,
-                      popularity: result.popularity,
-                    );
-                  },
-                ),
-              ),
-              dividerText(
                   context: context,
                   dividerText: "Top Rated Tv Series",
                   desc: ''),
@@ -141,6 +116,31 @@ Widget showTvPage(
                   ),
                   itemBuilder: (context, index) {
                     final result = state.topRatedTvSeriesList[index];
+                    return customCards(
+                      title: result.name,
+                      posterpath: result.posterPath,
+                      releasedate: result.firstAirDate,
+                      popularity: result.popularity,
+                    );
+                  },
+                ),
+              ),
+              dividerText(
+                  context: context, dividerText: "Popular Tv Shows", desc: ''),
+              SizedBox(
+                height: 320, // Adjust the height as needed
+                child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: state.popularTvSeriesList.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisExtent: 300,
+                    childAspectRatio: 0.3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) {
+                    final result = state.popularTvSeriesList[index];
                     return customCards(
                       title: result.name,
                       posterpath: result.posterPath,
