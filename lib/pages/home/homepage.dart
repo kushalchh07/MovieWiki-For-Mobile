@@ -209,6 +209,7 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                   itemBuilder: (context, index) {
                     final result = state.upcomingMoviesList[index];
                     return customCards(
+                      overview: result.overview,
                       index: index,
                       context: context,
                       title: result.title,
@@ -262,6 +263,7 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                   itemBuilder: (context, index) {
                     final result = state.trendingMoviesList[index];
                     return customCards(
+                      overview: result.overview,
                       index: index,
                       context: context,
                       title: result.title,

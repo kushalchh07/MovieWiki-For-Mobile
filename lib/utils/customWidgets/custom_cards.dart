@@ -18,6 +18,7 @@ Widget customCards({
   required String posterpath,
   required DateTime releasedate,
   required double popularity,
+  required String overview,
 }) {
     AppSize size = AppSize(context: context);
 
@@ -36,7 +37,13 @@ Navigator.of(context).push(
               // BlocProvider(create: (context) => CourseAuthorBloc())
             ],
             child: MovieDescription(
-           
+              context: context,
+              title: title,
+              index: index,
+              posterpath: posterpath,
+              releasedate: releasedate,
+              popularity: popularity,
+              overview: overview,
             ),
           ),
         ),
