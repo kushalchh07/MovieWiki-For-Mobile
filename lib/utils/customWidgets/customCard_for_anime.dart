@@ -63,7 +63,7 @@ Widget customCardsAnime(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         width: Get.width * 0.4,
-        height: 300, // Adjusted width for better aspect ratio
+        height: 280, // Adjusted width for better aspect ratio
         child: Card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

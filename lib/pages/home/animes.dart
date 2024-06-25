@@ -71,138 +71,120 @@ class _AnimesState extends State<Animes> {
 
 Widget showAnimePage(
     AppSize size, BuildContext context, AnimeLoadedState state) {
-  return Scaffold(
-    body: SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      child: RefreshIndicator.adaptive(
-        onRefresh: () async {
-          BlocProvider.of<AnimeBloc>(context).add(AnimeLoadEvent());
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              dividerText(
-                  context: context,
-                  dividerText: "Recommended Animes",
-                  desc: ''),
-              SizedBox(
-                height: 320, // Adjust the height as needed
-                child: GridView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: state.recommendedAnimesList.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisExtent: 300,
-                    childAspectRatio: 0.3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemBuilder: (context, index) {
-                    final result = state.recommendedAnimesList[index];
-                    final imageUrl =
-                        result.entry.first.images['jpg']?.imageUrl ?? '';
-                    final titleEnglish = result.entry.first.title ?? '';
-
-                    final overview = '';
-
-                    return customCardsAnime(
-                      index: index,
-                      context: context,
-                      titleEnglish: titleEnglish,
-                      posterpath: imageUrl,
-                      overview: overview,
-                      isTrailorAvailable: false
-                    );
-                  },
+  return SingleChildScrollView(
+    physics: BouncingScrollPhysics(),
+    child: RefreshIndicator(
+      onRefresh: () async {
+        BlocProvider.of<AnimeBloc>(context).add(AnimeLoadEvent());
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dividerText(
+                context: context, dividerText: "Recommended Animes", desc: ''),
+            SizedBox(
+              height: 320,
+              child: GridView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: state.recommendedAnimesList.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  mainAxisExtent: 300,
+                  childAspectRatio: 0.3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                 ),
+                itemBuilder: (context, index) {
+                  final result = state.recommendedAnimesList[index];
+                  final imageUrl =
+                      result.entry.first.images['jpg']?.imageUrl ?? '';
+                  final titleEnglish = result.entry.first.title ?? '';
+                  final overview = ''; // Add your logic for overview if needed
+                  return customCardsAnime(
+                    index: index,
+                    context: context,
+                    titleEnglish: titleEnglish,
+                    posterpath: imageUrl,
+                    overview: overview,
+                    isTrailorAvailable: false,
+                  );
+                },
               ),
-              dividerText(
-                  context: context, dividerText: "Top Animes", desc: ''),
-              SizedBox(
-                height: 320, // Adjust the height as needed
-                child: GridView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: state.topAnimesList.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisExtent: 300,
-                    childAspectRatio: 0.3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemBuilder: (context, index) {
-                    final anime = state.topAnimesList[index];
-                    final imageUrl = anime.images['jpg']?.imageUrl ?? '';
-                    final titleEnglish = anime.titleEnglish ?? '';
-                    final titleJapanese = anime.titleJapanese ?? '';
-                    final thumbnail = anime.trailer.images?.largeImageUrl ?? '';
-                    final season = anime.season.toString().split('.').last;
-                    final episodes = anime.episodes?.toString() ?? '';
-                    final duration = anime.duration;
-                    final trailerUrl = anime.trailer.url;
-                    final overview = anime.synopsis ?? '';
-                    log(anime.toString());
-                    log(imageUrl);
-                    log(titleEnglish);
-                    log(titleJapanese);
-                    log(thumbnail);
-                    log(season);
-                    log(episodes);
-                    log(duration);
-                    log(trailerUrl);
-                    log(overview);
-
-                    return customCardsAnime(
-                      index: index,
-                      context: context,
-                      titleEnglish: titleEnglish,
-                      posterpath: imageUrl,
-                      titleJapanese: titleJapanese,
-                      overview: overview,
-                      episodes: episodes,
-                      duration: duration,
-                      thumbnail: thumbnail,
-                      season: season,
-                      trailorUrl: trailerUrl,
-                      isTrailorAvailable: true,
-                    );
-                  },
+            ),
+            dividerText(context: context, dividerText: "Top Animes", desc: ''),
+            SizedBox(
+              height: 320,
+              child: GridView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: state.topAnimesList.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  mainAxisExtent: 300,
+                  childAspectRatio: 0.3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                 ),
+                itemBuilder: (context, index) {
+                  final anime = state.topAnimesList[index];
+                  final imageUrl = anime.images['jpg']?.imageUrl ?? '';
+                  final titleEnglish = anime.titleEnglish ?? '';
+                  final titleJapanese = anime.titleJapanese ?? '';
+                  final thumbnail = anime.trailer.images?.largeImageUrl ?? '';
+                  final season = anime.season.toString().split('.').last;
+                  final episodes = anime.episodes?.toString() ?? '';
+                  final duration = anime.duration;
+                  final trailerUrl = anime.trailer.url;
+                  final overview = anime.synopsis ?? '';
+                  return customCardsAnime(
+                    index: index,
+                    context: context,
+                    titleEnglish: titleEnglish,
+                    posterpath: imageUrl,
+                    titleJapanese: titleJapanese,
+                    overview: overview,
+                    episodes: episodes,
+                    duration: duration,
+                    thumbnail: thumbnail,
+                    season: season,
+                    trailorUrl: trailerUrl,
+                    isTrailorAvailable: true,
+                  );
+                },
               ),
-              dividerText(
-                  context: context, dividerText: "Top Mangas", desc: ''),
-              SizedBox(
-                height: 320, // Adjust the height as needed
-                child: GridView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: state.topMangaList.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisExtent: 300,
-                    childAspectRatio: 0.3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemBuilder: (context, index) {
-                    final result = state.topMangaList[index];
-                    final imageUrl = result.images['jpg']?.imageUrl ?? '';
-                    return customCardsAnime(
-                      index: index,
-                      context: context,
-                      titleEnglish: result.title,
-                      posterpath: imageUrl,
-                      releasedate: result.published!.from,
-                      popularity: result.score,
-                      titleJapanese: '',
-                      thumbnail: '',
-                      isTrailorAvailable: false
-                    );
-                  },
+            ),
+            dividerText(context: context, dividerText: "Top Mangas", desc: ''),
+            SizedBox(
+              height: 300,
+              child: GridView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: state.topMangaList.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  mainAxisExtent: 300,
+                  childAspectRatio: 0.3,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                 ),
+                itemBuilder: (context, index) {
+                  final result = state.topMangaList[index];
+                  final imageUrl = result.images['jpg']?.imageUrl ?? '';
+                  return customCardsAnime(
+                    index: index,
+                    context: context,
+                    titleEnglish: result.title,
+                    posterpath: imageUrl,
+                    releasedate: result.published!.from,
+                    popularity: result.score,
+                    titleJapanese: '',
+                    thumbnail: '',
+                    isTrailorAvailable: false,
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     ),

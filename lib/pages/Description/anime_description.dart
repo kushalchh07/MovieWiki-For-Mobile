@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_utils/get_utils.dart';
-import 'package:intl/intl.dart';
+
 import 'package:movie_wiki/logic/Bloc/animeDescriptionBloc/anime_description_bloc.dart';
 import 'package:movie_wiki/pages/Description/trailerScreen/trailer_screen.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -205,16 +204,13 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                     ),
                     SizedBox(height: 20),
                     Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Overview:',
-                          style: TextStyle(
-                              fontSize: 23,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'poppins'),
-                        ),
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        'Overview:',
+                        style: TextStyle(
+                            fontSize: 23,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'poppins'),
                       ),
                     ),
                     SizedBox(height: 8),

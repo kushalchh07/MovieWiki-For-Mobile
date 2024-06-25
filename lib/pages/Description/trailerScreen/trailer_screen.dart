@@ -32,29 +32,31 @@ class _TrailerScreenState extends State<TrailerScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Trailer Screen"),
-      ),
-      body: WebviewScaffold(
-        url: widget.trailerUrl,
-        withZoom: false,
-        withJavascript: true,
-        withLocalStorage: true,
-        hidden: true,
-        initialChild: Column(
-          children: [
-            YoutubePlayer(
-              controller: _controller,
-              showVideoProgressIndicator: true,
-              onReady: () => print('Player is ready.'),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Text(
-              widget.title,
-              style: TextStyle(fontSize: 24, fontFamily: 'poppins'),
-            ),
-          ],
+        leading: BackButton(
+          onPressed: () => Navigator.pop(context),
         ),
+      ),
+      body:
+          // url: widget.trailerUrl,
+          // withZoom: false,
+          // withJavascript: true,
+          // withLocalStorage: true,
+          // hidden: true,
+          Column(
+        children: [
+          YoutubePlayer(
+            controller: _controller,
+            showVideoProgressIndicator: true,
+            onReady: () => print('Player is ready.'),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Text(
+            widget.title,
+            style: TextStyle(fontSize: 24, fontFamily: 'poppins'),
+          ),
+        ],
       ),
     );
   }
