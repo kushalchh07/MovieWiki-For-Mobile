@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_declarations
 
 import 'dart:developer';
 
@@ -102,15 +102,16 @@ Widget showAnimePage(
                     final result = state.recommendedAnimesList[index];
                     final imageUrl =
                         result.entry.first.images['jpg']?.imageUrl ?? '';
-                    // final releaseDate = result.entry.first.aired.from ?? '';
-                    // final popularity = result.entry.first.score;
+                    final titleEnglish = '';
+
+                    final overview = '';
+
                     return customCardsAnime(
                       index: index,
                       context: context,
-                      title: result.entry.first.title,
+                      titleEnglish: titleEnglish,
                       posterpath: imageUrl,
-                      // releasedate: result.aired.from,
-                      // popularity: result.score,
+                      overview: overview,
                     );
                   },
                 ),
@@ -130,15 +131,28 @@ Widget showAnimePage(
                     mainAxisSpacing: 10,
                   ),
                   itemBuilder: (context, index) {
-                    final result = state.topAnimesList[index];
-                    final imageUrl = result.images['jpg']?.imageUrl ?? '';
+                    final anime = state.topAnimesList[index];
+                    final imageUrl = anime.images['jpg']?.imageUrl ?? '';
+                    final titleEnglish = anime.titleEnglish ?? '';
+                    final titleJapanese = anime.titleJapanese ?? '';
+                    final trailerImageUrl = anime.trailer.url ?? '';
+                    final season = anime.season.toString().split('.').last;
+                    final episodes = anime.episodes?.toString() ?? '';
+                    final duration = anime.duration;
+                    final trailerUrl = anime.trailer.url;
+                    final overview = anime.synopsis ?? '';
                     return customCardsAnime(
                       index: index,
                       context: context,
-                      title: result.title,
+                      titleEnglish: titleEnglish,
                       posterpath: imageUrl,
-                      releasedate: result.aired.from,
-                      popularity: result.score,
+                      titleJapanese: titleJapanese,
+                      overview: overview,
+                      episodes: episodes,
+                      duration: duration,
+                      thumbnail: trailerImageUrl,
+                      season: season,
+                      trailorUrl: trailerUrl,
                     );
                   },
                 ),
@@ -163,10 +177,12 @@ Widget showAnimePage(
                     return customCardsAnime(
                       index: index,
                       context: context,
-                      title: result.title,
+                      titleEnglish: result.title,
                       posterpath: imageUrl,
                       releasedate: result.published!.from,
                       popularity: result.score,
+                      titleJapanese: '',
+                      thumbnail: '',
                     );
                   },
                 ),

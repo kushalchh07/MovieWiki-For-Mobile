@@ -8,14 +8,20 @@ import 'package:movie_wiki/constants/colors/colors.dart';
 import 'package:movie_wiki/logic/Bloc/animeDescriptionBloc/anime_description_bloc.dart';
 import 'package:movie_wiki/pages/Description/anime_description.dart';
 
-Widget customCardsAnime({
-  required dynamic index,
-  dynamic context,
-  required String title,
-  required String posterpath,
-  DateTime? releasedate,
-  double? popularity,
-}) {
+Widget customCardsAnime(
+    {required dynamic index,
+    dynamic context,
+    required String titleEnglish,
+    String? titleJapanese,
+    required String posterpath,
+    DateTime? releasedate,
+    double? popularity,
+    String? overview,
+    String? thumbnail,
+    String? season,
+    String? episodes,
+    String? duration,
+    String? trailorUrl}) {
   final String releaseDateString =
       releasedate != null ? releasedate.toString() : 'Unknown';
 
@@ -32,7 +38,20 @@ Widget customCardsAnime({
               ),
               // BlocProvider(create: (context) => CourseAuthorBloc())
             ],
-            child: AnimeDescription(),
+            child: AnimeDescription(
+              titleEnglish: titleEnglish,
+              titleJapanese: titleJapanese ?? '',
+              description: overview ?? '',
+              image: posterpath,
+              rating: popularity.toString(),
+              season: season ?? '',
+              episodes: episodes ?? '',
+              duration: duration ?? '',
+              // airedOn: '',
+              context: null,
+              index: null, thumbnail: thumbnail ?? '',
+              trailorUrl: trailorUrl ?? '',
+            ),
           ),
         ),
       );
@@ -62,7 +81,7 @@ Widget customCardsAnime({
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
+                        titleEnglish,
                         style: TextStyle(
                           color: myBlack,
                           fontFamily: 'inter',
