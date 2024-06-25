@@ -54,6 +54,11 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.titleEnglish),
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back_ios)),
       ),
       body: BlocBuilder<AnimeDescriptionBloc, AnimeDescriptionState>(
         builder: (context, state) {
@@ -104,38 +109,57 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                     Row(
                       children: [
                         Container(
-                          height: Get.height * 0.2,
-                          width: Get.width * 0.3,
+                          height: Get.height * 0.25,
+                          width: Get.width * 0.4,
                           child: Card(
                             child: Image.network(
                               "${widget.image}",
+                              fit: BoxFit.fill,
                             ),
                           ),
                         ),
                         SizedBox(width: 20),
                         Flexible(
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 widget.titleEnglish,
                                 style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w800,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
                                     fontFamily: 'poppins'),
                               ),
                               SizedBox(height: 10),
                               Text(
                                 widget.titleJapanese,
                                 style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w800,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
                                     fontFamily: 'poppins'),
                               ),
-                              SizedBox(height: 10),
+                              SizedBox(height: 8),
                               Text(
                                 "Season:${widget.season} ",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'poppins',
+                                    color: myLightGrey),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                "Total episodes:${widget.episodes} ",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'poppins',
+                                    color: myLightGrey),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                "Duration :${widget.duration} ",
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
@@ -148,20 +172,31 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                       ],
                     ),
                     SizedBox(height: 20),
-                    Text(
-                      'Overview',
-                      style: TextStyle(
-                          fontSize: 23,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'poppins'),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Overview:',
+                          style: TextStyle(
+                              fontSize: 23,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'poppins'),
+                        ),
+                      ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 8),
                     Container(
                       // height: Get.height,
-                      child: Text(
-                        widget.description,
-                        style: TextStyle(
-                            fontSize: 16, color: myGrey, fontFamily: 'poppins'),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          widget.description,
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: myGrey,
+                              fontFamily: 'poppins'),
+                        ),
                       ),
                     ),
                     SizedBox(height: 20),
