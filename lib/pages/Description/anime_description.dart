@@ -71,12 +71,9 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
       appBar: AppBar(
         title: Text(widget.titleEnglish),
         leadingWidth: 70,
-        leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-              // Get.back();
-            },
-            child: Icon(Icons.arrow_back_ios)),
+        leading: BackButton(
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: BlocBuilder<AnimeDescriptionBloc, AnimeDescriptionState>(
         builder: (context, state) {
