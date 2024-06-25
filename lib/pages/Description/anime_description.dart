@@ -7,6 +7,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:intl/intl.dart';
 import 'package:movie_wiki/logic/Bloc/animeDescriptionBloc/anime_description_bloc.dart';
+import 'package:movie_wiki/pages/Description/trailerScreen/trailer_screen.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../constants/colors/colors.dart';
 
@@ -49,14 +51,31 @@ class AnimeDescription extends StatefulWidget {
 }
 
 class _AnimeDescriptionState extends State<AnimeDescription> {
+  late YoutubePlayerController _controller;
+
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   final videoId = YoutubePlayer.convertUrlToId(widget.trailorUrl);
+  //   _controller = YoutubePlayerController(
+  //     initialVideoId: videoId!,
+  //     flags: const YoutubePlayerFlags(
+  //       autoPlay: true,
+  //       mute: false,
+  //     ),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.titleEnglish),
+        leadingWidth: 70,
         leading: GestureDetector(
             onTap: () {
               Navigator.pop(context);
+              // Get.back();
             },
             child: Icon(Icons.arrow_back_ios)),
       ),
@@ -88,6 +107,11 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                         ),
                       ),
                     ),
+                    // YoutubePlayer(
+                    //   controller: _controller,
+                    //   showVideoProgressIndicator: true,
+                    //   onReady: () => print('Player is ready.'),
+                    // ),
                     if (widget.isTrailorAvailable == true)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -99,10 +123,18 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              Get.toNamed("/trailor",
-                                  arguments: {"trailorUrl": widget.trailorUrl});
+                              Get.to(TrailerScreen(
+                                trailerUrl: widget.trailorUrl,
+                                title: widget.titleEnglish,
+                              ));
                             },
-                            child: Text("Watch Trailer"),
+                            child: Text(
+                              "Watch Trailer Now",
+                              style: TextStyle(
+                                  color: primaryColor,
+                                  fontFamily: 'poppins',
+                                  fontSize: 16),
+                            ),
                           ),
                         ],
                       ),
