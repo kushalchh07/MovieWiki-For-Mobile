@@ -102,7 +102,7 @@ Widget showAnimePage(
                     final result = state.recommendedAnimesList[index];
                     final imageUrl =
                         result.entry.first.images['jpg']?.imageUrl ?? '';
-                    final titleEnglish = '';
+                    final titleEnglish = result.entry.first.title ?? '';
 
                     final overview = '';
 
@@ -112,6 +112,7 @@ Widget showAnimePage(
                       titleEnglish: titleEnglish,
                       posterpath: imageUrl,
                       overview: overview,
+                      isTrailorAvailable: false
                     );
                   },
                 ),
@@ -135,12 +136,23 @@ Widget showAnimePage(
                     final imageUrl = anime.images['jpg']?.imageUrl ?? '';
                     final titleEnglish = anime.titleEnglish ?? '';
                     final titleJapanese = anime.titleJapanese ?? '';
-                    final trailerImageUrl = anime.trailer.url ?? '';
+                    final thumbnail = anime.trailer.images?.largeImageUrl ?? '';
                     final season = anime.season.toString().split('.').last;
                     final episodes = anime.episodes?.toString() ?? '';
                     final duration = anime.duration;
                     final trailerUrl = anime.trailer.url;
                     final overview = anime.synopsis ?? '';
+                    log(anime.toString());
+                    log(imageUrl);
+                    log(titleEnglish);
+                    log(titleJapanese);
+                    log(thumbnail);
+                    log(season);
+                    log(episodes);
+                    log(duration);
+                    log(trailerUrl);
+                    log(overview);
+
                     return customCardsAnime(
                       index: index,
                       context: context,
@@ -150,9 +162,10 @@ Widget showAnimePage(
                       overview: overview,
                       episodes: episodes,
                       duration: duration,
-                      thumbnail: trailerImageUrl,
+                      thumbnail: thumbnail,
                       season: season,
                       trailorUrl: trailerUrl,
+                      isTrailorAvailable: true,
                     );
                   },
                 ),
@@ -183,6 +196,7 @@ Widget showAnimePage(
                       popularity: result.score,
                       titleJapanese: '',
                       thumbnail: '',
+                      isTrailorAvailable: false
                     );
                   },
                 ),

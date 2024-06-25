@@ -14,6 +14,7 @@ Widget customCardsAnime(
     required String titleEnglish,
     String? titleJapanese,
     required String posterpath,
+    bool? isTrailorAvailable,
     DateTime? releasedate,
     double? popularity,
     String? overview,
@@ -49,8 +50,10 @@ Widget customCardsAnime(
               duration: duration ?? '',
               // airedOn: '',
               context: null,
-              index: null, thumbnail: thumbnail ?? '',
+              index: null,
+              thumbnail: thumbnail ?? '',
               trailorUrl: trailorUrl ?? '',
+              isTrailorAvailable: isTrailorAvailable ?? false,
             ),
           ),
         ),
@@ -77,38 +80,40 @@ Widget customCardsAnime(
                 flex: 3,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 12, right: 10, top: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        titleEnglish,
-                        style: TextStyle(
-                          color: myBlack,
-                          fontFamily: 'inter',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 25,
+                  child: Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          titleEnglish,
+                          style: TextStyle(
+                            color: myBlack,
+                            fontFamily: 'inter',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 25,
+                          ),
+                          overflow: TextOverflow.ellipsis, // Prevent overflow
                         ),
-                        overflow: TextOverflow.ellipsis, // Prevent overflow
-                      ),
-                      Text(
-                        'Release Date: ${releaseDateString}',
-                        style: TextStyle(
-                          color: myGrey,
-                          fontFamily: 'inter',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13,
-                        ),
-                      ),
-                      Text(
-                        'Popularity: $popularity',
-                        style: TextStyle(
-                          color: myGrey,
-                          fontFamily: 'inter',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ],
+                        // Text(
+                        //   'Release Date: ${releaseDateString}',
+                        //   style: TextStyle(
+                        //     color: myGrey,
+                        //     fontFamily: 'inter',
+                        //     fontWeight: FontWeight.w500,
+                        //     fontSize: 13,
+                        //   ),
+                        // ),
+                        // Text(
+                        //   'Popularity: $popularity',
+                        //   style: TextStyle(
+                        //     color: myGrey,
+                        //     fontFamily: 'inter',
+                        //     fontWeight: FontWeight.w500,
+                        //     fontSize: 13,
+                        //   ),
+                        // ),
+                      ],
+                    ),
                   ),
                 ),
               ),

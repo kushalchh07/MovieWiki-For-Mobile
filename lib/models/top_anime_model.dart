@@ -426,18 +426,20 @@ class Trailer {
   final String youtubeId;
   final String url;
   final String embedUrl;
+  final Images images;
 
-  Trailer({
-    required this.youtubeId,
-    required this.url,
-    required this.embedUrl,
-  });
+  Trailer(
+      {required this.youtubeId,
+      required this.url,
+      required this.embedUrl,
+      required this.images});
 
   factory Trailer.fromJson(Map<String, dynamic> json) {
     return Trailer(
       youtubeId: json['youtube_id'] ?? '',
       url: json['url'] ?? '',
       embedUrl: json['embed_url'] ?? '',
+      images: Images.fromJson(json['images'] ?? {}),
     );
   }
 
@@ -446,6 +448,41 @@ class Trailer {
       'youtube_id': youtubeId,
       'url': url,
       'embed_url': embedUrl,
+      'images': images.toJson(),
+    };
+  }
+}
+
+class Images {
+  final String imageUrl;
+  final String smallImageUrl;
+  final String mediumImageUrl;
+  final String largeImageUrl;
+  final String maximumImageUrl;
+
+  Images({
+    required this.imageUrl,
+    required this.smallImageUrl,
+    required this.mediumImageUrl,
+    required this.largeImageUrl,
+    required this.maximumImageUrl,
+  });
+  factory Images.fromJson(Map<String, dynamic> json) {
+    return Images(
+      imageUrl: json['image_url'] ?? '',
+      smallImageUrl: json['small_image_url'] ?? '',
+      mediumImageUrl: json['medium_image_url'] ?? '',
+      largeImageUrl: json['large_image_url'] ?? '',
+      maximumImageUrl: json['maximum_image_url'] ?? '',
+    );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'image_url': imageUrl,
+      'small_image_url': smallImageUrl,
+      'medium_image_url': mediumImageUrl,
+      'large_image_url': largeImageUrl,
+      'maximum_image_url': maximumImageUrl,
     };
   }
 }

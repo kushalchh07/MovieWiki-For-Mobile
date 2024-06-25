@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +25,7 @@ class AnimeDescription extends StatefulWidget {
   final dynamic index;
   final String thumbnail;
   final String trailorUrl;
+  final bool isTrailorAvailable;
   const AnimeDescription({
     super.key,
     required this.titleEnglish,
@@ -40,6 +41,7 @@ class AnimeDescription extends StatefulWidget {
     required this.index,
     required this.thumbnail,
     required this.trailorUrl,
+    required this.isTrailorAvailable,
   });
 
   @override
@@ -51,72 +53,120 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(widget.titleEnglish),
-          ),
+        title: Text(widget.titleEnglish),
+      ),
       body: BlocBuilder<AnimeDescriptionBloc, AnimeDescriptionState>(
         builder: (context, state) {
           if (state is AnimeDescriptionInitial) {
             BlocProvider.of<AnimeDescriptionBloc>(context)
                 .add(AnimeDescriptionLoadEvent());
-          
           }
 
           if (state is AnimeDescriptionLoading) {
             return const Center(child: CircularProgressIndicator());
           }
 
-
           if (state is AnimeDescriptionLoaded) {
-            return Container(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: Get.height * 0.3,
-                        width: Get.width * 0.9,
-                        child: Center(
-                          child: Image.network("${widget.image}"),
-                        ),
-                  ),
-                    Flexible(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              widget.titleEnglish,
-                              style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w800,
-                                  fontFamily: 'poppins'),
-                            ),
-                            SizedBox(height: 10),
-                            // Text(
-                            //   'Release Date: ${DateFormat.yMMMd().format(widget.releasedate)}',
-                            //   style: TextStyle(
-                            //       fontSize: 16,
-                            //       color: myGrey,
-                            //       fontFamily: 'poppins'),
-                            // ),
-                            SizedBox(height: 10),
-                            // Text(
-                            //   'Popularity: ${widget.popularity}',
-                            //   style: TextStyle(
-                            //       fontSize: 16,
-                            //       color: myGrey,
-                            //       fontFamily: 'poppins'),
-                            // ),
-                            // if (widget.adult)
-                            //   Text(
-                            //     'Adult: For 18+ only',
-                            //     style: TextStyle(
-                            //       fontSize: 16,
-                            //       color: Colors.red, // Adjust color as needed
-                            //     ),
-                            //   ),
-                          ],
+            return SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              child: Container(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: Get.height * 0.3,
+                      width: Get.width * 0.9,
+                      child: Center(
+                        child: Image.network(
+                          "${widget.thumbnail}",
+                          fit: BoxFit.fill,
                         ),
                       ),
-                ],
+                    ),
+                    if (widget.isTrailorAvailable == true)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Trailer available: ",
+                            style:
+                                TextStyle(fontSize: 20, fontFamily: 'poppins'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Get.toNamed("/trailor",
+                                  arguments: {"trailorUrl": widget.trailorUrl});
+                            },
+                            child: Text("Watch Trailer"),
+                          ),
+                        ],
+                      ),
+                    Row(
+                      children: [
+                        Container(
+                          height: Get.height * 0.2,
+                          width: Get.width * 0.3,
+                          child: Card(
+                            child: Image.network(
+                              "${widget.image}",
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 20),
+                        Flexible(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.titleEnglish,
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w800,
+                                    fontFamily: 'poppins'),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                widget.titleJapanese,
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w800,
+                                    fontFamily: 'poppins'),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                "Season:${widget.season} ",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'poppins',
+                                    color: myLightGrey),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      'Overview',
+                      style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'poppins'),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      // height: Get.height,
+                      child: Text(
+                        widget.description,
+                        style: TextStyle(
+                            fontSize: 16, color: myGrey, fontFamily: 'poppins'),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                  ],
+                ),
               ),
             );
           }
