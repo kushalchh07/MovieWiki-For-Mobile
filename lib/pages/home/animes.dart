@@ -85,7 +85,7 @@ Widget showAnimePage(
             dividerText(
                 context: context, dividerText: "Recommended Animes", desc: ''),
             SizedBox(
-              height: 320,
+              height: 280,
               child: GridView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: state.recommendedAnimesList.length,
@@ -110,13 +110,16 @@ Widget showAnimePage(
                     overview: overview,
                     isTrailorAvailable: false,
                     thumbnail: imageUrl,
+                    season: '',
+                    duration: '',
+                    episodes: '',
                   );
                 },
               ),
             ),
             dividerText(context: context, dividerText: "Top Animes", desc: ''),
             SizedBox(
-              height: 320,
+              height: 280,
               child: GridView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: state.topAnimesList.length,
@@ -157,7 +160,7 @@ Widget showAnimePage(
             ),
             dividerText(context: context, dividerText: "Top Mangas", desc: ''),
             SizedBox(
-              height: 300,
+              height: 280,
               child: GridView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: state.topMangaList.length,
@@ -179,8 +182,9 @@ Widget showAnimePage(
                     releasedate: result.published!.from,
                     popularity: result.score,
                     titleJapanese: '',
-                    thumbnail: '',
+                    thumbnail: imageUrl,
                     isTrailorAvailable: false,
+                    overview: result.synopsis,
                   );
                 },
               ),

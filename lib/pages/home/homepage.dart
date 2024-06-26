@@ -252,36 +252,36 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                   },
                 ),
               ),
-              dividerText(
-                  context: context, dividerText: "Trending Movies", desc: ''),
-              SizedBox(
-                height: 320, // Adjust the height as needed
-                child: GridView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: state.trendingMoviesList.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisExtent: 300,
-                    childAspectRatio: 0.3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemBuilder: (context, index) {
-                    final result = state.trendingMoviesList[index];
-                    return customCards(
-                      overview: result.overview,
-                      index: index,
-                      context: context,
-                      title: result.title,
-                      posterpath: result.posterPath,
-                      releasedate: result.releaseDate,
-                      popularity: result.popularity,
-                      adult: result.adult,
-                      backdroppath: result.backdropPath,
-                    );
-                  },
-                ),
-              ),
+              // dividerText(
+              //     context: context, dividerText: "Trending Movies", desc: ''),
+              // SizedBox(
+              //   height: 320, // Adjust the height as needed
+              //   child: GridView.builder(
+              //     scrollDirection: Axis.horizontal,
+              //     itemCount: state.trendingMoviesList.length,
+              //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //       crossAxisCount: 1,
+              //       mainAxisExtent: 300,
+              //       childAspectRatio: 0.3,
+              //       crossAxisSpacing: 10,
+              //       mainAxisSpacing: 10,
+              //     ),
+              //     itemBuilder: (context, index) {
+              //       final result = state.trendingMoviesList[index];
+              //       return customCards(
+              //         overview: result.overview,
+              //         index: index,
+              //         context: context,
+              //         title: result.title,
+              //         posterpath: result.posterPath,
+              //         releasedate: result.releaseDate,
+              //         popularity: result.popularity,
+              //         adult: result.adult,
+              //         backdroppath: result.backdropPath,
+              //       );
+              //     },
+              //   ),
+              // ),
             ],
           ),
         ),

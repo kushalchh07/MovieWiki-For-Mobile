@@ -93,6 +93,7 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(
                       height: Get.height * 0.3,
@@ -153,8 +154,7 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (widget.titleEnglish != null ||
-                                  widget.season.isNotEmpty)
+                             
                                 Text(
                                   widget.titleEnglish,
                                   style: TextStyle(
@@ -171,8 +171,7 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                                     fontFamily: 'poppins'),
                               ),
                               SizedBox(height: 8),
-                              if (widget.season != null ||
-                                  widget.season.isNotEmpty)
+                             
                                 Text(
                                   "Season:${widget.season} ",
                                   style: TextStyle(
@@ -182,8 +181,7 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                                       color: myLightGrey),
                                 ),
                               SizedBox(height: 8),
-                              if (widget.episodes != null ||
-                                  widget.season.isNotEmpty)
+                           
                                 Text(
                                   "Total episodes:${widget.episodes} ",
                                   style: TextStyle(
@@ -193,8 +191,7 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                                       color: myLightGrey),
                                 ),
                               SizedBox(height: 8),
-                              if (widget.duration != null ||
-                                  widget.season.isNotEmpty)
+                              
                                 Text(
                                   "Duration :${widget.duration} ",
                                   style: TextStyle(

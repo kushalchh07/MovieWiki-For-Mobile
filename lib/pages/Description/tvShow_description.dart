@@ -68,6 +68,7 @@ class _TvShowDescriptionState extends State<TvShowDescription> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(
                     height: Get.height * 0.3,
