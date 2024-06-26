@@ -101,7 +101,7 @@ Widget showAnimePage(
                   final imageUrl =
                       result.entry.first.images['jpg']?.imageUrl ?? '';
                   final titleEnglish = result.entry.first.title ?? '';
-                  final overview = result.content ?? ''; 
+                  final overview = result.content ?? '';
                   return customCardsAnime(
                     index: index,
                     context: context,
@@ -109,6 +109,7 @@ Widget showAnimePage(
                     posterpath: imageUrl,
                     overview: overview,
                     isTrailorAvailable: false,
+                    thumbnail: imageUrl,
                   );
                 },
               ),

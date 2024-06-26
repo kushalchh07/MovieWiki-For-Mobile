@@ -71,9 +71,9 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
       appBar: AppBar(
         title: Text(widget.titleEnglish),
         leadingWidth: 70,
-        leading: BackButton(
-          onPressed: () => Navigator.pop(context),
-        ),
+        // leading: BackButton(
+        //   onPressed: () => Navigator.pop(context),
+        // ),
       ),
       body: BlocBuilder<AnimeDescriptionBloc, AnimeDescriptionState>(
         builder: (context, state) {
@@ -90,7 +90,8 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
             return SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
-              child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
                     SizedBox(
@@ -152,13 +153,15 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                widget.titleEnglish,
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: 'poppins'),
-                              ),
+                              if (widget.titleEnglish != null ||
+                                  widget.season.isNotEmpty)
+                                Text(
+                                  widget.titleEnglish,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'poppins'),
+                                ),
                               SizedBox(height: 10),
                               Text(
                                 widget.titleJapanese,
@@ -168,47 +171,50 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                                     fontFamily: 'poppins'),
                               ),
                               SizedBox(height: 8),
-                              Text(
-                                "Season:${widget.season} ",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'poppins',
-                                    color: myLightGrey),
-                              ),
+                              if (widget.season != null ||
+                                  widget.season.isNotEmpty)
+                                Text(
+                                  "Season:${widget.season} ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'poppins',
+                                      color: myLightGrey),
+                                ),
                               SizedBox(height: 8),
-                              Text(
-                                "Total episodes:${widget.episodes} ",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'poppins',
-                                    color: myLightGrey),
-                              ),
+                              if (widget.episodes != null ||
+                                  widget.season.isNotEmpty)
+                                Text(
+                                  "Total episodes:${widget.episodes} ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'poppins',
+                                      color: myLightGrey),
+                                ),
                               SizedBox(height: 8),
-                              Text(
-                                "Duration :${widget.duration} ",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'poppins',
-                                    color: myLightGrey),
-                              ),
+                              if (widget.duration != null ||
+                                  widget.season.isNotEmpty)
+                                Text(
+                                  "Duration :${widget.duration} ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'poppins',
+                                      color: myLightGrey),
+                                ),
                             ],
                           ),
                         ),
                       ],
                     ),
                     SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Text(
-                        'Overview:',
-                        style: TextStyle(
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'poppins'),
-                      ),
+                    Text(
+                      'Overview:',
+                      style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'poppins'),
                     ),
                     SizedBox(height: 8),
                     Container(
