@@ -101,7 +101,7 @@ Widget showAnimePage(
                   final imageUrl =
                       result.entry.first.images['jpg']?.imageUrl ?? '';
                   final titleEnglish = result.entry.first.title ?? '';
-                  final overview = ''; // Add your logic for overview if needed
+                  final overview = result.content ?? ''; 
                   return customCardsAnime(
                     index: index,
                     context: context,
