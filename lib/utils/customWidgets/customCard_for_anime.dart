@@ -8,24 +8,28 @@ import 'package:movie_wiki/constants/colors/colors.dart';
 import 'package:movie_wiki/logic/Bloc/animeDescriptionBloc/anime_description_bloc.dart';
 import 'package:movie_wiki/pages/Description/anime_description.dart';
 
-Widget customCardsAnime(
-    {required dynamic index,
-    dynamic context,
-    required String titleEnglish,
-    String? titleJapanese,
-    required String posterpath,
-    bool? isTrailorAvailable,
-    DateTime? releasedate,
-    double? popularity,
-    String? overview,
-    String? thumbnail,
-    String? season,
-    String? episodes,
-    String? duration,
-    String? trailorUrl,
-    String? type,
-    String? rank,
-    String? author}) {
+Widget customCardsAnime({
+  required dynamic index,
+  dynamic context,
+  required String titleEnglish,
+  String? titleJapanese,
+  required String posterpath,
+  bool? isTrailorAvailable,
+  DateTime? releasedate,
+  double? popularity,
+  String? overview,
+  String? thumbnail,
+  String? season,
+  String? episodes,
+  String? duration,
+  String? trailorUrl,
+  String? type,
+  String? rank,
+  String? author,
+  bool? isRecommendationAnime,
+  String? url,
+  // bool? isTopAnime,
+}) {
   final String releaseDateString =
       releasedate != null ? releasedate.toString() : 'Unknown';
 
@@ -60,6 +64,9 @@ Widget customCardsAnime(
               type: type ?? '',
               rank: rank ?? '',
               author: author ?? '',
+              isRecommendationAnime: isRecommendationAnime ?? false,
+              url: url??'',
+              // isTopAnime: isTopAnime ?? false,
             ),
           ),
         ),

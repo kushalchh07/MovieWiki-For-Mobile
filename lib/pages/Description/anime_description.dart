@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 
 import 'package:movie_wiki/logic/Bloc/animeDescriptionBloc/anime_description_bloc.dart';
 import 'package:movie_wiki/pages/Description/trailerScreen/trailer_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../constants/colors/colors.dart';
@@ -29,6 +30,9 @@ class AnimeDescription extends StatefulWidget {
   final bool isTrailorAvailable;
   final String type;
   final String author;
+  final bool isRecommendationAnime;
+  final String url;
+  // final bool isTopAnime;
   const AnimeDescription({
     super.key,
     required this.titleEnglish,
@@ -48,6 +52,9 @@ class AnimeDescription extends StatefulWidget {
     required this.type,
     required this.rank,
     required this.author,
+    required this.isRecommendationAnime,
+    required this.url,
+    // required this.isTopAnime,
   });
 
   @override
@@ -69,6 +76,14 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
   //     ),
   //   );
   // }
+  void _launchURL() async {
+    final urL = widget.url;
+    if (await canLaunch(urL)) {
+      await launch(urL);
+    } else {
+      throw 'Could not launch $urL';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -167,82 +182,101 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                                     fontFamily: 'poppins'),
                               ),
                               SizedBox(height: 4),
-                              Text(
-                                widget.titleJapanese,
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: 'poppins'),
-                              ),
+                              if (widget.isRecommendationAnime == false)
+                                Text(
+                                  widget.titleJapanese,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'poppins'),
+                                ),
                               SizedBox(height: 4),
-                              Text(
-                                "Type:${widget.type} ",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'poppins',
-                                    color: myLightGrey),
-                              ),
+                              if (widget.isRecommendationAnime == true)
+                                ElevatedButton(
+                                  onPressed: _launchURL,
+                                  child: Text('More info'),
+                                ),
                               SizedBox(height: 4),
-                              Text(
-                                "Rating:${widget.rating} ",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'poppins',
-                                    color: myLightGrey),
-                              ),
+                              if (widget.isRecommendationAnime == false)
+                                Text(
+                                  "Type:${widget.type} ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'poppins',
+                                      color: myLightGrey),
+                                ),
                               SizedBox(height: 4),
-                              Text(
-                                "Rank:${widget.rank} ",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'poppins',
-                                    color: myLightGrey),
-                              ),
+                              if (widget.isRecommendationAnime == false)
+                                Text(
+                                  "Rating:${widget.rating} ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'poppins',
+                                      color: myLightGrey),
+                                ),
                               SizedBox(height: 4),
-                              Text(
-                                "Season:${widget.season} ",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'poppins',
-                                    color: myLightGrey),
-                              ),
+                              if (widget.isRecommendationAnime == false)
+                                Text(
+                                  "Rank:${widget.rank} ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'poppins',
+                                      color: myLightGrey),
+                                ),
                               SizedBox(height: 4),
-                              Text(
-                                "Total episodes:${widget.episodes} ",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'poppins',
-                                    color: myLightGrey),
-                              ),
+                              if (widget.isRecommendationAnime == false)
+                                Text(
+                                  "Season:${widget.season} ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'poppins',
+                                      color: myLightGrey),
+                                ),
                               SizedBox(height: 4),
-                              Text(
-                                "Duration :${widget.duration} ",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'poppins',
-                                    color: myLightGrey),
-                              ),
+                              if (widget.isRecommendationAnime == false)
+                                Text(
+                                  "Total episodes:${widget.episodes} ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'poppins',
+                                      color: myLightGrey),
+                                ),
                               SizedBox(height: 4),
-                              Text(
-                                "Author :${widget.author} ",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'poppins',
-                                    color: myLightGrey),
-                              ),
+                              if (widget.isRecommendationAnime == false)
+                                Text(
+                                  "Duration :${widget.duration} ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'poppins',
+                                      color: myLightGrey),
+                                ),
+                              SizedBox(height: 4),
+                              if (widget.isRecommendationAnime == false)
+                                Text(
+                                  "Author :${widget.author} ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'poppins',
+                                      color: myLightGrey),
+                                ),
                             ],
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    if (widget.isRecommendationAnime == false)
+                      ElevatedButton(
+                        onPressed: _launchURL,
+                        child: Text('More info'),
+                      ),
+                    SizedBox(height: 14),
                     Text(
                       'Overview:',
                       style: TextStyle(

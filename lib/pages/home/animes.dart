@@ -113,6 +113,8 @@ Widget showAnimePage(
                     season: '',
                     duration: '',
                     episodes: '',
+                    isRecommendationAnime: true,
+                    url: result.entry.first.url,
                   );
                 },
               ),
@@ -154,6 +156,10 @@ Widget showAnimePage(
                     season: season,
                     trailorUrl: trailerUrl,
                     isTrailorAvailable: true,
+                    type: anime.type.toString().split('.').last,
+                    popularity: anime.score,
+                    rank: anime.rank.toString(),
+                    url: anime.url
                   );
                 },
               ),
@@ -188,6 +194,7 @@ Widget showAnimePage(
                     rank: result.rank.toString(),
                     type: result.type.toString().split('.').last,
                     author: result.authors?.first.name ?? '',
+                    url: result.url
                   );
                 },
               ),
