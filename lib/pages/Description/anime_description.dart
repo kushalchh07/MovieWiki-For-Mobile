@@ -21,12 +21,14 @@ class AnimeDescription extends StatefulWidget {
   final String season;
   final String episodes;
   final String duration;
-  // final String airedOn;
+  final String rank;
   final dynamic context;
   final dynamic index;
   final String thumbnail;
   final String trailorUrl;
   final bool isTrailorAvailable;
+  final String type;
+  final String author;
   const AnimeDescription({
     super.key,
     required this.titleEnglish,
@@ -43,6 +45,9 @@ class AnimeDescription extends StatefulWidget {
     required this.thumbnail,
     required this.trailorUrl,
     required this.isTrailorAvailable,
+    required this.type,
+    required this.rank,
+    required this.author,
   });
 
   @override
@@ -139,7 +144,7 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                     Row(
                       children: [
                         Container(
-                          height: Get.height * 0.25,
+                          height: Get.height * 0.28,
                           width: Get.width * 0.4,
                           child: Card(
                             child: Image.network(
@@ -154,15 +159,14 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                             
-                                Text(
-                                  widget.titleEnglish,
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700,
-                                      fontFamily: 'poppins'),
-                                ),
-                              SizedBox(height: 10),
+                              Text(
+                                widget.titleEnglish,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                    fontFamily: 'poppins'),
+                              ),
+                              SizedBox(height: 4),
                               Text(
                                 widget.titleJapanese,
                                 style: TextStyle(
@@ -170,36 +174,69 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                                     fontWeight: FontWeight.w700,
                                     fontFamily: 'poppins'),
                               ),
-                              SizedBox(height: 8),
-                             
-                                Text(
-                                  "Season:${widget.season} ",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'poppins',
-                                      color: myLightGrey),
-                                ),
-                              SizedBox(height: 8),
-                           
-                                Text(
-                                  "Total episodes:${widget.episodes} ",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'poppins',
-                                      color: myLightGrey),
-                                ),
-                              SizedBox(height: 8),
-                              
-                                Text(
-                                  "Duration :${widget.duration} ",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'poppins',
-                                      color: myLightGrey),
-                                ),
+                              SizedBox(height: 4),
+                              Text(
+                                "Type:${widget.type} ",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'poppins',
+                                    color: myLightGrey),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                "Rating:${widget.rating} ",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'poppins',
+                                    color: myLightGrey),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                "Rank:${widget.rank} ",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'poppins',
+                                    color: myLightGrey),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                "Season:${widget.season} ",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'poppins',
+                                    color: myLightGrey),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                "Total episodes:${widget.episodes} ",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'poppins',
+                                    color: myLightGrey),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                "Duration :${widget.duration} ",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'poppins',
+                                    color: myLightGrey),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                "Author :${widget.author} ",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'poppins',
+                                    color: myLightGrey),
+                              ),
                             ],
                           ),
                         ),
@@ -213,7 +250,7 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                           fontWeight: FontWeight.bold,
                           fontFamily: 'poppins'),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: 4),
                     Container(
                       // height: Get.height,
                       child: Padding(

@@ -22,7 +22,10 @@ Widget customCardsAnime(
     String? season,
     String? episodes,
     String? duration,
-    String? trailorUrl}) {
+    String? trailorUrl,
+    String? type,
+    String? rank,
+    String? author}) {
   final String releaseDateString =
       releasedate != null ? releasedate.toString() : 'Unknown';
 
@@ -54,6 +57,9 @@ Widget customCardsAnime(
               thumbnail: thumbnail ?? '',
               trailorUrl: trailorUrl ?? '',
               isTrailorAvailable: isTrailorAvailable ?? false,
+              type: type ?? '',
+              rank: rank ?? '',
+              author: author ?? '',
             ),
           ),
         ),
