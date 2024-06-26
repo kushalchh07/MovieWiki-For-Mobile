@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1072011468843",
+    "project_id": "moviewiki-3d9a2",
+    "storage_bucket": "moviewiki-3d9a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1072011468843:android:5ea78c1a9a6e58401f0a6e",
+        "android_client_info": {
+          "package_name": "com.example.movie_wiki"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKHBHC8_lRvrvYoxKpzfM9jajfz6zBpz4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
