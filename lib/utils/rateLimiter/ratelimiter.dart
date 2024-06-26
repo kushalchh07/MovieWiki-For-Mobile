@@ -22,7 +22,7 @@ class RateLimiter {
 }
 
 // Usage
-final rateLimiter = RateLimiter(maxRequests: 5, period: Duration(seconds: 60));
+final rateLimiter = RateLimiter(maxRequests: 3, period: Duration(seconds: 60));
 
 Future<void> fetchTopAnimes() async {
   await rateLimiter.allowRequest();
