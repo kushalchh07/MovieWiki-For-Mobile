@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element, prefer_const_constructors, curly_braces_in_flow_control_structures
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ import 'package:movie_wiki/logic/Bloc/internet_bloc/internet_bloc.dart';
 import 'package:movie_wiki/logic/Bloc/internet_bloc/internet_state.dart';
 import 'package:movie_wiki/logic/Bloc/signupbloc/signup_bloc.dart';
 import 'package:movie_wiki/pages/login&signup/login.dart';
+import 'package:movie_wiki/utils/customWidgets/alert_dialog_box.dart';
 
 import '../../constants/colors/colors.dart';
 
@@ -43,11 +46,39 @@ class _SignupState extends State<Signup> {
     confirmPasswordController.dispose();
   }
 
+  signup() {
+    if (_formKey.currentState!.validate()) {
+      (agreeTerms)
+          ? BlocProvider.of<SignupBloc>(context).add(SignupTappedEvent(
+              email: emailController.text.trim(),
+              password: newPasswordController.text.trim()))
+          : customAlertBox(
+              context,
+              'Please make sure you accept the terms and condition before proceeding',
+              '',
+              () {},
+              'Close',
+              () {
+                Navigator.pop(context);
+              },
+            );
+    }
+  }
+
+  void _showSnackBar(String message, Color color) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: color,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<InternetBloc, InternetState>(
       builder: (context, state) {
-        if (state is InternetGainedState) {
+        if (state is InternetConnected) {
           return registerScreen(context);
         }
         // return const Scaffold(
@@ -111,6 +142,43 @@ class _SignupState extends State<Signup> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const SizedBox(height: 15),
+
+                            TextFormField(
+                              cursorColor: secondaryColor,
+                              controller: fnameController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Enter your name';
+                                } else if (!RegExp(r'[a-zA-Z]')
+                                    .hasMatch(value)) {
+                                  // Checks if the value contains at least one alphabetic character
+                                  return 'Name should contain at least one letter';
+                                }
+                                return null;
+                              },
+                              textInputAction: TextInputAction.next,
+                              keyboardType: TextInputType.name,
+                              decoration: InputDecoration(
+                                  floatingLabelStyle: floatingLabelTextStyle(),
+                                  focusedBorder: customFocusBorder(),
+                                  prefixIcon: Icon(
+                                    Icons.person,
+                                    color: greyColor,
+                                  ),
+                                  fillColor: inputFieldColor,
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+
+                                  // labelText: ' Enter your name',
+                                  hintText: ' Enter your name ',
+                                  labelText: 'Enter your name',
+                                  hintStyle: TextStyle(
+                                    fontFamily: 'inter',
+                                    fontWeight: FontWeight.w400,
+                                  )),
+                            ),
                             const SizedBox(height: 15),
 
                             TextFormField(
@@ -236,58 +304,58 @@ class _SignupState extends State<Signup> {
                             SizedBox(
                               height: 10,
                             ),
-                            TextFormField(
-                              cursorColor: primaryColor,
-                              controller: confirmPasswordController,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Enter Confirm password';
-                                }
-                                if (value.length < 8) {
-                                  return 'Password must contain atleast 8 character';
-                                }
-                                if (newPasswordController !=
-                                    confirmPasswordController) {
-                                  return 'Both passwords doesnot match';
-                                }
-                                return null;
-                              },
-                              textInputAction: TextInputAction.newline,
-                              obscureText: !_newPassword,
-                              decoration: InputDecoration(
-                                floatingLabelStyle: floatingLabelTextStyle(),
-                                focusedBorder: customFocusBorder(),
-                                fillColor: inputFieldColor,
-                                filled: true,
-                                labelStyle:
-                                    TextStyle(color: greyColor, fontSize: 13),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _newPassword = !_newPassword;
-                                    });
-                                  },
-                                  icon: (_newPassword)
-                                      ? Icon(
-                                          Icons.visibility,
-                                          color: greyColor,
-                                        )
-                                      : Icon(
-                                          Icons.visibility_off,
-                                          color: greyColor,
-                                        ),
-                                ),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                hintText: 'Confirm Password ',
-                                prefixIcon: Icon(
-                                  Icons.lock,
-                                  color: greyColor,
-                                ),
-                                hintStyle: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ),
+                            // TextFormField(
+                            //   cursorColor: primaryColor,
+                            //   controller: confirmPasswordController,
+                            //   validator: (value) {
+                            //     if (value == null || value.isEmpty) {
+                            //       return 'Enter Confirm password';
+                            //     }
+                            //     if (value.length < 8) {
+                            //       return 'Password must contain atleast 8 character';
+                            //     }
+                            //     if (newPasswordController !=
+                            //         confirmPasswordController) {
+                            //       return 'Both passwords doesnot match';
+                            //     }
+                            //     return null;
+                            //   },
+                            //   textInputAction: TextInputAction.newline,
+                            //   obscureText: !_newPassword,
+                            //   decoration: InputDecoration(
+                            //     floatingLabelStyle: floatingLabelTextStyle(),
+                            //     focusedBorder: customFocusBorder(),
+                            //     fillColor: inputFieldColor,
+                            //     filled: true,
+                            //     labelStyle:
+                            //         TextStyle(color: greyColor, fontSize: 13),
+                            //     suffixIcon: IconButton(
+                            //       onPressed: () {
+                            //         setState(() {
+                            //           _newPassword = !_newPassword;
+                            //         });
+                            //       },
+                            //       icon: (_newPassword)
+                            //           ? Icon(
+                            //               Icons.visibility,
+                            //               color: greyColor,
+                            //             )
+                            //           : Icon(
+                            //               Icons.visibility_off,
+                            //               color: greyColor,
+                            //             ),
+                            //     ),
+                            //     border: OutlineInputBorder(
+                            //         borderRadius: BorderRadius.circular(10)),
+                            //     hintText: 'Confirm Password ',
+                            //     prefixIcon: Icon(
+                            //       Icons.lock,
+                            //       color: greyColor,
+                            //     ),
+                            //     hintStyle: GoogleFonts.inter(
+                            //         fontWeight: FontWeight.w400),
+                            //   ),
+                            // ),
                             // Visibility(
                             //   visible: Platform.isAndroid,
                             //   child: Padding(
@@ -351,15 +419,6 @@ class _SignupState extends State<Signup> {
                                 color: myBlack,
                                 fontWeight: FontWeight.w400,
                                 fontSize: 14),
-                            // recognizer: TapGestureRecognizer()
-                            //   ..onTap = () async {
-                            //     if (!await launchUrl(
-                            //         Uri.parse('$baseUrl/privacy'))) {
-                            //       throw Exception(
-                            //           'Could not launch privacy policy');
-                            //     }
-                            //     //
-                            //   },
                           ),
                         ])),
                       ),
@@ -375,103 +434,35 @@ class _SignupState extends State<Signup> {
                             child: CupertinoActivityIndicator(),
                           ),
                         );
-                      } else {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 15),
-                          child: SizedBox(
-                            height: 45,
-                            width: 300,
-                            child: MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)),
-                              color: primaryColor,
-                              onPressed: () {
-                                // var random = Random();
-
-                                // //generating 4 digit otp
-                                // randomNumber = 1000 + random.nextInt(9000);
-                                // setotp(randomNumber);
-                                // FocusScope.of(context).unfocus();
-
-                                // if (_formKey.currentState!.validate()) {
-                                //   developer.log(
-                                //       'signupp button pressed${otpCode.toString()}');
-
-                                //   FocusManager.instance.primaryFocus
-                                //       ?.unfocus();
-                                //   (agreeTerms)
-                                //       ? BlocProvider.of<RegisterBloc>(context)
-                                //           .add(
-                                //           RegisterAttemptEvent(
-                                //             firstname:
-                                //                 fnameController.text.trim(),
-                                //             lastname:
-                                //                 lnameController.text.trim(),
-                                //             password: newPasswordController
-                                //                 .text
-                                //                 .trim(),
-                                //             email:
-                                //                 emailController.text.trim(),
-                                //             contact:
-                                //                 contactController.text.trim(),
-                                //             coupon:
-                                //                 couponController.text.trim(),
-                                //             otp: randomNumber.toString(),
-                                //           ),
-                                //         )
-                                //       : customAlertBox(
-                                //           context,
-                                //           'Please make sure you accept the terms and condition before proceeding',
-                                //           '',
-                                //           () {},
-                                //           'Close',
-                                //           () {
-                                //             Navigator.pop(context);
-                                //           },
-                                //         );
-                                // showDialog(
-                                //     context: context,
-                                //     builder: (context) {
-                                //       return AlertDialog(
-                                //         content: const Text(
-                                //           "Please make sure you accept the terms and condition before proceeding",
-                                //         ),
-                                //         actions: [
-                                //           ElevatedButton(
-                                //               style: ElevatedButton
-                                //                   .styleFrom(
-                                //                       backgroundColor:
-                                //                           primaryColor,
-                                //                       foregroundColor:
-                                //                           Colors.white),
-                                //               onPressed: () {
-                                //                 Navigator.pop(context);
-                                //               },
-                                //               child: const Text('Close'))
-                                //         ],
-                                //       );
-                                //     });
-                                // }
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Sign up',
-                                    style: GoogleFonts.inter(
-                                      textStyle: TextStyle(
-                                        color: whiteColor,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                      }
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: SizedBox(
+                          height: 45,
+                          width: 300,
+                          child: MaterialButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            color: primaryColor,
+                            onPressed: signup,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Sign up',
+                                  style: GoogleFonts.inter(
+                                    textStyle: TextStyle(
+                                      color: whiteColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        );
-                      }
+                        ),
+                      );
                     },
                   ),
                   Padding(
