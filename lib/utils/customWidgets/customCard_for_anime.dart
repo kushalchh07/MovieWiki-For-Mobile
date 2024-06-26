@@ -28,7 +28,7 @@ Widget customCardsAnime({
   String? author,
   bool? isRecommendationAnime,
   String? url,
-  // bool? isTopAnime,
+  bool? isTopAnime,
 }) {
   final String releaseDateString =
       releasedate != null ? releasedate.toString() : 'Unknown';
@@ -66,7 +66,7 @@ Widget customCardsAnime({
               author: author ?? '',
               isRecommendationAnime: isRecommendationAnime ?? false,
               url: url??'',
-              // isTopAnime: isTopAnime ?? false,
+              isTopAnime: isTopAnime ?? false,
             ),
           ),
         ),

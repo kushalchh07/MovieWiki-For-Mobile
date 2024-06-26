@@ -159,7 +159,8 @@ Widget showAnimePage(
                     type: anime.type.toString().split('.').last,
                     popularity: anime.score,
                     rank: anime.rank.toString(),
-                    url: anime.url
+                    url: anime.url,
+                    isTopAnime: true,
                   );
                 },
               ),
@@ -181,21 +182,20 @@ Widget showAnimePage(
                   final result = state.topMangaList[index];
                   final imageUrl = result.images['jpg']?.imageUrl ?? '';
                   return customCardsAnime(
-                    index: index,
-                    context: context,
-                    titleEnglish: result.title,
-                    posterpath: imageUrl,
-                    releasedate: result.published!.from,
-                    popularity: result.score,
-                    titleJapanese: result.titleJapanese,
-                    thumbnail: imageUrl,
-                    isTrailorAvailable: false,
-                    overview: result.synopsis,
-                    rank: result.rank.toString(),
-                    type: result.type.toString().split('.').last,
-                    author: result.authors?.first.name ?? '',
-                    url: result.url
-                  );
+                      index: index,
+                      context: context,
+                      titleEnglish: result.title,
+                      posterpath: imageUrl,
+                      releasedate: result.published!.from,
+                      popularity: result.score,
+                      titleJapanese: result.titleJapanese,
+                      thumbnail: imageUrl,
+                      isTrailorAvailable: false,
+                      overview: result.synopsis,
+                      rank: result.rank.toString(),
+                      type: result.type.toString().split('.').last,
+                      author: result.authors?.first.name ?? '',
+                      url: result.url);
                 },
               ),
             ),

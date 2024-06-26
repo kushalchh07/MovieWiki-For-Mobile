@@ -32,7 +32,7 @@ class AnimeDescription extends StatefulWidget {
   final String author;
   final bool isRecommendationAnime;
   final String url;
-  // final bool isTopAnime;
+  final bool isTopAnime;
   const AnimeDescription({
     super.key,
     required this.titleEnglish,
@@ -54,7 +54,7 @@ class AnimeDescription extends StatefulWidget {
     required this.author,
     required this.isRecommendationAnime,
     required this.url,
-    // required this.isTopAnime,
+    required this.isTopAnime,
   });
 
   @override
@@ -227,7 +227,8 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                                       color: myLightGrey),
                                 ),
                               SizedBox(height: 4),
-                              if (widget.isRecommendationAnime == false)
+                              if (widget.isRecommendationAnime == false ||
+                                  widget.isTopAnime == true)
                                 Text(
                                   "Season:${widget.season} ",
                                   style: TextStyle(
@@ -237,7 +238,8 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                                       color: myLightGrey),
                                 ),
                               SizedBox(height: 4),
-                              if (widget.isRecommendationAnime == false)
+                              if (widget.isRecommendationAnime == false ||
+                                  widget.isTopAnime == true)
                                 Text(
                                   "Total episodes:${widget.episodes} ",
                                   style: TextStyle(
@@ -247,7 +249,8 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                                       color: myLightGrey),
                                 ),
                               SizedBox(height: 4),
-                              if (widget.isRecommendationAnime == false)
+                              if (widget.isRecommendationAnime == false ||
+                                  widget.isTopAnime == true)
                                 Text(
                                   "Duration :${widget.duration} ",
                                   style: TextStyle(
@@ -257,7 +260,8 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                                       color: myLightGrey),
                                 ),
                               SizedBox(height: 4),
-                              if (widget.isRecommendationAnime == false)
+                              if (widget.isRecommendationAnime == false &&
+                                  widget.isTopAnime == false)
                                 Text(
                                   "Author :${widget.author} ",
                                   style: TextStyle(
@@ -272,9 +276,33 @@ class _AnimeDescriptionState extends State<AnimeDescription> {
                       ],
                     ),
                     if (widget.isRecommendationAnime == false)
-                      ElevatedButton(
-                        onPressed: _launchURL,
-                        child: Text('More info'),
+                      Container(
+                        width: Get.width * 0.4,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          onPressed: _launchURL,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'More info',
+                                style: TextStyle(
+                                    color: myWhite,
+                                    fontFamily: 'inter',
+                                    fontSize: 18),
+                              ),
+                              Icon(
+                                Icons.info_outline,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     SizedBox(height: 14),
                     Text(
