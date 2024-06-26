@@ -1,10 +1,13 @@
-// ignore_for_file: dead_code
+// ignore_for_file: dead_code, unused_element
 
 import 'dart:math';
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 // import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -13,11 +16,13 @@ import 'package:movie_wiki/constants/colors/colors.dart';
 import 'package:movie_wiki/constants/size/size.dart';
 import 'package:movie_wiki/logic/Bloc/internet_bloc/internet_state.dart';
 import 'package:movie_wiki/logic/Bloc/signupbloc/signup_bloc.dart';
+import 'package:movie_wiki/pages/InternetScreen/internet_error_screen.dart';
 import 'package:movie_wiki/pages/home/base.dart';
 import 'package:movie_wiki/pages/home/homepage.dart';
 import 'package:movie_wiki/pages/login&signup/forgrtpassword.dart';
 import 'package:movie_wiki/pages/login&signup/signup.dart';
 
+import '../../logic/Bloc/internet_bloc/internet_bloc.dart';
 import '../../logic/Bloc/loginbloc/login_bloc.dart';
 
 class Login extends StatefulWidget {
@@ -46,14 +51,22 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   final formKey = GlobalKey<FormState>();
 
   login() {
-    if (formKey.currentState!.validate()) {
-      FocusManager.instance.primaryFocus?.unfocus();
-      {
-        BlocProvider.of<LoginBloc>(context).add(LoginTappedEvent(
-            email: emailController.text.trim(),
-            password: passController.text.trim()));
-      }
-    }
+    print("Logg In tapped");
+    // if (formKey.currentState != null && formKey.currentState!.validate()) {
+    // FocusManager.instance.primaryFocus?.unfocus();
+    BlocProvider.of<LoginBloc>(context).add(LoginTappedEvent(
+        email: emailController.text.trim(),
+        password: passController.text.trim()));
+    // }
+  }
+
+  void _showSnackBar(String message, Color color) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: color,
+      ),
+    );
   }
 
   late AnimationController _controller;
@@ -78,7 +91,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginBloc, LoginState>(
+    return BlocConsumer<InternetBloc, InternetState>(
       listener: (context, state) {
         // TODO: implement listener
       },
@@ -86,7 +99,15 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         AppSize size = AppSize(
           context: context,
         );
-        if (state is InternetGainedState) {}
+        if (state is InternetConnected) {
+          return loginWidget(size, context);
+        }
+        //  else if (state is InternetLostState) {
+        //   return InternetLostScreen();
+        // }
+        // else {
+        //   return InternetLostScreen();
+        // }
         return loginWidget(size, context);
       },
     );
@@ -285,6 +306,13 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                   width: 50,
                                   child: CupertinoActivityIndicator());
                             }
+                            // if (state is LoginError) {
+                            //   return
+                            //   Container(
+                            //     child: ,
+                            //   );
+
+                            // }
                             return SizedBox(
                               height: 45,
                               width: 300,
@@ -293,13 +321,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                     borderRadius: BorderRadius.circular(15)),
                                 // height: 50,
                                 color: primaryColor,
-                                onPressed: () {
-                                  // Get.to((context) => Homepage());
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Base()));
-                                },
+                                onPressed: login,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -394,8 +416,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       ),
                       GestureDetector(
                         onTap: () {
-                          BlocProvider.of<SignupBloc>(context)
-                              .add(SignupTappedEvent());
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const Signup()));
                         },
