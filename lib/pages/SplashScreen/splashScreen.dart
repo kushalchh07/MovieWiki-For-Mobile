@@ -1,19 +1,24 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:movie_wiki/constants/colors/colors.dart';
+import 'package:movie_wiki/pages/home/base.dart';
 import 'package:movie_wiki/pages/login&signup/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+  static  String KEYLOGIN = "login";
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<SplashScreen> createState() => SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
-  @override
+class SplashScreenState extends State<SplashScreen> {
+  static  String KEYLOGIN = "login";
   @override
   void initState() {
     super.initState();
@@ -21,8 +26,22 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void navigateToHome() async {
-    await Future.delayed(const Duration(seconds: 2));
-    Get.offAll(() => Login());
+    var prefs = await SharedPreferences.getInstance();
+    var isLoggedin = prefs.getBool(KEYLOGIN);
+    // await Future.delayed(const Duration(seconds: 2));
+    Future.delayed(Duration(seconds: 2), () {
+      if (isLoggedin != null) {
+        if (isLoggedin) {
+          Get.offAll(() => Base());
+        } else {
+          Get.offAll(() => Login());
+        }
+      } else {
+        Get.offAll(() => Login());
+      }
+    });
+
+    // Get.offAll(() => Login());
   }
 
   @override

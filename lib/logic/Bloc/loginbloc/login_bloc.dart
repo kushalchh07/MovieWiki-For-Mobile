@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
+import 'package:movie_wiki/constants/constants.dart';
 import 'package:movie_wiki/logic/Bloc/Homebloc/home_bloc.dart';
 import 'package:movie_wiki/pages/home/base.dart';
 import 'package:movie_wiki/services/firebaseAuth_service.dart';
@@ -47,6 +48,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) {
         if (value.user != null) {
+          log(value.toString());
+          saveStatus(true);
           Get.offAll(() => Base());
           Fluttertoast.showToast(
             msg: 'Login Sucessfully',
