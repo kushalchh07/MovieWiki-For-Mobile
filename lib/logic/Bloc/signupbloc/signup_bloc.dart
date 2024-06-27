@@ -48,6 +48,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) {
         if (value.user != null) {
+          saveStatus(true);
           Get.to(() => Base());
           Fluttertoast.showToast(
             msg: 'Signup Sucessfully',
