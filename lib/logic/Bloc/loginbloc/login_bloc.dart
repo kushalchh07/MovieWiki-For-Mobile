@@ -23,6 +23,7 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitialState()) {
     on<LoginTappedEvent>(_loginTappedEvent);
+    on<GoogleLoginTappedEvent>(_googleLoginTappedEvent);
   }
 
   FutureOr<void> _loginTappedEvent(
@@ -76,5 +77,32 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       emit(LoginError(e.toString()));
     }
+  }
+
+  FutureOr<void> _googleLoginTappedEvent(
+      GoogleLoginTappedEvent event, Emitter<LoginState> emit) async {
+    try {
+      emit(LoginLoadingState());
+      await AuthService.googleLogin().then((value) {
+        if (value == "logged in") {
+          log(value.toString());
+          saveStatus(true);
+          Get.offAll(() => Base());
+        } else {
+          Fluttertoast.showToast(
+            msg: 'Couldnot Login Using Google',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Colors.red,
+            textColor: whiteColor,
+          );
+        }
+      });
+    } catch (e) {
+      log("Error occured during login $e");
+
+      emit(LoginError(e.toString()));
+    }
+    emit(LoginSuccessfullState());
   }
 }

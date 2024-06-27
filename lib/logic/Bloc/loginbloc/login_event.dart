@@ -11,3 +11,5 @@ class LoginTappedEvent extends LoginEvent {
 
   LoginTappedEvent({required this.email, required this.password});
 }
+
+class GoogleLoginTappedEvent extends LoginEvent {}

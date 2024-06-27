@@ -1,4 +1,4 @@
-// ignore_for_file: dead_code, unused_element
+// ignore_for_file: dead_code, unused_element, sort_child_properties_last
 
 import 'dart:math';
 import 'dart:developer';
@@ -58,6 +58,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         email: emailController.text.trim(),
         password: passController.text.trim()));
     // }
+  }
+
+  google() {
+    BlocProvider.of<LoginBloc>(context).add(GoogleLoginTappedEvent());
   }
 
   void _showSnackBar(String message, Color color) {
@@ -409,7 +413,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             ],
                           ),
                         ),
-                        onTap: () {},
+                        onTap: google,
                       ),
                       SizedBox(
                         height: Get.height * 0.03,
