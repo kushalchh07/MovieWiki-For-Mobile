@@ -10,11 +10,11 @@ import 'package:movie_wiki/pages/Description/anime_description.dart';
 
 Widget customCardsAnime({
   required dynamic index,
-  dynamic context,
+  required BuildContext context,
   required String titleEnglish,
   String? titleJapanese,
   required String posterpath,
-  bool? isTrailorAvailable,
+  bool isTrailorAvailable = false,
   DateTime? releasedate,
   double? popularity,
   String? overview,
@@ -26,48 +26,37 @@ Widget customCardsAnime({
   String? type,
   String? rank,
   String? author,
-  bool? isRecommendationAnime,
+  bool isRecommendationAnime = false,
   String? url,
-  bool? isTopAnime,
+  bool isTopAnime = false,
 }) {
-  final String releaseDateString =
-      releasedate != null ? releasedate.toString() : 'Unknown';
+  final String releaseDateString = releasedate?.toString() ?? 'Unknown';
 
   return GestureDetector(
     onTap: () {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => MultiBlocProvider(
-            providers: [
-              // QuizQuestionsBloc
-
-              BlocProvider(
-                create: (context) => AnimeDescriptionBloc(),
-              ),
-              // BlocProvider(create: (context) => CourseAuthorBloc())
-            ],
-            child: AnimeDescription(
-              titleEnglish: titleEnglish,
-              titleJapanese: titleJapanese ?? '',
-              description: overview ?? '',
-              image: posterpath,
-              rating: popularity.toString(),
-              season: season ?? '',
-              episodes: episodes ?? '',
-              duration: duration ?? '',
-              // airedOn: '',
-              context: null,
-              index: null,
-              thumbnail: thumbnail ?? '',
-              trailorUrl: trailorUrl ?? '',
-              isTrailorAvailable: isTrailorAvailable ?? false,
-              type: type ?? '',
-              rank: rank ?? '',
-              author: author ?? '',
-              isRecommendationAnime: isRecommendationAnime ?? false,
-              url: url??'',
-              isTopAnime: isTopAnime ?? false,
-            ),
+      Get.to(
+        () => MultiBlocProvider(
+          providers: [BlocProvider(create: (_) => AnimeDescriptionBloc())],
+          child: AnimeDescription(
+            titleEnglish: titleEnglish,
+            titleJapanese: titleJapanese ?? '',
+            description: overview ?? '',
+            image: posterpath,
+            rating: popularity?.toString() ?? '',
+            season: season ?? '',
+            episodes: episodes ?? '',
+            duration: duration ?? '',
+            thumbnail: thumbnail ?? '',
+            trailorUrl: trailorUrl ?? '',
+            isTrailorAvailable: isTrailorAvailable,
+            type: type ?? '',
+            rank: rank ?? '',
+            author: author ?? '',
+            isRecommendationAnime: isRecommendationAnime,
+            url: url ?? '',
+            isTopAnime: isTopAnime,
+            context: context,
+            index: index,
           ),
         ),
       );
@@ -75,58 +64,35 @@ Widget customCardsAnime({
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        width: Get.width * 0.4,
-        height: 280, // Adjusted width for better aspect ratio
+        width: Get.width * 0.45,
+        height: 300,
         child: Card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                flex: 7, // Adjusted flex to better distribute space
+              Container(
+                height: Get.height * 0.25,
+                width: Get.width,
                 child: Image.network(
                   '$posterpath',
                   fit: BoxFit.cover,
-                  width: double.infinity, // Ensures image covers full width
                 ),
               ),
-              Expanded(
-                flex: 3,
+              SizedBox(
+                height: 4,
+              ),
+              Container(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 12, right: 10, top: 10),
-                  child: Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          titleEnglish,
-                          style: TextStyle(
-                            color: myBlack,
-                            fontFamily: 'inter',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 25,
-                          ),
-                          overflow: TextOverflow.ellipsis, // Prevent overflow
-                        ),
-                        // Text(
-                        //   'Release Date: ${releaseDateString}',
-                        //   style: TextStyle(
-                        //     color: myGrey,
-                        //     fontFamily: 'inter',
-                        //     fontWeight: FontWeight.w500,
-                        //     fontSize: 13,
-                        //   ),
-                        // ),
-                        // Text(
-                        //   'Popularity: $popularity',
-                        //   style: TextStyle(
-                        //     color: myGrey,
-                        //     fontFamily: 'inter',
-                        //     fontWeight: FontWeight.w500,
-                        //     fontSize: 13,
-                        //   ),
-                        // ),
-                      ],
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    titleEnglish,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'inter',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 25,
                     ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ),

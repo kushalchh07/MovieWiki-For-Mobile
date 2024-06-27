@@ -36,7 +36,7 @@ class _AnimesState extends State<Animes> {
         },
         builder: (context, state) {
           if (state is AnimeInitial) {
-            log("home initial State");
+            log("anime initial State");
 
             BlocProvider.of<AnimeBloc>(context).add(AnimeLoadEvent());
             return const Center(
@@ -44,19 +44,19 @@ class _AnimesState extends State<Animes> {
             );
           }
           if (state is AnimeLoadingState) {
-            log("home loading State");
+            log("anime loading State");
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
           if (state is AnimeLoadedState) {
-            log("home Loaded State");
+            log("anime Loaded State");
 
             final AppSize size = AppSize(context: context);
             return showAnimePage(size, context, state);
           }
           if (state is AnimeErrorState) {
-            log("home Error State");
+            log("anime Error State");
             return Center(
               child: Text(state.error),
             );
@@ -73,14 +73,14 @@ Widget showAnimePage(
     AppSize size, BuildContext context, AnimeLoadedState state) {
   return SingleChildScrollView(
     physics: BouncingScrollPhysics(),
-    child: RefreshIndicator(
+    child: RefreshIndicator.adaptive(
       onRefresh: () async {
         BlocProvider.of<AnimeBloc>(context).add(AnimeLoadEvent());
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             dividerText(
                 context: context, dividerText: "Recommended Animes", desc: ''),

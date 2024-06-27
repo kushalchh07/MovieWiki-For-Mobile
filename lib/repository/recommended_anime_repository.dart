@@ -9,7 +9,7 @@ const String api = "https://api.jikan.moe/v4/recommendations/anime";
 
 class RecommendedAnimesRepository {
   final RateLimiter rateLimiter =
-      RateLimiter(maxRequests: 5, period: Duration(seconds: 60));
+      RateLimiter(maxRequests: 3, period: Duration(seconds: 60));
 
   Future<RecommendedAnimeModel> getRecommendedAnimes() async {
     await rateLimiter.allowRequest();
