@@ -26,12 +26,12 @@ class _SignupState extends State<Signup> {
   final _formKey = GlobalKey<FormState>();
   bool _newPassword = false;
   final fnameController = TextEditingController();
-  final lnameController = TextEditingController();
+  // final lnameController = TextEditingController();
   final emailController = TextEditingController();
   final newPasswordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
+  // final confirmPasswordController = TextEditingController();
   final contactController = TextEditingController();
-  final couponController = TextEditingController();
+  // final couponController = TextEditingController();
   bool registerError = true;
   bool loginError = true;
   bool agreeTerms = false;
@@ -40,10 +40,10 @@ class _SignupState extends State<Signup> {
   void dispose() {
     super.dispose();
     fnameController.dispose();
-    lnameController.dispose();
+    // lnameController.dispose();
     emailController.dispose();
     newPasswordController.dispose();
-    confirmPasswordController.dispose();
+    // confirmPasswordController.dispose();
   }
 
   signup() {
@@ -51,6 +51,8 @@ class _SignupState extends State<Signup> {
       (agreeTerms)
           ? BlocProvider.of<SignupBloc>(context).add(SignupTappedEvent(
               email: emailController.text.trim(),
+              fname: fnameController.text.trim(),
+              contact: contactController.text.trim(),
               password: newPasswordController.text.trim()))
           : customAlertBox(
               context,

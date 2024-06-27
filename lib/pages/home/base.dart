@@ -8,12 +8,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:movie_wiki/constants/colors/colors.dart';
+import 'package:movie_wiki/constants/constants.dart';
 import 'package:movie_wiki/logic/Bloc/internet_bloc/internet_bloc.dart';
 import 'package:movie_wiki/logic/Bloc/internet_bloc/internet_state.dart';
 import 'package:movie_wiki/pages/home/animes.dart';
 import 'package:movie_wiki/pages/home/homepage.dart';
 import 'package:movie_wiki/pages/home/movies.dart';
 import 'package:movie_wiki/pages/home/tvshows.dart';
+import 'package:movie_wiki/pages/login&signup/login.dart';
 import 'package:movie_wiki/services/firebaseAuth_service.dart';
 
 class Base extends StatefulWidget {
@@ -313,14 +315,14 @@ class _BaseState extends State<Base> {
                     leading: Icon(Icons.settings),
                     title: Text('Settings'),
                     onTap: () {
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
                     },
                   ),
                   ListTile(
                     leading: Icon(Icons.info),
                     title: Text('About'),
                     onTap: () {
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
                     },
                   ),
                   ListTile(
@@ -328,7 +330,9 @@ class _BaseState extends State<Base> {
                     title: Text('Logout'),
                     onTap: () async {
                       await AuthService.logout();
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
+                      saveStatus(false);
+                      Get.offAll(() => Login());
                     },
                   ),
                 ],

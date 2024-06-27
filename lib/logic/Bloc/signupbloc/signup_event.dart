@@ -6,5 +6,12 @@ abstract class SignupEvent {}
 class SignupTappedEvent extends SignupEvent {
   dynamic email;
   dynamic password;
-  SignupTappedEvent({required this.email, required this.password});
+  dynamic fname;
+  dynamic contact;
+  // dynamic lname;
+  SignupTappedEvent(
+      {required this.email,
+      required this.password,
+      required this.fname,
+      required this.contact});
 }

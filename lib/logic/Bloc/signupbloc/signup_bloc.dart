@@ -12,6 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:meta/meta.dart';
+import 'package:movie_wiki/constants/constants.dart';
 import 'package:movie_wiki/pages/home/base.dart';
 import 'package:movie_wiki/pages/login&signup/login.dart';
 import 'package:movie_wiki/pages/login&signup/signup.dart';
@@ -33,12 +34,16 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     try {
       final email = event.email;
       final password = event.password;
-
+      final fname = event.fname;
+      final contact = event.contact;
       emit(SignupLoadingState());
       log("Signup loading");
 
       // await Future.delayed(Duration(seconds: 1));
       // await AuthService.createAccountWithEmail(email, password);
+      saveName(fname);
+      saveEmail(email);
+      saveContact(contact);
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) {
