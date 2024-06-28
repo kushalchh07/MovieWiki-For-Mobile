@@ -220,6 +220,7 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                       backdroppath: result.backdropPath,
                       name: result.name,
                       mediaType: result.mediaType.toString().split('.').last,
+                      trending: true,
                     );
                   },
                 ),

@@ -5,24 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:movie_wiki/constants/colors/colors.dart';
+import 'package:movie_wiki/constants/constants.dart';
 import 'package:movie_wiki/pages/home/base.dart';
 import 'package:movie_wiki/pages/login&signup/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
-  static  String KEYLOGIN = "login";
+  static String KEYLOGIN = "login";
 
   @override
   State<SplashScreen> createState() => SplashScreenState();
 }
 
 class SplashScreenState extends State<SplashScreen> {
-  static  String KEYLOGIN = "login";
+  static String KEYLOGIN = "login";
   @override
   void initState() {
     super.initState();
     navigateToHome();
+    
   }
 
   void navigateToHome() async {

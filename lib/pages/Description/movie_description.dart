@@ -19,19 +19,21 @@ class MovieDescription extends StatefulWidget {
   final DateTime? releasedate;
   final double popularity;
   final String backdroppath;
-
-  MovieDescription({
-    super.key,
-    required this.context,
-    required this.title,
-    required this.index,
-    required this.posterpath,
-    this.releasedate,
-    required this.popularity,
-    required this.overview,
-    required this.adult,
-    required this.backdroppath,
-  });
+  final String mediaType;
+  final bool trending;
+  MovieDescription(
+      {super.key,
+      required this.context,
+      required this.title,
+      required this.index,
+      required this.posterpath,
+      this.releasedate,
+      required this.popularity,
+      required this.overview,
+      required this.adult,
+      required this.trending,
+      required this.backdroppath,
+      required this.mediaType});
 
   @override
   State<MovieDescription> createState() => _MovieDescriptionState();
@@ -131,6 +133,15 @@ class _MovieDescriptionState extends State<MovieDescription> {
                                           Colors.red, // Adjust color as needed
                                     ),
                                   ),
+                                SizedBox(height: 10),
+                                if(widget.trending)
+                                Text(
+                                  'MediaType: ${widget.mediaType}',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: myGrey,
+                                      fontFamily: 'poppins'),
+                                ),
                               ],
                             ),
                           ),

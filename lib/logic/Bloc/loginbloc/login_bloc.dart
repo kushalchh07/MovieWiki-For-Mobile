@@ -89,6 +89,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           log(value.toString());
           saveStatus(true);
           Get.offAll(() => Base());
+          Fluttertoast.showToast(
+            msg: 'Login Sucessfully',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Colors.green,
+            textColor: whiteColor,
+          );
         } else {
           Fluttertoast.showToast(
             msg: 'Couldnot Login Using Google',

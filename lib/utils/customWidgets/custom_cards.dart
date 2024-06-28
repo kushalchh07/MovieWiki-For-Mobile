@@ -24,6 +24,7 @@ Widget customCards({
   required String overview,
   required bool adult,
   String? mediaType,
+  bool? trending,
 }) {
   AppSize size = AppSize(context: context);
   // bool isMovie = true;
@@ -56,6 +57,8 @@ Widget customCards({
               popularity: popularity,
               overview: overview,
               adult: adult,
+              mediaType: mediaType ?? '',
+              trending: trending??false,
             ),
           ),
         ),
