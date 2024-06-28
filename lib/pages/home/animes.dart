@@ -4,8 +4,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:movie_wiki/logic/Bloc/animeBloc/anime_bloc.dart';
 
+import '../../constants/colors/colors.dart';
 import '../../constants/size/size.dart';
 import '../../utils/customWidgets/customCard_for_anime.dart';
 
@@ -30,6 +33,119 @@ class _AnimesState extends State<Animes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 120,
+        backgroundColor: primaryColor,
+        elevation: 0,
+        leadingWidth: 40,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+        ),
+        title: Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 8.0, left: 8, right: 8, bottom: 15),
+                child: Text(
+                  "Animes",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'poppins',
+                    fontSize: 25,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5.0),
+                child: Container(
+                  width: Get.width,
+                  padding: EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search',
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: InputBorder.none,
+                      icon: Icon(Icons.search, color: Colors.grey),
+                    ),
+                    onChanged: (value) {
+                      // Handle search logic here
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        centerTitle: false,
+        leading: Padding(
+          padding: const EdgeInsets.only(bottom: 65.0),
+          child: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                icon: Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.only(bottom: 20),
+          children: <Widget>[
+            Container(
+              height: 150,
+              child: DrawerHeader(
+                decoration: BoxDecoration(
+                  borderRadius:
+                      BorderRadius.vertical(bottom: Radius.circular(30)),
+                  color: primaryColor,
+                ),
+                child: Text(
+                  'Drawer Header',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.people_alt_outlined),
+              title: Text('Fav Characters'),
+              onTap: () {
+                // Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.info),
+              title: Text('Top People'),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(Icons.production_quantity_limits_sharp),
+              title: Text('Producers'),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
       body: BlocConsumer<AnimeBloc, AnimeState>(
         listener: (context, state) {
           // TODO: implement listener

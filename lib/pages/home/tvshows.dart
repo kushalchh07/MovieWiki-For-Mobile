@@ -4,10 +4,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:movie_wiki/constants/size/size.dart';
 import 'package:movie_wiki/logic/Bloc/TvShowsBloc/tvshows_bloc.dart';
 import 'package:movie_wiki/utils/customWidgets/custom_card_for_tvshows.dart';
 
+import '../../constants/colors/colors.dart';
 import '../../utils/customWidgets/custom_cards.dart';
 import '../../utils/customWidgets/dividerText.dart';
 
@@ -30,34 +33,90 @@ class _TvShowsState extends State<TvShows> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          toolbarHeight: 120,
+          backgroundColor: primaryColor,
+          elevation: 0,
+          leadingWidth: 30,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+          ),
+          title: Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 8.0, left: 8, right: 8, bottom: 15),
+                  child: Text(
+                    "TvShows",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'poppins',
+                      fontSize: 25,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  child: Container(
+                    width: Get.width,
+                    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Search',
+                        hintStyle: TextStyle(color: Colors.grey),
+                        border: InputBorder.none,
+                        icon: Icon(Icons.search, color: Colors.grey),
+                      ),
+                      onChanged: (value) {
+                        // Handle search logic here
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
         body: BlocConsumer<TvshowsBloc, TvshowsState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-      builder: (context, state) {
-        if (state is TvshowsInitial) {
-          log("TvShows initial State");
-          BlocProvider.of<TvshowsBloc>(context).add(LoadTvshowsEvent());
-        }
-        if (state is TvshowsLoadingState) {
-          log("TvShows Loading State");
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            if (state is TvshowsInitial) {
+              log("TvShows initial State");
+              BlocProvider.of<TvshowsBloc>(context).add(LoadTvshowsEvent());
+            }
+            if (state is TvshowsLoadingState) {
+              log("TvShows Loading State");
 
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (state is TvshowsLoadedState) {
-          log("TvShows Loaded State");
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state is TvshowsLoadedState) {
+              log("TvShows Loaded State");
 
-          final AppSize size = AppSize(context: context);
-          return showTvPage(size, context, state);
-        }
-        if (state is TvshowsErrorState) {
-          log("TvShows Error State");
+              final AppSize size = AppSize(context: context);
+              return showTvPage(size, context, state);
+            }
+            if (state is TvshowsErrorState) {
+              log("TvShows Error State");
 
-          return const Center(child: Text('Error Occurred'));
-        }
-        return Container();
-      },
-    ));
+              return const Center(child: Text('Error Occurred'));
+            }
+            return Container();
+          },
+        ));
   }
 }
 

@@ -30,6 +30,63 @@ class _MoviesState extends State<Movies> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        toolbarHeight: 120,
+        backgroundColor: primaryColor,
+        elevation: 0,
+        leadingWidth: 30,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+        ),
+        title: Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 8.0, left: 8, right: 8, bottom: 15),
+                child: Text(
+                  "Movies",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'poppins',
+                    fontSize: 25,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5.0),
+                child: Container(
+                  width: Get.width,
+                  padding: EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search',
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: InputBorder.none,
+                      icon: Icon(Icons.search, color: Colors.grey),
+                    ),
+                    onChanged: (value) {
+                      // Handle search logic here
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        
+      ),
       body: BlocConsumer<MoviesBloc, MoviesState>(
         listener: (context, state) {
           // TODO: implement listener
@@ -97,16 +154,16 @@ Widget showMoviePage(
                 itemBuilder: (context, index) {
                   final result = state.topRatedMoviesList[index];
                   return customCards(
-                    backdroppath: result.backdropPath,
-                    overview: result.overview,
-                    index: index,
-                    context: context,
-                    title: result.title,
-                    posterpath: result.posterPath,
-                    releasedate: result.releaseDate,
-                    popularity: result.popularity,                    adult: result.adult,
-name: ''
-                  );
+                      backdroppath: result.backdropPath,
+                      overview: result.overview,
+                      index: index,
+                      context: context,
+                      title: result.title,
+                      posterpath: result.posterPath,
+                      releasedate: result.releaseDate,
+                      popularity: result.popularity,
+                      adult: result.adult,
+                      name: '');
                 },
               ),
             ),
@@ -127,16 +184,16 @@ name: ''
                 itemBuilder: (context, index) {
                   final result = state.upcomingMoviesList[index];
                   return customCards(
-name: '',
-                      backdroppath: result.backdropPath,
+                    name: '',
+                    backdroppath: result.backdropPath,
                     overview: result.overview,
-                        index: index,
+                    index: index,
                     context: context,
                     title: result.title,
                     posterpath: result.posterPath,
                     releasedate: result.releaseDate,
-                    popularity: result.popularity,                    adult: result.adult,
-
+                    popularity: result.popularity,
+                    adult: result.adult,
                   );
                 },
               ),
@@ -157,18 +214,17 @@ name: '',
                 ),
                 itemBuilder: (context, index) {
                   final result = state.trendingMoviesList[index];
-                  return customCards(   
-      backdroppath: result.backdropPath,
-                    overview: result.overview,
-                     index: index,
-                    context: context,
-                    title: result.title,
-                    posterpath: result.posterPath,
-                    releasedate: result.releaseDate,
-                    popularity: result.popularity,
-                    adult: result.adult,
-                    name: ''
-                  );
+                  return customCards(
+                      backdroppath: result.backdropPath,
+                      overview: result.overview,
+                      index: index,
+                      context: context,
+                      title: result.title,
+                      posterpath: result.posterPath,
+                      releasedate: result.releaseDate,
+                      popularity: result.popularity,
+                      adult: result.adult,
+                      name: '');
                 },
               ),
             ),
