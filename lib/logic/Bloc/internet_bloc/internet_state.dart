@@ -1,7 +1,7 @@
 abstract class InternetState {}
 
-class InternetInitialState extends InternetState {}
+class InternetInitial extends InternetState {}
 
-class InternetLostState extends InternetState {}
+class InternetDisconnected extends InternetState {}
 
-class InternetGainedState extends InternetState {}
+class InternetConnected extends InternetState {}
