@@ -24,7 +24,7 @@ class _AnimesState extends State<Animes> {
     // TODO: implement initState
     super.initState();
 
-    BlocProvider.of<AnimeBloc>(context).add(AnimeLoadEvent());
+    // BlocProvider.of<AnimeBloc>(context).add(AnimeLoadEvent());
   }
 
   @override

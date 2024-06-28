@@ -58,7 +58,7 @@ class _BaseState extends State<Base> {
                 toolbarHeight: 120,
                 backgroundColor: primaryColor,
                 elevation: 0,
-                leadingWidth: 30,
+                leadingWidth: 40,
                 shape: RoundedRectangleBorder(
                   borderRadius:
                       BorderRadius.vertical(bottom: Radius.circular(30)),

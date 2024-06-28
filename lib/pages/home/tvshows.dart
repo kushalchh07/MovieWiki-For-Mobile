@@ -24,7 +24,7 @@ class _TvShowsState extends State<TvShows> {
     // TODO: implement initState
 
     super.initState();
-    BlocProvider.of<TvshowsBloc>(context).add(LoadTvshowsEvent());
+    // BlocProvider.of<TvshowsBloc>(context).add(LoadTvshowsEvent());
   }
 
   @override

@@ -24,7 +24,7 @@ class _MoviesState extends State<Movies> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<MoviesBloc>(context).add(LoadMoviesEvent());
+    // BlocProvider.of<MoviesBloc>(context).add(LoadMoviesEvent());
   }
 
   @override
