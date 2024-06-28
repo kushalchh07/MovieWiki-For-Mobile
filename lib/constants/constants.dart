@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+
 import 'package:movie_wiki/pages/SplashScreen/splashScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -63,3 +64,8 @@ Future<void> saveStatus(bool status) async {
   var prefs = await SharedPreferences.getInstance();
   prefs.setBool(SplashScreen.KEYLOGIN, status);
 }
+
+Future<void> sendOtp(String email) async {
+
+}
+
