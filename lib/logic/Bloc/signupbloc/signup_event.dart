@@ -17,3 +17,4 @@ class SignupTappedEvent extends SignupEvent {
 }
 
 class CheckEmailVerificationEvent extends SignupEvent {}
+class ResendEmailVerificationEvent extends SignupEvent {}

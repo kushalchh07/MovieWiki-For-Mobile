@@ -67,6 +67,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             backgroundColor: Colors.red,
             textColor: whiteColor,
           );
+          emit(LoginError("Credentials are not valid"));
         }
       });
 

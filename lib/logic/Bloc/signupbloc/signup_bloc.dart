@@ -28,6 +28,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc() : super(SignupInitial()) {
     on<SignupTappedEvent>(_signupTappedEvent);
     on<CheckEmailVerificationEvent>(_checkEmailVerification);
+    on<ResendEmailVerificationEvent>(_resendEmailVerification);
   }
 
   FutureOr<void> _signupTappedEvent(
@@ -109,5 +110,17 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     } else {
       emit(SignupErrorState(error: "User NotFound "));
     }
+  }
+
+  FutureOr<void> _resendEmailVerification(
+      ResendEmailVerificationEvent event, Emitter<SignupState> emit) {
+    AuthService.verifyEmail();
+    Fluttertoast.showToast(
+      msg: 'Verification Email Sent Sucessfully',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.green,
+      textColor: whiteColor,
+    );
   }
 }

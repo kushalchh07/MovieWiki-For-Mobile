@@ -106,7 +106,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                           .add(CheckEmailVerificationEvent());
                     },
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center, 
                       children: [
                         Text(
                           'Continue',
@@ -139,7 +139,11 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                         fontWeight: FontWeight.w300),
                   ),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context
+                            .read<SignupBloc>()
+                            .add(ResendEmailVerificationEvent()); 
+                      },
                       child: Text(
                         "Resend Email",
                         style: TextStyle(color: primaryColor, fontSize: 18),
