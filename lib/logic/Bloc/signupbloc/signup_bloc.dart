@@ -16,6 +16,7 @@ import 'package:movie_wiki/constants/constants.dart';
 import 'package:movie_wiki/pages/home/base.dart';
 import 'package:movie_wiki/pages/login&signup/login.dart';
 import 'package:movie_wiki/pages/login&signup/signup.dart';
+import 'package:movie_wiki/pages/login&signup/verify_email_page.dart';
 import 'package:movie_wiki/services/firebaseAuth_service.dart';
 
 import '../../../constants/colors/colors.dart';
@@ -26,6 +27,7 @@ part 'signup_state.dart';
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc() : super(SignupInitial()) {
     on<SignupTappedEvent>(_signupTappedEvent);
+    on<CheckEmailVerificationEvent>(_checkEmailVerification);
   }
 
   FutureOr<void> _signupTappedEvent(
@@ -36,22 +38,26 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       final password = event.password;
       final fname = event.fname;
       final contact = event.contact;
-      emit(SignupLoadingState());
-      log("Signup loading");
+
+      // emit(SignupLoadingState());
+      // log("Signup loading");
 
       // await Future.delayed(Duration(seconds: 1));
       // await AuthService.createAccountWithEmail(email, password);
-      saveName(fname);
-      saveEmail(email);
-      saveContact(contact);
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) {
-        if (value.user != null) {
+
+      await AuthService.createAccountWithEmail(email, password).then((value) {
+        if (value == "Account Created") {
           saveStatus(true);
-          Get.to(() => Base());
+          saveName(fname);
+          saveEmail(email);
+          saveContact(contact);
+          AuthService.verifyEmail();
+          emit(EmailSentState());
+          log("Email Verification Sent");
+          // Get.offAll(() => VerifyEmailPage());
+          // Get.to(() => Base());
           Fluttertoast.showToast(
-            msg: 'Signup Sucessfully',
+            msg: 'Verification Email Sent Sucessfully',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             backgroundColor: Colors.green,
@@ -68,15 +74,40 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         }
       });
 
-      log("Account Created");
+      // log("Account Created");
 
-      emit(SignupSuccessState());
-      log("Signup Successfull");
+      // emit(SignupSuccessState());
+      // log("Signup Successfull");
     } on FirebaseAuthException catch (e) {
       // return e.message.toString();
       log("$e");
     } catch (e) {
       log("Error occured during signup $e");
+    }
+  }
+
+  FutureOr<void> _checkEmailVerification(
+      CheckEmailVerificationEvent event, Emitter<SignupState> emit) async {
+    emit(SignupLoadingState());
+
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      await user.reload();
+      if (user.emailVerified) {
+        log("Email Verified ");
+        Fluttertoast.showToast(
+          msg: 'SignUp SuccessFully',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.red,
+          textColor: whiteColor,
+        );
+        emit(SignupSuccessState());
+      } else {
+        emit(SignupErrorState(error: "Email Not Verified"));
+      }
+    } else {
+      emit(SignupErrorState(error: "User NotFound "));
     }
   }
 }

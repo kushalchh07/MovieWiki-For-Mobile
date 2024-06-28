@@ -4,7 +4,8 @@ part of 'signup_bloc.dart';
 sealed class SignupState {}
 
 final class SignupInitial extends SignupState {}
-
+final class SignupLoadingState extends SignupState {}
+final class EmailSentState extends SignupState {}
 final class SignupSuccessState extends SignupState {
   // final dynamic success;
   // final dynamic userId;
@@ -24,4 +25,4 @@ final class SignupErrorState extends SignupState {
   });
 }
 
-final class SignupLoadingState extends SignupState {}
+

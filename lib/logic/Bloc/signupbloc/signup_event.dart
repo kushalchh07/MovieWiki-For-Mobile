@@ -15,3 +15,5 @@ class SignupTappedEvent extends SignupEvent {
       required this.fname,
       required this.contact});
 }
+
+class CheckEmailVerificationEvent extends SignupEvent {}

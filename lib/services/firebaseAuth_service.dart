@@ -68,7 +68,7 @@ class AuthService {
           accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
-              log("userCredential ${userCredential.toString()}");
+      log("userCredential ${userCredential.toString()}");
 
       return "logged in";
     } on FirebaseAuthException catch (e) {
@@ -77,4 +77,33 @@ class AuthService {
       return e.toString();
     }
   }
+
+  static Future<String> verifyEmail() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      await user!.sendEmailVerification();
+      return "Verification email sent";
+    } on FirebaseAuthException catch (e) {
+      return e.message.toString();
+    } catch (e) {
+      return e.toString();
+    }
+  }
+  // static Future<String> facebookLogin() async {
+  //   try {
+  //     final LoginResult result = await FacebookAuth.instance.login();
+
+  //     if (result.status == LoginStatus.success) {
+  //       final userData = await FacebookAuth.instance.getUserData();
+  //       log("userData ${userData.toString()}");
+  //       return "logged in";
+  //     } else {
+  //       return "failed";
+  //     }
+  //   } on FirebaseAuthException catch (e) {
+  //     return e.message.toString();
+  //   } catch (e) {
+  //     return e.toString();
+  //   }
+  // }
 }
