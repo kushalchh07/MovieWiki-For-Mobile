@@ -193,6 +193,38 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
           child: Column(
             children: [
               dividerText(
+                  context: context, dividerText: "Trending Now", desc: ''),
+              SizedBox(
+                height: 320, // Adjust the height as needed
+                child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: state.allTrendingList.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisExtent: 300,
+                    childAspectRatio: 0.3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) {
+                    final result = state.allTrendingList[index];
+                    return customCards(
+                      overview: result.overview,
+                      index: index,
+                      context: context,
+                      title: result.title,
+                      posterpath: result.posterPath,
+                      releasedate: result.releaseDate,
+                      popularity: result.popularity,
+                      adult: result.adult,
+                      backdroppath: result.backdropPath,
+                      name: result.name,
+                      mediaType: result.mediaType.toString().split('.').last,
+                    );
+                  },
+                ),
+              ),
+              dividerText(
                   context: context, dividerText: "Upcoming Movies", desc: ''),
               SizedBox(
                 height: 320, // Adjust the height as needed
@@ -218,6 +250,7 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
                       popularity: result.popularity,
                       adult: result.adult,
                       backdroppath: result.backdropPath,
+                      name: '',
                     );
                   },
                 ),

@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -13,24 +15,30 @@ import '../../pages/Description/movie_description.dart';
 Widget customCards({
   required dynamic context,
   required String title,
-    required dynamic index,
-    required String backdroppath,
-
+  required dynamic index,
+  required String backdroppath,
+  required String name,
   required String posterpath,
-  required DateTime releasedate,
+  DateTime? releasedate,
   required double popularity,
   required String overview,
   required bool adult,
+  String? mediaType,
 }) {
-    AppSize size = AppSize(context: context);
-
+  AppSize size = AppSize(context: context);
+  // bool isMovie = true;
+  // log(mediaType.toString());
+  // if (mediaType == "movie") {
+  //   isMovie = true;
+  // } else {
+  //   isMovie = false;
+  // }
   return GestureDetector(
     onTap: () {
-Navigator.of(context).push(
+      Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => MultiBlocProvider(
             providers: [
-              
               // QuizQuestionsBloc
 
               BlocProvider(
@@ -39,7 +47,7 @@ Navigator.of(context).push(
               // BlocProvider(create: (context) => CourseAuthorBloc())
             ],
             child: MovieDescription(
-             backdroppath: backdroppath,
+              backdroppath: backdroppath,
               context: context,
               title: title,
               index: index,
@@ -47,7 +55,7 @@ Navigator.of(context).push(
               releasedate: releasedate,
               popularity: popularity,
               overview: overview,
-               adult: adult,
+              adult: adult,
             ),
           ),
         ),
@@ -77,8 +85,9 @@ Navigator.of(context).push(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // if (isMovie)
                       Text(
-                        title,
+                        name == '' ? title : name,
                         style: TextStyle(
                           color: myBlack,
                           fontFamily: 'inter',
@@ -87,8 +96,19 @@ Navigator.of(context).push(
                         ),
                         overflow: TextOverflow.ellipsis, // Prevent overflow
                       ),
+                      // if (!isMovie)
+                      //   Text(
+                      //     name!,
+                      //     style: TextStyle(
+                      //       color: myBlack,
+                      //       fontFamily: 'inter',
+                      //       fontWeight: FontWeight.w600,
+                      //       fontSize: 25,
+                      //     ),
+                      //     overflow: TextOverflow.ellipsis, // Prevent overflow
+                      // ),
                       Text(
-                        'Release Date: ${releasedate.day}/${releasedate.month}/${releasedate.year}',
+                        'Release Date: ${releasedate?.day}/${releasedate?.month}/${releasedate?.year}',
                         style: TextStyle(
                           color: myGrey,
                           fontFamily: 'inter',

@@ -5,7 +5,7 @@ import 'package:movie_wiki/models/trending_movies_model.dart';
 import 'package:movie_wiki/models/trending_tv_shows_model.dart';
 import 'package:movie_wiki/models/upcoming_moveis_model.dart';
 
-
+import '../../../models/trending_all_model.dart';
 
 abstract class HomeState {
   const HomeState();
@@ -20,25 +20,21 @@ class HomeLoadingState extends HomeState {}
 
 class HomeLoadedState extends HomeState {
   final List<Result> upcomingMoviesList;
-  final List<Results> trendingMoviesList;
-  final List<Resultss> topRatedMoviesList;
+  final List<AllTrend> allTrendingList;
+
   final List<Resultsss> trendingTvShowsList;
-  
-  const HomeLoadedState(
-      {required this.upcomingMoviesList,
-      required this.trendingMoviesList,
-      required this.topRatedMoviesList,
-      required this.trendingTvShowsList,
-      
-      });
+
+  const HomeLoadedState({
+    required this.upcomingMoviesList,
+    required this.allTrendingList,
+    required this.trendingTvShowsList,
+  });
 
   @override
   List<Object?> get props => [
         upcomingMoviesList,
-        trendingMoviesList,
-        topRatedMoviesList,
+        allTrendingList,
         trendingTvShowsList,
-       
       ];
 }
 

@@ -13,6 +13,8 @@ import 'package:movie_wiki/repository/trending_movies_repository.dart';
 import 'package:movie_wiki/repository/trending_tv_shows_repository.dart';
 import 'package:movie_wiki/repository/upcoming_movies_repository.dart';
 
+import '../../../repository/trending_now.dart';
+
 part 'home_event.dart';
 // part 'home_state.dart';
 
@@ -22,79 +24,52 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   FutureOr<void> _homeLoadEvent(
-      HomeLoadEvent event, Emitter<HomeState> emit) async {
+    HomeLoadEvent event,
+    Emitter<HomeState> emit,
+  ) async {
     try {
       emit(HomeLoadingState());
 
-      UpcomingMoviesRepository upcomingMoviesRepository =
-          UpcomingMoviesRepository();
+      final upcomingMoviesRepository = UpcomingMoviesRepository();
+      final trendingTvShowsRepository = TrendingTvShowsRepository();
+      final trendingAllRepository = TrendingAllRepository();
 
-      TrendingMoviesRepository trendingMoviesRepository =
-          TrendingMoviesRepository();
+      final upcomingMovies = await upcomingMoviesRepository.getUpcomingMovies();
+      final trendingTvShows = await trendingTvShowsRepository.getTrendingTvShows();
+      final trendingAll = await trendingAllRepository.getTrendingAll();
 
-      TrendingTvShowsRepository trendingTvShowsRepository =
-          TrendingTvShowsRepository();
-
-      TopRatedRepository topRatedRepository = TopRatedRepository();
-
-
-      dynamic upcomingMovies =
-          await upcomingMoviesRepository.getUpcomingMovies();
-
-      dynamic trendingMoveis =
-          await trendingMoviesRepository.getTrendingMovies();
-
-      dynamic trendingTvShows =
-          await trendingTvShowsRepository.getTrendingTvShows();
-
-      dynamic topRatedMovies = await topRatedRepository.getTopRatedMovies();
-
+      log(upcomingMovies.toString());
+      log(trendingAll.toString());
 
       if (upcomingMovies == null ||
-              trendingMoveis == null ||
-              trendingTvShows == null ||
-              topRatedMovies == null
-        
-          ) {
+          trendingTvShows == null ||
+          trendingAll == null) {
         throw Exception('Failed to load response: Response is null');
       }
 
-      final upcomingMoviesList = upcomingMovies.results;
-      final trendingMoviesList = trendingMoveis.results;
-      final trendingTvShowsList = trendingTvShows.results;
-      final topRatedMoviesList = topRatedMovies.results;
-      
+      final upcomingMoviesList = upcomingMovies.results ?? [];
+      final trendingTvShowsList = trendingTvShows.results ?? [];
+      final trendingAllList = trendingAll.results ?? [];
 
-      
-      if (upcomingMoviesList == null ||
-              upcomingMoviesList.isEmpty ||
-              trendingMoviesList == null ||
-              trendingMoviesList.isEmpty ||
-              trendingTvShowsList == null ||
-              trendingTvShowsList.isEmpty ||
-              topRatedMoviesList == null ||
-              topRatedMoviesList.isEmpty
-   
-          ) {
+      if (upcomingMoviesList.isEmpty ||
+          trendingTvShowsList.isEmpty ||
+          trendingAllList.isEmpty) {
         throw Exception(
-            'Failed to load one of movies loading failed: "results" field is null');
-        log('Failed to load one of movies loading failed: "results" field is null');
+          'Failed to load one of movies loading failed: "results" field is empty',
+        );
       }
-      // log(upcomingMoviesList.toString());
-      emit(HomeLoadedState(
-        trendingMoviesList: trendingMoviesList,
-        upcomingMoviesList: upcomingMoviesList,
-        topRatedMoviesList: topRatedMoviesList,
-        trendingTvShowsList: trendingTvShowsList,
-       
-      ));
-    } catch (e) {
-      if (e is Exception) {
-        log(e.toString());
-        throw Exception('Failed to load $e movies: $e');
-      } else {
-        rethrow;
-      }
+      log(trendingAllList.toString());
+      emit(
+        HomeLoadedState(
+          allTrendingList: trendingAllList,
+          upcomingMoviesList: upcomingMoviesList,
+          trendingTvShowsList: trendingTvShowsList,
+        ),
+      );
+    } catch (e, stackTrace) {
+      log('Failed to load movies: $e');
+      log('StackTrace: $stackTrace');
+      emit(HomeErrorState(error: 'Failed to load movies: $e'));
     }
   }
 }

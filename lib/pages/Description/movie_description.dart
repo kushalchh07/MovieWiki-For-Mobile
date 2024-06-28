@@ -16,7 +16,7 @@ class MovieDescription extends StatefulWidget {
   final String title;
   final dynamic index;
   final String posterpath;
-  final DateTime releasedate;
+  final DateTime? releasedate;
   final double popularity;
   final String backdroppath;
 
@@ -26,7 +26,7 @@ class MovieDescription extends StatefulWidget {
     required this.title,
     required this.index,
     required this.posterpath,
-    required this.releasedate,
+    this.releasedate,
     required this.popularity,
     required this.overview,
     required this.adult,
@@ -108,7 +108,7 @@ class _MovieDescriptionState extends State<MovieDescription> {
                                 ),
                                 SizedBox(height: 10),
                                 Text(
-                                  'Release Date: ${DateFormat.yMMMd().format(widget.releasedate)}',
+                                  'Release Date: ${widget.releasedate != null ? DateFormat.yMMMd().format(widget.releasedate!) : 'Unknown'}',
                                   style: TextStyle(
                                       fontSize: 16,
                                       color: myGrey,

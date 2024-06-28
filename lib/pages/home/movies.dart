@@ -105,7 +105,7 @@ Widget showMoviePage(
                     posterpath: result.posterPath,
                     releasedate: result.releaseDate,
                     popularity: result.popularity,                    adult: result.adult,
-
+name: ''
                   );
                 },
               ),
@@ -127,7 +127,7 @@ Widget showMoviePage(
                 itemBuilder: (context, index) {
                   final result = state.upcomingMoviesList[index];
                   return customCards(
-
+name: '',
                       backdroppath: result.backdropPath,
                     overview: result.overview,
                         index: index,
@@ -167,6 +167,7 @@ Widget showMoviePage(
                     releasedate: result.releaseDate,
                     popularity: result.popularity,
                     adult: result.adult,
+                    name: ''
                   );
                 },
               ),
