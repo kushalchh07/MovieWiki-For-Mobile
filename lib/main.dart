@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:movie_wiki/firebase_options.dart';
 import 'package:movie_wiki/logic/Bloc/Homebloc/home_bloc.dart';
+import 'package:movie_wiki/logic/Bloc/ResetPasswordBloc/reset_password_bloc.dart';
 import 'package:movie_wiki/logic/Bloc/TvShowsBloc/tvshows_bloc.dart';
 import 'package:movie_wiki/logic/Bloc/animeBloc/anime_bloc.dart';
 
@@ -54,6 +55,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AnimeBloc(),
         ),
+        BlocProvider(
+          create: (context) => ResetPasswordBloc(),
+        ),
+        // BlocProvider(create: create)
       ],
       child: GetMaterialApp(
         title: 'Movie Wiki',

@@ -431,23 +431,26 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => const Signup()));
                           },
-                          child: RichText(
-                            text: TextSpan(
-                              text: "New To Movie Wiki? ",
-                              style: GoogleFonts.inter(
-                                  fontSize: 15,
-                                  color: myBlack,
-                                  fontWeight: FontWeight.w400),
-                              children: [
-                                TextSpan(
-                                  text: "Register here",
-                                  style: GoogleFonts.inter(
-                                    decoration: TextDecoration.underline,
-                                    color: primaryColor,
-                                    fontWeight: FontWeight.w500,
+                          child: Container(
+                            // color: Colors.amber,
+                            child: RichText(
+                              text: TextSpan(
+                                text: "New To Movie Wiki? ",
+                                style: GoogleFonts.inter(
+                                    fontSize: 15,
+                                    color: myBlack,
+                                    fontWeight: FontWeight.w400),
+                                children: [
+                                  TextSpan(
+                                    text: "Register here",
+                                    style: GoogleFonts.inter(
+                                      decoration: TextDecoration.underline,
+                                      color: primaryColor,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),

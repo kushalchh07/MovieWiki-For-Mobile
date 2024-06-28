@@ -1,5 +1,7 @@
 // ignore_for_file: unused_element, prefer_const_constructors, curly_braces_in_flow_control_structures
 
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,7 @@ class Signup extends StatefulWidget {
   State<Signup> createState() => _SignupState();
 }
 
-class _SignupState extends State<Signup> {
+class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   bool _newPassword = false;
   final fnameController = TextEditingController();
@@ -39,6 +41,25 @@ class _SignupState extends State<Signup> {
   bool loginError = true;
   bool agreeTerms = false;
 
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  final String _text = "Let's Get Started!";
+  final String _text1 = 'Create An account To Get All Features';
+  final int _durationPerLetter = 100;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller = AnimationController(
+      duration: Duration(milliseconds: _text.length * _durationPerLetter),
+      vsync: this,
+    )..forward();
+    _animation = Tween<double>(begin: 0, end: _text.length.toDouble())
+        .animate(_controller);
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -46,6 +67,7 @@ class _SignupState extends State<Signup> {
     // lnameController.dispose();
     emailController.dispose();
     newPasswordController.dispose();
+
     // confirmPasswordController.dispose();
   }
 
@@ -82,12 +104,7 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<InternetBloc, InternetState>(
-      listener: (context, state) {
-        // if (state is EmailSentState) {
-        //   // _showSnackBar('Email Sent Sucessfully', Colors.green);
-        //   Get.off(() => VerifyEmailPage());
-        // }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         if (state is InternetConnected) {
           return registerScreen(context);
@@ -133,22 +150,40 @@ class _SignupState extends State<Signup> {
                     Align(
                       alignment: Alignment.center,
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Let's Get Started !",
-                            style: GoogleFonts.inter(
-                              fontSize: 30,
-                              fontWeight: FontWeight.w600,
-                              color: myBlack,
-                            ),
-                          ),
-                          Text(
-                            "Create An account To Get All Features",
-                            style: GoogleFonts.poppins(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              color: myGrey,
-                            ),
+                          AnimatedBuilder(
+                              animation: _animation,
+                              builder: (context, child) {
+                                int currentLength = _animation.value.round();
+                                String currentText = _text.substring(
+                                    0, min(_text.length, currentLength));
+                                return Text(
+                                  currentText,
+                                  style: GoogleFonts.inter(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w600,
+                                    color: myBlack,
+                                  ),
+                                );
+                              }),
+                          AnimatedBuilder(
+                            animation: _animation,
+                            builder: (context, child) {
+                              int currentLength = _animation.value.round();
+                              String currentText1 = _text1.substring(
+                                  0, min(currentLength, _text1.length));
+
+                              return Text(
+                                currentText1,
+                                style: GoogleFonts.inter(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: myGrey,
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
