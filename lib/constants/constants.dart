@@ -65,7 +65,5 @@ Future<void> saveStatus(bool status) async {
   prefs.setBool(SplashScreen.KEYLOGIN, status);
 }
 
-Future<void> sendOtp(String email) async {
 
-}
 

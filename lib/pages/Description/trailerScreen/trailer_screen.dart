@@ -1,5 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+// import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class TrailerScreen extends StatefulWidget {

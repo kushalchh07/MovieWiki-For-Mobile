@@ -53,10 +53,10 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
     // TODO: implement initState
     super.initState();
     _controller = AnimationController(
-      duration: Duration(milliseconds: _text.length * _durationPerLetter),
+      duration: Duration(milliseconds: _text1.length * _durationPerLetter),
       vsync: this,
     )..forward();
-    _animation = Tween<double>(begin: 0, end: _text.length.toDouble())
+    _animation = Tween<double>(begin: 0, end: _text1.length.toDouble())
         .animate(_controller);
   }
 
