@@ -201,13 +201,13 @@ Widget showAnimePage(
             dividerText(
                 context: context, dividerText: "Recommended Animes", desc: ''),
             SizedBox(
-              height: 280,
+              height: 240,
               child: GridView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: state.recommendedAnimesList.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
-                  mainAxisExtent: 300,
+                  mainAxisExtent: 180,
                   childAspectRatio: 0.3,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
@@ -237,13 +237,13 @@ Widget showAnimePage(
             ),
             dividerText(context: context, dividerText: "Top Animes", desc: ''),
             SizedBox(
-              height: 280,
+              height: 240,
               child: GridView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: state.topAnimesList.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
-                  mainAxisExtent: 300,
+                  mainAxisExtent: 180,
                   childAspectRatio: 0.3,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
@@ -283,13 +283,13 @@ Widget showAnimePage(
             ),
             dividerText(context: context, dividerText: "Top Mangas", desc: ''),
             SizedBox(
-              height: 280,
+              height: 250,
               child: GridView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: state.topMangaList.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
-                  mainAxisExtent: 300,
+                  mainAxisExtent: 180,
                   childAspectRatio: 0.3,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
