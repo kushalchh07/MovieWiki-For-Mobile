@@ -136,13 +136,13 @@ Widget showTvPage(
               dividerText(
                   context: context, dividerText: "Trending Tv Shows", desc: ''),
               SizedBox(
-                height: 320, // Adjust the height as needed
+                height: 250, // Adjust the height as needed
                 child: GridView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: state.trendingTvShowsList.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
-                    mainAxisExtent: 300,
+                    mainAxisExtent: 180,
                     childAspectRatio: 0.3,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
@@ -168,13 +168,13 @@ Widget showTvPage(
                   dividerText: "Top Rated Tv Series",
                   desc: ''),
               SizedBox(
-                height: 320, // Adjust the height as needed
+                height: 250, // Adjust the height as needed
                 child: GridView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: state.topRatedTvSeriesList.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
-                    mainAxisExtent: 300,
+                    mainAxisExtent: 180,
                     childAspectRatio: 0.3,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
@@ -198,13 +198,13 @@ Widget showTvPage(
               dividerText(
                   context: context, dividerText: "Popular Tv Shows", desc: ''),
               SizedBox(
-                height: 320, // Adjust the height as needed
+                height: 250, // Adjust the height as needed
                 child: GridView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: state.popularTvSeriesList.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
-                    mainAxisExtent: 300,
+                    mainAxisExtent: 180,
                     childAspectRatio: 0.3,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,

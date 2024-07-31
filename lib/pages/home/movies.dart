@@ -85,7 +85,6 @@ class _MoviesState extends State<Movies> {
             ],
           ),
         ),
-        
       ),
       body: BlocConsumer<MoviesBloc, MoviesState>(
         listener: (context, state) {
@@ -140,13 +139,13 @@ Widget showMoviePage(
             dividerText(
                 context: context, dividerText: "Top Rated Movies", desc: ''),
             SizedBox(
-              height: 320, // Adjust the height as needed
+              height: 250, // Adjust the height as needed
               child: GridView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: state.topRatedMoviesList.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
-                  mainAxisExtent: 300,
+                  mainAxisExtent: 180,
                   childAspectRatio: 0.3,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
@@ -170,13 +169,13 @@ Widget showMoviePage(
             dividerText(
                 context: context, dividerText: "Upcoming Movies", desc: ''),
             SizedBox(
-              height: 320, // Adjust the height as needed
+              height: 250, // Adjust the height as needed
               child: GridView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: state.upcomingMoviesList.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
-                  mainAxisExtent: 300,
+                  mainAxisExtent: 180,
                   childAspectRatio: 0.3,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
@@ -201,13 +200,13 @@ Widget showMoviePage(
             dividerText(
                 context: context, dividerText: "Trending Movies", desc: ''),
             SizedBox(
-              height: 320, // Adjust the height as needed
+              height: 250, // Adjust the height as needed
               child: GridView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: state.trendingMoviesList.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
-                  mainAxisExtent: 300,
+                  mainAxisExtent: 180,
                   childAspectRatio: 0.3,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
