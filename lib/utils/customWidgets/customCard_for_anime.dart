@@ -64,24 +64,27 @@ Widget customCardsAnime({
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        width: Get.width * 0.45,
-        height: 300,
+        // color: Colors.pink,
         child: Card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: Get.height * 0.25,
-                width: Get.width,
-                child: Image.network(
-                  '$posterpath',
-                  fit: BoxFit.cover,
+              Expanded(
+                flex: 7,
+                child: Container(
+                  width: Get.width,
+                  // color: Colors.amber,
+                  child: Image.network(
+                    '$posterpath',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               SizedBox(
                 height: 4,
               ),
-              Container(
+              Expanded(
+                flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
@@ -90,7 +93,7 @@ Widget customCardsAnime({
                       color: Colors.black,
                       fontFamily: 'inter',
                       fontWeight: FontWeight.w600,
-                      fontSize: 25,
+                      fontSize: 18,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),

@@ -61,7 +61,7 @@ Widget customCardsTvshows({
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                flex: 7, // Adjusted flex to better distribute space
+                flex: 5, // Adjusted flex to better distribute space
                 child: Image.network(
                   'https://image.tmdb.org/t/p/w500$posterpath',
                   fit: BoxFit.cover,
@@ -81,9 +81,12 @@ Widget customCardsTvshows({
                           color: myBlack,
                           fontFamily: 'inter',
                           fontWeight: FontWeight.w600,
-                          fontSize: 25,
+                          fontSize: 18,
                         ),
                         overflow: TextOverflow.ellipsis, // Prevent overflow
+                      ),
+                      SizedBox(
+                        height: 4,
                       ),
                       Text(
                         'Release Date: ${releasedate.day}/${releasedate.month}/${releasedate.year}',

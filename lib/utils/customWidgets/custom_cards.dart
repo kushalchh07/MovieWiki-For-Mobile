@@ -58,7 +58,7 @@ Widget customCards({
               overview: overview,
               adult: adult,
               mediaType: mediaType ?? '',
-              trending: trending??false,
+              trending: trending ?? false,
             ),
           ),
         ),
@@ -67,14 +67,14 @@ Widget customCards({
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        width: Get.width * 0.4,
-        height: 300, // Adjusted width for better aspect ratio
+        width: Get.width * 0.2,
+        height: 250, // Adjusted width for better aspect ratio
         child: Card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                flex: 7, // Adjusted flex to better distribute space
+                flex: 5, // Adjusted flex to better distribute space
                 child: Image.network(
                   'https://image.tmdb.org/t/p/w500$posterpath',
                   fit: BoxFit.cover,
@@ -95,7 +95,7 @@ Widget customCards({
                           color: myBlack,
                           fontFamily: 'inter',
                           fontWeight: FontWeight.w600,
-                          fontSize: 25,
+                          fontSize: 16,
                         ),
                         overflow: TextOverflow.ellipsis, // Prevent overflow
                       ),
@@ -110,6 +110,7 @@ Widget customCards({
                       //     ),
                       //     overflow: TextOverflow.ellipsis, // Prevent overflow
                       // ),
+                      SizedBox(height: 4),
                       Text(
                         'Release Date: ${releasedate?.day}/${releasedate?.month}/${releasedate?.year}',
                         style: TextStyle(
@@ -119,6 +120,7 @@ Widget customCards({
                           fontSize: 13,
                         ),
                       ),
+                      SizedBox(height: 0),
                       Text(
                         'Popularity: $popularity',
                         style: TextStyle(
