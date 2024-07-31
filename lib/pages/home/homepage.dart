@@ -202,13 +202,13 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
               dividerText(
                   context: context, dividerText: "Trending Now", desc: ''),
               SizedBox(
-                height: 320, // Adjust the height as needed
+                height: 250, // Adjust the height as needed
                 child: GridView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: state.allTrendingList.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
-                    mainAxisExtent: 300,
+                    mainAxisExtent: 180,
                     childAspectRatio: 0.3,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
@@ -235,13 +235,13 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
               dividerText(
                   context: context, dividerText: "Upcoming Movies", desc: ''),
               SizedBox(
-                height: 320, // Adjust the height as needed
+                height: 250, // Adjust the height as needed
                 child: GridView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: state.upcomingMoviesList.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
-                    mainAxisExtent: 300,
+                    mainAxisExtent: 180,
                     childAspectRatio: 0.3,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
@@ -266,13 +266,13 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
               dividerText(
                   context: context, dividerText: "Trending TV Shows", desc: ''),
               SizedBox(
-                height: 320, // Adjust the height as needed
+                height: 250, // Adjust the height as needed
                 child: GridView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: state.trendingTvShowsList.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
-                    mainAxisExtent: 300,
+                    mainAxisExtent: 180,
                     childAspectRatio: 0.3,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
