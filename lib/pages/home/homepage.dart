@@ -163,6 +163,13 @@ Widget showHomePage(AppSize size, BuildContext context, HomeLoadedState state) {
             ),
           ),
           ListTile(
+            leading: Icon(Icons.person_3_outlined),
+            title: Text('My Profile'),
+            onTap: () {
+              // Navigator.pop(context);
+            },
+          ),
+          ListTile(
             leading: Icon(Icons.settings),
             title: Text('Settings'),
             onTap: () {
